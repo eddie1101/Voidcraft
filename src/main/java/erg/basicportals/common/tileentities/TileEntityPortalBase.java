@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 public class TileEntityPortalBase extends TileEntity {
 
-    private BlockPos destinationBlockPos = new BlockPos(0, 0, 0);
+    private BlockPos destinationBlockPos;
 
     public TileEntityPortalBase() {
         super(StartupCommon.tileEntityPortalBaseType);
