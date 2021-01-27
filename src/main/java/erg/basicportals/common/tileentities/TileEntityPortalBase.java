@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 public class TileEntityPortalBase extends TileEntity {
 
-    private BlockPos destinationBlockPos = new BlockPos(0, 0, 0);
+    private BlockPos destinationBlockPos;
 
     public TileEntityPortalBase() {
         super(StartupCommon.tileEntityPortalBaseType);
@@ -24,7 +24,7 @@ public class TileEntityPortalBase extends TileEntity {
         CompoundNBT nbt = new CompoundNBT();
         write(nbt);
         int tileEntityType = 69;
-        return new SUpdateTileEntityPacket(this.destinationBlockPos, tileEntityType, nbt);
+        return new SUpdateTileEntityPacket(this.pos, tileEntityType, nbt);
     }
 
     @Override
@@ -58,10 +58,13 @@ public class TileEntityPortalBase extends TileEntity {
         super.read(blockState, parentNBTTagCompound);
 
         BlockPos pos;
+        CompoundNBT blockPosNBT = null;
 
-        CompoundNBT blockPosNBT = parentNBTTagCompound.getCompound("destinationBlockPos");
+        if(parentNBTTagCompound.contains("destinationBlockPos")) {
+            blockPosNBT = parentNBTTagCompound.getCompound("destinationBlockPos");
+        }
 
-        if(blockPosNBT.contains("x") && blockPosNBT.contains("y") && blockPosNBT.contains("z")) {
+        if(blockPosNBT != null && blockPosNBT.contains("x") && blockPosNBT.contains("y") && blockPosNBT.contains("z")) {
             pos = new BlockPos(blockPosNBT.getInt("x"), blockPosNBT.getInt("y"), blockPosNBT.getInt("z"));
             this.destinationBlockPos = pos;
         }
