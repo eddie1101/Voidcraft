@@ -10,7 +10,7 @@ import net.minecraftforge.common.ToolType;
 public class BlockVoid extends Block {
 
     public BlockVoid() {
-        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(10, 10).harvestLevel(3).harvestTool(ToolType.PICKAXE));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(32, 30).harvestLevel(4).harvestTool(ToolType.PICKAXE).setRequiresTool());
     }
 
 

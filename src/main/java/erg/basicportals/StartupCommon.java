@@ -14,27 +14,35 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ObjectHolder;
+
+import static erg.basicportals.util.Util.*;
 
 public class StartupCommon {
+
     public static BlockVoid blockVoid;
-    public static BlockItem itemBlockVoid;
-
     public static BlockPortalBase blockPortalBase;
-    public static BlockItem itemBlockPortalBase;
-
     public static BlockVoidOre blockVoidOre;
-    public static BlockItem itemBlockVoidOre;
 
     public static TileEntityType<TileEntityPortalBase> tileEntityPortalBaseType;
 
-    public static ItemDestinationLodestar itemDestinationLodestar;
-    public static ItemVoidCrystal itemVoidCrystal;
+    @ObjectHolder("basicportals:block_void")
+    public static BlockItem itemBlockVoid = null;
+    @ObjectHolder("basicportals:block_portal_base")
+    public static BlockItem itemBlockPortalBase = null;
+    @ObjectHolder("basicportals:block_void_ore")
+    public static BlockItem itemBlockVoidOre = null;
+
+    @ObjectHolder("basicportals:item_destination_lodestar")
+    public static ItemDestinationLodestar itemDestinationLodestar = null;
+    @ObjectHolder("basicportals:item_void_crystal")
+    public static ItemVoidCrystal itemVoidCrystal = null;
 
     @SubscribeEvent
     public static void onBlocksRegistration(final RegistryEvent.Register<Block> event) {
-        blockVoid = (BlockVoid)(new BlockVoid().setRegistryName("basicportals", "block_void"));
-        blockPortalBase = (BlockPortalBase)(new BlockPortalBase().setRegistryName("basicportals", "block_portal_base"));
-        blockVoidOre = (BlockVoidOre)(new BlockVoidOre().setRegistryName("basicportals", "block_void_ore"));
+        blockVoid = (BlockVoid)setBlockName(new BlockVoid(), "block_void");
+        blockPortalBase = (BlockPortalBase)setBlockName(new BlockPortalBase(), "block_portal_base");
+        blockVoidOre = (BlockVoidOre)setBlockName(new BlockVoidOre(), "block_void_ore");
 
         event.getRegistry().registerAll(
                 blockVoid,
@@ -46,37 +54,24 @@ public class StartupCommon {
     @SubscribeEvent
     public static void onItemsRegistration(final RegistryEvent.Register<Item> event) {
 
-        //---------------------------BlockItems-------------------------------------------------------
         Item.Properties itemBlockVoidProperties = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
         itemBlockVoid = new BlockItem(blockVoid, itemBlockVoidProperties);
-        itemBlockVoid.setRegistryName(blockVoid.getRegistryName());
 
         Item.Properties itemBlockPortalBaseProperties = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS).maxStackSize(1);
         itemBlockPortalBase = new BlockItem(blockPortalBase, itemBlockPortalBaseProperties);
-        itemBlockPortalBase.setRegistryName(blockPortalBase.getRegistryName());
+
 
         Item.Properties itemBlockVoidOreProperties = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
         itemBlockVoidOre = new BlockItem(blockVoidOre, itemBlockVoidOreProperties);
-        itemBlockVoidOre.setRegistryName(blockVoidOre.getRegistryName());
-
-
-        //-----------------------------Items------------------------------------------------------
-        itemDestinationLodestar = new ItemDestinationLodestar();
-        itemDestinationLodestar.setRegistryName("basicportals","item_destination_lodestar");
-
-        itemVoidCrystal = new ItemVoidCrystal();
-        itemVoidCrystal.setRegistryName("basicportals", "item_void_crystal");
-
-
 
         event.getRegistry().registerAll(
                 //BlockItems
-                itemBlockVoid,
-                itemBlockPortalBase,
-                itemBlockVoidOre,
+                setBlockItemName(itemBlockVoid, blockVoid.getRegistryName()),
+                setBlockItemName(itemBlockPortalBase, blockPortalBase.getRegistryName()),
+                setBlockItemName(itemBlockVoidOre, blockVoidOre.getRegistryName()),
                 //Items
-                itemDestinationLodestar,
-                itemVoidCrystal
+                setItemName(new ItemDestinationLodestar(), "item_destination_lodestar"),
+                setItemName(new ItemVoidCrystal(), "item_void_crystal")
         );
     }
 

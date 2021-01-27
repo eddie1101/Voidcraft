@@ -40,7 +40,7 @@ public class BlockPortalBase extends Block {
     private static final VoxelShape EMPTY_SPACE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), SHAPE, IBooleanFunction.ONLY_FIRST);
 
     public BlockPortalBase() {
-        super(Block.Properties.create(Material.IRON).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.5f, 3.5f).harvestLevel(1));
+        super(Block.Properties.create(Material.IRON).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.5f, 3.5f).harvestLevel(1).setRequiresTool());
     }
 
     @Override

@@ -7,7 +7,7 @@ import net.minecraftforge.common.ToolType;
 public class BlockVoidOre extends Block {
 
     public BlockVoidOre() {
-        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(8, 6).harvestTool(ToolType.PICKAXE).harvestLevel(3));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(18, 8).harvestTool(ToolType.PICKAXE).harvestLevel(4).setRequiresTool());
     }
 
 }
