@@ -3,6 +3,7 @@ package erg.basicportals;
 import erg.basicportals.blocks.*;
 import erg.basicportals.gui.itemgroup.ItemGroupBasicPortals;
 import erg.basicportals.items.ItemDestinationLodestar;
+import erg.basicportals.items.ItemVoidChisel;
 import erg.basicportals.items.ItemVoidCrystal;
 import erg.basicportals.tileentities.TileEntityPortalBase;
 import net.minecraft.block.Block;
@@ -44,6 +45,8 @@ public class StartupCommon {
     public static ItemDestinationLodestar itemDestinationLodestar = null;
     @ObjectHolder("basicportals:item_void_crystal")
     public static ItemVoidCrystal itemVoidCrystal = null;
+    @ObjectHolder("basicportals:item_void_chisel")
+    public static ItemVoidChisel itemVoidChisel = null;
 
     @SubscribeEvent
     public static void onBlocksRegistration(final RegistryEvent.Register<Block> event) {
@@ -84,7 +87,8 @@ public class StartupCommon {
                 setBlockItemName(itemBlockEndVoidOre, blockEndVoidOre.getRegistryName()),
                 //Items
                 setItemName(new ItemDestinationLodestar(), "item_destination_lodestar"),
-                setItemName(new ItemVoidCrystal(), "item_void_crystal")
+                setItemName(new ItemVoidCrystal(), "item_void_crystal"),
+                setItemName(new ItemVoidChisel(), "item_void_chisel")
         );
     }
 
