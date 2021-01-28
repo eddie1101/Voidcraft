@@ -1,4 +1,4 @@
-package erg.basicportals.common.tileentities;
+package erg.basicportals.tileentities;
 
 import erg.basicportals.StartupCommon;
 import net.minecraft.block.BlockState;

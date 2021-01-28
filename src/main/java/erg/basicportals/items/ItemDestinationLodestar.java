@@ -1,17 +1,13 @@
-package erg.basicportals.common.items;
+package erg.basicportals.items;
 
-import erg.basicportals.BasicPortals;
 import erg.basicportals.network.BasicPortalsPacketHandler;
-import erg.basicportals.network.PacketSetLodestarDestination;
 import erg.basicportals.network.PacketSetPortalDestination;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;

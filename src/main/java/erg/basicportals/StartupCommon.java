@@ -1,11 +1,11 @@
 package erg.basicportals;
 
-import erg.basicportals.common.blocks.BlockVoid;
-import erg.basicportals.common.blocks.BlockPortalBase;
-import erg.basicportals.common.blocks.BlockVoidOre;
-import erg.basicportals.common.items.ItemDestinationLodestar;
-import erg.basicportals.common.items.ItemVoidCrystal;
-import erg.basicportals.common.tileentities.TileEntityPortalBase;
+import erg.basicportals.blocks.BlockVoid;
+import erg.basicportals.blocks.BlockPortalBase;
+import erg.basicportals.blocks.BlockVoidOre;
+import erg.basicportals.items.ItemDestinationLodestar;
+import erg.basicportals.items.ItemVoidCrystal;
+import erg.basicportals.tileentities.TileEntityPortalBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;

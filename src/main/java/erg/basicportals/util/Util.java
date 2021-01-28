@@ -5,9 +5,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
-public class Util {
+import static erg.basicportals.BasicPortals.MODID;
 
-    public static final String MODID = "basicportals";
+public class Util {
 
     public static Block setBlockName(Block block, String blockName) {
         block.setRegistryName(MODID, blockName);

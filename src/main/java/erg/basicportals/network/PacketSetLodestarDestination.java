@@ -1,16 +1,11 @@
 package erg.basicportals.network;
 
-import erg.basicportals.common.blocks.BlockPortalBase;
-import erg.basicportals.common.items.ItemDestinationLodestar;
-import erg.basicportals.common.tileentities.TileEntityPortalBase;
-import net.minecraft.block.Block;
+import erg.basicportals.items.ItemDestinationLodestar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;

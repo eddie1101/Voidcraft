@@ -1,4 +1,4 @@
-package erg.basicportals.common.items;
+package erg.basicportals.items;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

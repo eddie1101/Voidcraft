@@ -1,4 +1,4 @@
-package erg.basicportals.common.blocks;
+package erg.basicportals.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -10,7 +10,7 @@ import net.minecraftforge.common.ToolType;
 public class BlockVoid extends Block {
 
     public BlockVoid() {
-        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(32, 30).harvestLevel(4).harvestTool(ToolType.PICKAXE).setRequiresTool());
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(32, 30).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool());
     }
 
 
