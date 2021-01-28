@@ -2,7 +2,11 @@
     "block.basicportals.block_void": "Void Block",
     "block.basicportals.block_portal_base": "Portal Base",
     "block.basicportals.block_void_ore": "Void Ore",
+    "block.basicportals.block_nether_void_ore": "Void Ore",
+    "block.basicportals.block_end_void_ore": "Void Ore",
 
     "item.basicportals.item_destination_lodestar": "Destination Lodestar",
-    "item.basicportals.item_void_crystal": "Void Crystal"
+    "item.basicportals.item_void_crystal": "Void Crystal",
+
+    "itemGroup.item_group_basic_portals": "Basic Portals"
 }

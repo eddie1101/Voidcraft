@@ -37,7 +37,7 @@ public class BasicPortals {
     }
 
     /*TODO:
-        World gen void ore
+        World gen void ore: Nether and End
         Netherite -> Void
         Void Chisel
         Portal Base needs inventory

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "basicportals:block/block_void_ore_end",
+    "up": "basicportals:block/block_void_ore_end",
+    "north": "basicportals:block/block_void_ore_end",
+    "east": "basicportals:block/block_void_ore_end",
+    "south": "basicportals:block/block_void_ore_end",
+    "west": "basicportals:block/block_void_ore_end",
+    "particle": "basicportals:block/block_void_ore_end"
+  }
+}

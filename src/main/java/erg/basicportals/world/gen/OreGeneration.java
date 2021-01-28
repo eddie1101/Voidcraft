@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.template.BlockMatchRuleTest;
 import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
@@ -29,6 +30,12 @@ public class OreGeneration {
         if (!(event.getCategory().equals(Biome.Category.NETHER) || event.getCategory().equals(Biome.Category.THEEND))) {
             generateOre(event.getGeneration(), new VoidOreRuleTest(Blocks.BEDROCK),
                     StartupCommon.blockVoidOre.getDefaultState(), 3, 1, 5, 2);
+        }else if(event.getCategory().equals(Biome.Category.NETHER)) {
+            generateOre(event.getGeneration(), new VoidOreNetherRuleTest(Blocks.BEDROCK),
+                    StartupCommon.blockNetherVoidOre.getDefaultState(), 4, 1, 5, 3);
+        }else if(event.getCategory().equals(Biome.Category.THEEND)) {
+            generateOre(event.getGeneration(), new BlockMatchRuleTest(Blocks.END_STONE),
+                    StartupCommon.blockEndVoidOre.getDefaultState(), 5, 1, 128, 8);
         }
     }
 

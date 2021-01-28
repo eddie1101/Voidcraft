@@ -1,8 +1,7 @@
 package erg.basicportals;
 
-import erg.basicportals.blocks.BlockVoid;
-import erg.basicportals.blocks.BlockPortalBase;
-import erg.basicportals.blocks.BlockVoidOre;
+import erg.basicportals.blocks.*;
+import erg.basicportals.gui.itemgroup.ItemGroupBasicPortals;
 import erg.basicportals.items.ItemDestinationLodestar;
 import erg.basicportals.items.ItemVoidCrystal;
 import erg.basicportals.tileentities.TileEntityPortalBase;
@@ -20,9 +19,13 @@ import static erg.basicportals.util.Util.*;
 
 public class StartupCommon {
 
+    public static ItemGroupBasicPortals basicPortalsGroup;
+
     public static BlockVoid blockVoid;
     public static BlockPortalBase blockPortalBase;
     public static BlockVoidOre blockVoidOre;
+    public static BlockNetherVoidOre blockNetherVoidOre;
+    public static BlockEndVoidOre blockEndVoidOre;
 
     public static TileEntityType<TileEntityPortalBase> tileEntityPortalBaseType;
 
@@ -32,6 +35,10 @@ public class StartupCommon {
     public static BlockItem itemBlockPortalBase = null;
     @ObjectHolder("basicportals:block_void_ore")
     public static BlockItem itemBlockVoidOre = null;
+    @ObjectHolder("basicportals:block_nether_void_ore")
+    public static BlockItem itemBlockNetherVoidOre = null;
+    @ObjectHolder("basicportals:block_end_void_ore")
+    public static BlockItem itemBlockEndVoidOre = null;
 
     @ObjectHolder("basicportals:item_destination_lodestar")
     public static ItemDestinationLodestar itemDestinationLodestar = null;
@@ -43,32 +50,38 @@ public class StartupCommon {
         blockVoid = (BlockVoid)setBlockName(new BlockVoid(), "block_void");
         blockPortalBase = (BlockPortalBase)setBlockName(new BlockPortalBase(), "block_portal_base");
         blockVoidOre = (BlockVoidOre)setBlockName(new BlockVoidOre(), "block_void_ore");
+        blockNetherVoidOre = (BlockNetherVoidOre)setBlockName(new BlockNetherVoidOre(), "block_nether_void_ore");
+        blockEndVoidOre = (BlockEndVoidOre)setBlockName(new BlockEndVoidOre(), "block_end_void_ore");
 
         event.getRegistry().registerAll(
                 blockVoid,
                 blockPortalBase,
-                blockVoidOre
+                blockVoidOre,
+                blockNetherVoidOre,
+                blockEndVoidOre
         );
     }
 
     @SubscribeEvent
     public static void onItemsRegistration(final RegistryEvent.Register<Item> event) {
 
-        Item.Properties itemBlockVoidProperties = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
-        itemBlockVoid = new BlockItem(blockVoid, itemBlockVoidProperties);
+        basicPortalsGroup = new ItemGroupBasicPortals("item_group_basic_portals");
 
-        Item.Properties itemBlockPortalBaseProperties = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS).maxStackSize(1);
-        itemBlockPortalBase = new BlockItem(blockPortalBase, itemBlockPortalBaseProperties);
+        Item.Properties itemBlockPropertiesDefault = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
 
-
-        Item.Properties itemBlockVoidOreProperties = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
-        itemBlockVoidOre = new BlockItem(blockVoidOre, itemBlockVoidOreProperties);
+        itemBlockVoid = new BlockItem(blockVoid, itemBlockPropertiesDefault);
+        itemBlockPortalBase = new BlockItem(blockPortalBase, itemBlockPropertiesDefault);
+        itemBlockVoidOre = new BlockItem(blockVoidOre, itemBlockPropertiesDefault);
+        itemBlockNetherVoidOre = new BlockItem(blockNetherVoidOre, itemBlockPropertiesDefault);
+        itemBlockEndVoidOre = new BlockItem(blockEndVoidOre, itemBlockPropertiesDefault);
 
         event.getRegistry().registerAll(
                 //BlockItems
                 setBlockItemName(itemBlockVoid, blockVoid.getRegistryName()),
                 setBlockItemName(itemBlockPortalBase, blockPortalBase.getRegistryName()),
                 setBlockItemName(itemBlockVoidOre, blockVoidOre.getRegistryName()),
+                setBlockItemName(itemBlockNetherVoidOre, blockNetherVoidOre.getRegistryName()),
+                setBlockItemName(itemBlockEndVoidOre, blockEndVoidOre.getRegistryName()),
                 //Items
                 setItemName(new ItemDestinationLodestar(), "item_destination_lodestar"),
                 setItemName(new ItemVoidCrystal(), "item_void_crystal")
