@@ -35,7 +35,7 @@ public class OreGeneration {
                     StartupCommon.blockNetherVoidOre.getDefaultState(), 4, 1, 5, 3);
         }else if(event.getCategory().equals(Biome.Category.THEEND)) {
             generateOre(event.getGeneration(), new BlockMatchRuleTest(Blocks.END_STONE),
-                    StartupCommon.blockEndVoidOre.getDefaultState(), 6, 1, 128, 10);
+                    StartupCommon.blockEndVoidOre.getDefaultState(), 6, 1, 128, 8);
         }
     }
 
