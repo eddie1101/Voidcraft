@@ -74,7 +74,7 @@ public class BlockPortalBase extends Block {
 
             if(worldIn.isRemote) worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
             else {
-                entityIn.setPositionAndUpdate(x, y + 1, z);
+                entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
             }
         }
     }
