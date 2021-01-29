@@ -1,0 +1,20 @@
+{
+  "comment": "PLACEHOLDER",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  S",
+    " S ",
+    "V  "
+  ],
+  "key": {
+    "V": {
+      "item": "basicportals:item_void_crystal"
+    },
+    "S": {
+      "item": "basicportals:item_void_crystal"
+    }
+  },
+  "result": {
+    "item": "basicportals:item_void_chisel"
+  }
+}

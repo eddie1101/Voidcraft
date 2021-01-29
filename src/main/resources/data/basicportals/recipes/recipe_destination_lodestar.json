@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "DSD",
-    "SOS",
+    "SVS",
     "DSD"
   ],
   "key": {
@@ -12,8 +12,8 @@
     "S": {
       "item": "minecraft:stone"
     },
-    "O": {
-      "item": "minecraft:obsidian"
+    "V": {
+      "item": "basicportals:item_void_crystal"
     }
   },
   "result": {

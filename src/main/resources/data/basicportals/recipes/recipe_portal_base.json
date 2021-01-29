@@ -1,16 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ODO",
-    "DOD",
-    "ODO"
+    "OVO",
+    "VBV",
+    "OVO"
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
+    "V": {
+      "item": "basicportals:item_void_crystal"
     },
     "O": {
       "item": "minecraft:obsidian"
+    },
+    "B": {
+      "item": "basicportals:block_void"
     }
   },
   "result": {

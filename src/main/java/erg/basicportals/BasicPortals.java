@@ -37,11 +37,32 @@ public class BasicPortals {
     }
 
     /*TODO:
-        World gen void ore: Nether and End
+        -----------------------
+        Soon
+        -----------------------
+        Void tools/armor/weapon
         Netherite -> Void
-        Void Chisel
-        Portal Base needs inventory
-        Creative Tab
+        Void Chisel (WIP) break bedrock y > 0 ?
+        Portal Base needs inventory/gui
+        Dimensional Lodestar
+        Clean up this fucking project, I mean, there's shit everywhere (Reorganize registering)
+        Change Recipes to use mod items
+        -----------------------
+        Not so soon and ideas
+        -----------------------
+        Voidlurker mob? (maybe some cool drops needed for crafting cool shit?)
+        maybe some magic shit idk
+        definitely some black-hole stuff
+        make portals cooler (multiblock?)
+        Some sort of power source for portals? other things that might require that power source?
+        Make tileentities save nbt data when broken, that would be cool
+        a way to access the void
+        collect power from the void
+        some way to infuse void crystals
+        Soul Slay Bow (& void crystal arrows)
+        void miasma when void is accessed
+        particles for miasma
+        big breaker thingy that breaks lots of blocks
      */
 
 
