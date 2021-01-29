@@ -42,7 +42,6 @@ public class BasicPortals {
         -----------------------
         Void tools/armor/weapon
         Netherite -> Void
-        Void Chisel (WIP) break bedrock y > 0 ?
         Portal Base needs inventory/gui
         Dimensional Lodestar
         Clean up this fucking project, I mean, there's shit everywhere (Reorganize registering)

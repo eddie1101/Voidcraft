@@ -6,12 +6,16 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class ItemTierVoid implements IItemTier {
 
-    private int maxUses = 5070;
-    private float efficiency = 11.0f;
-    private float attackDamage = 4.0f;
-    private int harvestLevel = 4;
-    private int enchantability = 30;
+    private final int maxUses = 5070;
+    private final float efficiency = 11.0f;
+    private final float attackDamage = 4.0f;
+    private final int harvestLevel = 4;
+    private final int enchantability = 30;
     private Ingredient repairMaterial = Ingredient.fromItems(StartupCommon.itemVoidCrystal);
+
+    public ItemTierVoid() {
+
+    }
 
     @Override
     public int getMaxUses() {

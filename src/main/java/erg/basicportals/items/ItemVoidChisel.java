@@ -79,7 +79,7 @@ public class ItemVoidChisel extends Item {
     private BlockPos[] getBlocksIn(BlockPos origin, int radius, int depth, Direction facing) throws VoidChiselException {
 
         int diameter = 1 + (radius * 2);
-        int facingSurfaceArea = (int)Math.pow(((radius * 2) + 1), 2);
+        int facingSurfaceArea = diameter * diameter;
         int numBlocks = facingSurfaceArea * depth;
 
         BlockPos[] blocks = new BlockPos[numBlocks];

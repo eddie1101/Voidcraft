@@ -2,11 +2,10 @@ package erg.basicportals;
 
 import erg.basicportals.blocks.*;
 import erg.basicportals.gui.itemgroup.ItemGroupBasicPortals;
-import erg.basicportals.items.ItemDestinationLodestar;
-import erg.basicportals.items.ItemVoidChisel;
-import erg.basicportals.items.ItemVoidCrystal;
+import erg.basicportals.items.*;
 import erg.basicportals.tileentities.TileEntityPortalBase;
 import net.minecraft.block.Block;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -20,7 +19,10 @@ import static erg.basicportals.util.Util.*;
 
 public class StartupCommon {
 
-    public static ItemGroupBasicPortals basicPortalsGroup;
+    public static final ItemGroupBasicPortals basicPortalsGroup = new ItemGroupBasicPortals("item_group_basic_portals");
+
+    public static final ItemTierVoid itemTierVoid = new ItemTierVoid();
+    public static final ArmorMaterialVoid armorMaterialVoid = new ArmorMaterialVoid();
 
     public static BlockVoid blockVoid;
     public static BlockPortalBase blockPortalBase;
@@ -42,11 +44,29 @@ public class StartupCommon {
     public static BlockItem itemBlockEndVoidOre = null;
 
     @ObjectHolder("basicportals:item_destination_lodestar")
-    public static ItemDestinationLodestar itemDestinationLodestar = null;
+    public static final ItemDestinationLodestar itemDestinationLodestar = null;
     @ObjectHolder("basicportals:item_void_crystal")
-    public static ItemVoidCrystal itemVoidCrystal = null;
+    public static final ItemVoidCrystal itemVoidCrystal = null;
     @ObjectHolder("basicportals:item_void_chisel")
-    public static ItemVoidChisel itemVoidChisel = null;
+    public static final ItemVoidChisel itemVoidChisel = null;
+    @ObjectHolder("basicportals:item_void_pickaxe")
+    public static final ItemVoidPickaxe itemVoidPickaxe = null;
+    @ObjectHolder("basicportals:item_void_axe")
+    public static final ItemVoidPickaxe itemVoidAxe = null;
+    @ObjectHolder("basicportals:item_void_shovel")
+    public static final ItemVoidPickaxe itemVoidShovel = null;
+    @ObjectHolder("basicportals:item_void_sword")
+    public static final ItemVoidPickaxe itemVoidSword = null;
+    @ObjectHolder("basicportals:item_void_hoe")
+    public static final ItemVoidPickaxe itemVoidHoe = null;
+    @ObjectHolder("basicportals:item_void_helmet")
+    public static final ArmorVoid itemVoidHelmet = null;
+    @ObjectHolder("basicportals:item_void_chestplate")
+    public static final ArmorVoid itemVoidChestplate = null;
+    @ObjectHolder("basicportals:item_void_leggings")
+    public static final ArmorVoid itemVoidLeggings = null;
+    @ObjectHolder("basicportals:item_void_boots")
+    public static final ArmorVoid itemVoidBoots = null;
 
     @SubscribeEvent
     public static void onBlocksRegistration(final RegistryEvent.Register<Block> event) {
@@ -68,8 +88,6 @@ public class StartupCommon {
     @SubscribeEvent
     public static void onItemsRegistration(final RegistryEvent.Register<Item> event) {
 
-        basicPortalsGroup = new ItemGroupBasicPortals("item_group_basic_portals");
-
         Item.Properties itemBlockPropertiesDefault = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
 
         itemBlockVoid = new BlockItem(blockVoid, itemBlockPropertiesDefault);
@@ -88,7 +106,16 @@ public class StartupCommon {
                 //Items
                 setItemName(new ItemDestinationLodestar(), "item_destination_lodestar"),
                 setItemName(new ItemVoidCrystal(), "item_void_crystal"),
-                setItemName(new ItemVoidChisel(), "item_void_chisel")
+                setItemName(new ItemVoidChisel(), "item_void_chisel"),
+                setItemName(new ItemVoidPickaxe(), "item_void_pickaxe"),
+                setItemName(new ItemVoidAxe(), "item_void_axe"),
+                setItemName(new ItemVoidShovel(), "item_void_shovel"),
+                setItemName(new ItemVoidHoe(), "item_void_hoe"),
+                setItemName(new ItemVoidSword(), "item_void_sword"),
+                setItemName(new ArmorVoid(EquipmentSlotType.HEAD), "item_void_helmet"),
+                setItemName(new ArmorVoid(EquipmentSlotType.CHEST), "item_void_chestplate"),
+                setItemName(new ArmorVoid(EquipmentSlotType.LEGS), "item_void_leggings"),
+                setItemName(new ArmorVoid(EquipmentSlotType.FEET), "item_void_boots")
         );
     }
 

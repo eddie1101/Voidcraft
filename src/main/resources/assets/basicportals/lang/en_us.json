@@ -8,6 +8,15 @@
     "item.basicportals.item_destination_lodestar": "Destination Lodestar",
     "item.basicportals.item_void_crystal": "Void Crystal",
     "item.basicportals.item_void_chisel": "Void Chisel",
+    "item.basicportals.item_void_helmet": "Void Helmet",
+    "item.basicportals.item_void_chestplate": "Void Chesplate",
+    "item.basicportals.item_void_leggings": "Void Leggings",
+    "item.basicportals.item_void_boots": "Void Boots",
+    "item.basicportals.item_void_pickaxe": "Void Pickaxe",
+    "item.basicportals.item_void_shovel": "Void Shovel",
+    "item.basicportals.item_void_axe": "Void Axe",
+    "item.basicportals.item_void_hoe": "Void Hoe",
+    "item.basicportals.item_void_sword": "Void Sword",
 
     "itemGroup.item_group_basic_portals": "Basic Portals"
 }
