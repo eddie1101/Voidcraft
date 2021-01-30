@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "basicportals:item/item_void_axe"
+  }
+}
