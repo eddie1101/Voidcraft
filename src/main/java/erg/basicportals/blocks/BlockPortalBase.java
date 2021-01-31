@@ -1,25 +1,41 @@
 package erg.basicportals.blocks;
 
+import erg.basicportals.inventory.InventoryPortalBaseContents;
+import erg.basicportals.items.ItemDestinationLodestar;
 import erg.basicportals.tileentities.TileEntityPortalBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.network.NetworkHooks;
 
-public class BlockPortalBase extends Block {
+import javax.annotation.Nullable;
+
+public class BlockPortalBase extends ContainerBlock {
 
     private static final Vector3d BASE_MIN_CORNER = new Vector3d(0.0, 0.0, 0.0);
     private static final Vector3d BASE_MAX_CORNER = new Vector3d(16.0, 1.0, 16.0);
@@ -51,7 +67,32 @@ public class BlockPortalBase extends Block {
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileEntityPortalBase();
+        return createNewTileEntity(world);
+    }
+
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        if(worldIn.isRemote) return ActionResultType.SUCCESS;
+
+        INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
+        if(namedContainerProvider != null) {
+            if(!(player instanceof ServerPlayerEntity)) return ActionResultType.FAIL;
+            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, packetBuffer -> {});
+        }
+        return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if(state.getBlock() != newState.getBlock()) {
+            TileEntity te = world.getTileEntity(blockPos);
+            if(te instanceof TileEntityPortalBase) {
+                TileEntityPortalBase tileEntityPortalBase = (TileEntityPortalBase) te;
+                tileEntityPortalBase.dropAllContents(world, blockPos);
+            }
+            super.onReplaced(state, world, blockPos, newState, isMoving);
+        }
     }
 
     @Override
@@ -64,7 +105,21 @@ public class BlockPortalBase extends Block {
         if (tileEntity instanceof TileEntityPortalBase) {
             tileEntityPortalBase = (TileEntityPortalBase) tileEntity;
 
-            destination = tileEntityPortalBase.getDestinationBlockPos();
+            InventoryPortalBaseContents contents = tileEntityPortalBase.getContents();
+
+            ItemStack item = contents.getStackInSlot(0);
+
+            if(item.getItem() instanceof ItemDestinationLodestar) {
+                CompoundNBT tag = item.getTag();
+                if(tag != null && tag.contains("destinationBlockPos")) {
+                    CompoundNBT posTag = tag.getCompound("destinationBlockPos");
+                    double x = posTag.getInt("x");
+                    double y = posTag.getInt("y");
+                    double z = posTag.getInt("z");
+
+                    destination = new BlockPos(x, y, z);
+                }
+            }
         }
 
         if (destination != null) {
@@ -77,6 +132,12 @@ public class BlockPortalBase extends Block {
                 entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
             }
         }
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(IBlockReader worldIn) {
+        return new TileEntityPortalBase();
     }
 
 //    @Override

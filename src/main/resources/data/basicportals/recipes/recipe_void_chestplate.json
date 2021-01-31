@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_chestplate"
+  },
+  "addition": {
+    "item": "basicportals:item_void_crystal"
+  },
+  "result": {
+    "item": "basicportals:item_void_chestplate"
+  }
+}

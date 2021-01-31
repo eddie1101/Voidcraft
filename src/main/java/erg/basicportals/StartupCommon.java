@@ -1,15 +1,18 @@
 package erg.basicportals;
 
 import erg.basicportals.blocks.*;
+import erg.basicportals.container.ContainerPortalBase;
 import erg.basicportals.gui.itemgroup.ItemGroupBasicPortals;
 import erg.basicportals.items.*;
 import erg.basicportals.tileentities.TileEntityPortalBase;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -31,6 +34,7 @@ public class StartupCommon {
     public static BlockEndVoidOre blockEndVoidOre;
 
     public static TileEntityType<TileEntityPortalBase> tileEntityPortalBaseType;
+    public static ContainerType<ContainerPortalBase> containerTypePortalBase;
 
     @ObjectHolder("basicportals:block_void")
     public static BlockItem itemBlockVoid = null;
@@ -129,6 +133,15 @@ public class StartupCommon {
                 tileEntityPortalBaseType
         );
 
+    }
+
+    @SubscribeEvent
+    public static void onContainerTypeRegistration(final RegistryEvent.Register<ContainerType<?>> event) {
+        containerTypePortalBase = IForgeContainerType.create(ContainerPortalBase::createContainerClientSide);
+        containerTypePortalBase.setRegistryName("basicportals", "container_portal_base");
+        event.getRegistry().registerAll(
+                containerTypePortalBase
+        );
     }
 
     @SubscribeEvent

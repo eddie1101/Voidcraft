@@ -57,8 +57,6 @@ public class PacketSetPortalDestination {
 
             BlockPos destination = new BlockPos(x, y, z);
 
-            tileEntityPortalBase.setDestinationBlockPos(destination);
-
         });
         ctx.get().setPacketHandled(true);
     }

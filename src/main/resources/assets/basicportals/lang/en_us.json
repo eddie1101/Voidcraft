@@ -18,5 +18,7 @@
     "item.basicportals.item_void_hoe": "Void Hoe",
     "item.basicportals.item_void_sword": "Void Sword",
 
-    "itemGroup.item_group_basic_portals": "Basic Portals"
+    "itemGroup.item_group_basic_portals": "Basic Portals",
+
+    "container.basicportals.container_portal_base": "Portal Base"
 }
