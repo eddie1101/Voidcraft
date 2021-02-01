@@ -8,7 +8,7 @@ import net.minecraft.item.SwordItem;
 public class ItemVoidSword extends SwordItem {
 
     public ItemVoidSword() {
-        super(StartupCommon.itemTierVoid, 4, -2.4F, new Item.Properties().group(ItemGroup.COMBAT).isImmuneToFire());
+        super(StartupCommon.itemTierVoid, 4, -1.6F, new Item.Properties().group(ItemGroup.COMBAT).isImmuneToFire());
     }
 
 }

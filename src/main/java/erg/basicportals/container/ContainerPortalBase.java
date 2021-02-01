@@ -66,9 +66,9 @@ public class ContainerPortalBase extends Container {
 
         for(int i = 0; i < NUM_INV_ROWS; i++) {
             for(int n = 0; n < NUM_INV_COLS; n++) {
-                int slotNumber = NUM_HOTBAR_SLOTS + i * NUM_INV_COLS + n;
-                int xpos = PLAYER_INVENTORY_XPOS + i * SLOT_X_SPACING;
-                int ypos = PLAYER_INVENTORY_YPOS + n * SLOT_Y_SPACING;
+                int slotNumber = NUM_HOTBAR_SLOTS + (i * NUM_INV_COLS) + n;
+                int xpos = PLAYER_INVENTORY_XPOS + n * SLOT_X_SPACING;
+                int ypos = PLAYER_INVENTORY_YPOS + i * SLOT_Y_SPACING;
                 addSlot(new SlotItemHandler(playerInventoryForge, slotNumber,  xpos, ypos));
             }
         }
