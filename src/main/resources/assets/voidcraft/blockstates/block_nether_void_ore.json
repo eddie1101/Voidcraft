@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": {"model": "voidcraft:block/block_nether_void_ore_model"}
+  }
+}
