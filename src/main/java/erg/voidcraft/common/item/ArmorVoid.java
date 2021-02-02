@@ -1,6 +1,7 @@
 package erg.voidcraft.common.item;
 
 
+import erg.voidcraft.common.init.VoidcraftItems;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;

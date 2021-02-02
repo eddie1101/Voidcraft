@@ -1,5 +1,6 @@
 package erg.voidcraft.common.item;
 
+import erg.voidcraft.common.init.VoidcraftItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 

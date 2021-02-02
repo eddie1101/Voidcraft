@@ -1,6 +1,6 @@
 package erg.voidcraft.common.core;
 
-import erg.voidcraft.common.item.VoidcraftItems;
+import erg.voidcraft.common.init.VoidcraftItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

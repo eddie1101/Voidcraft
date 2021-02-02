@@ -1,5 +1,6 @@
-package erg.voidcraft.common.container;
+package erg.voidcraft.common.init;
 
+import erg.voidcraft.common.container.ContainerPortalBase;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;

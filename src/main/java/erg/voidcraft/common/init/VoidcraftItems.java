@@ -1,6 +1,7 @@
-package erg.voidcraft.common.item;
+package erg.voidcraft.common.init;
 
 import erg.voidcraft.common.core.ItemGroupVoidcraft;
+import erg.voidcraft.common.item.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -9,7 +10,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-import static erg.voidcraft.common.block.VoidcraftBlocks.*;
+import static erg.voidcraft.common.init.VoidcraftBlocks.*;
 import static erg.voidcraft.common.util.Util.setBlockItemName;
 import static erg.voidcraft.common.util.Util.setItemName;
 

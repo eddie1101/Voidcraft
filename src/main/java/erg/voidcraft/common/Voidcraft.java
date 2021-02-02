@@ -1,25 +1,16 @@
 package erg.voidcraft.common;
 
-import erg.voidcraft.client.gui.screen.ScreenPortalBase;
-import erg.voidcraft.common.block.VoidcraftBlocks;
-import erg.voidcraft.common.container.VoidcraftContainers;
-import erg.voidcraft.common.item.VoidcraftItems;
-import erg.voidcraft.common.tile.VoidcraftTiles;
+import erg.voidcraft.client.init.ClientSetup;
+import erg.voidcraft.common.init.VoidcraftBlocks;
+import erg.voidcraft.common.init.VoidcraftContainers;
+import erg.voidcraft.common.init.VoidcraftItems;
+import erg.voidcraft.common.init.VoidcraftTiles;
 import erg.voidcraft.common.world.gen.OreGeneration;
-import net.minecraft.block.Block;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Voidcraft.MODID)
@@ -33,33 +24,20 @@ public class Voidcraft {
         FORGE_EVENT_BUS = MinecraftForge.EVENT_BUS;
 
         registerCommonEvents();
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> Voidcraft::registerClientOnlyEvents);
+
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> this::registerClientEvents);
     }
 
-    public static void registerCommonEvents() {
-//        MOD_EVENT_BUS.register(VoidcraftBlocks.class);
-//        MOD_EVENT_BUS.register(VoidcraftTiles.class);
-//        MOD_EVENT_BUS.register(VoidcraftContainers.class);
-//        MOD_EVENT_BUS.register(VoidcraftItems.class);
-//        MOD_EVENT_BUS.register(OreGeneration.class);
-
-        FORGE_EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
-        FORGE_EVENT_BUS.addGenericListener(Item.class, VoidcraftItems::registerItems);
-        FORGE_EVENT_BUS.addGenericListener(Item.class, VoidcraftItems::registerItemBlocks);
-        FORGE_EVENT_BUS.addGenericListener(Block.class, VoidcraftBlocks::registerBlocks);
-        FORGE_EVENT_BUS.addGenericListener(TileEntityType.class, VoidcraftTiles::registerTileEntities);
-        FORGE_EVENT_BUS.addGenericListener(ContainerType.class, VoidcraftContainers::registerContainers);
-
+    private void registerCommonEvents() {
+        MOD_EVENT_BUS.register(VoidcraftBlocks.class);
+        MOD_EVENT_BUS.register(VoidcraftTiles.class);
+        MOD_EVENT_BUS.register(VoidcraftContainers.class);
+        MOD_EVENT_BUS.register(VoidcraftItems.class);
         MOD_EVENT_BUS.register(OreGeneration.class);
-
     }
 
-    public static void registerClientOnlyEvents() {
-//        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockVoid, RenderType.getSolid());
-//        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockPortalBase, RenderType.getSolid());
-//        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockVoidOre, RenderType.getSolid());
-//
-        ScreenManager.registerFactory(VoidcraftContainers.containerTypePortalBase, ScreenPortalBase::new);
+   public void registerClientEvents() {
+       MOD_EVENT_BUS.register(ClientSetup.class);
     }
 
     /*TODO:

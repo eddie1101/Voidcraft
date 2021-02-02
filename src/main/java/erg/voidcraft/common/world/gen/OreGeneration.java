@@ -1,6 +1,6 @@
 package erg.voidcraft.common.world.gen;
 
-import erg.voidcraft.common.block.VoidcraftBlocks;
+import erg.voidcraft.common.init.VoidcraftBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;

@@ -1,5 +1,6 @@
 package erg.voidcraft.common.item;
 
+import erg.voidcraft.common.init.VoidcraftItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.PickaxeItem;

@@ -1,10 +1,11 @@
-package erg.voidcraft.common.tile;
+package erg.voidcraft.common.init;
 
+import erg.voidcraft.common.tile.TilePortalBase;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import static erg.voidcraft.common.block.VoidcraftBlocks.blockPortalBase;
+import static erg.voidcraft.common.init.VoidcraftBlocks.blockPortalBase;
 
 public class VoidcraftTiles {
 

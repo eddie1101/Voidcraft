@@ -1,6 +1,7 @@
 package erg.voidcraft.common.tile;
 
 import erg.voidcraft.common.container.ContainerPortalBase;
+import erg.voidcraft.common.init.VoidcraftTiles;
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
