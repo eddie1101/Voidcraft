@@ -1,4 +1,4 @@
-package erg.voidcraft.world.gen;
+package erg.voidcraft.common.world.gen;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Block;

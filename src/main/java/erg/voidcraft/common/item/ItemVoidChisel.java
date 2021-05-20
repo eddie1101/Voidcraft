@@ -4,8 +4,11 @@ import erg.voidcraft.exceptions.VoidChiselException;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.IContainerProvider;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -45,32 +48,25 @@ public class ItemVoidChisel extends Item {
         }
 
         if(blocks != null) {
-            harvestBlocks(blocks, world, player, hand);
+            harvestAndRemoveBlocks(blocks, world, player, hand);
             chisel.damageItem(1, player, p -> {} );
             return ActionResultType.SUCCESS;
         }
         return ActionResultType.PASS;
     }
 
-    private void harvestBlocks(BlockPos[] blocks, World world, PlayerEntity player, Hand hand) {
-
-        for(int i = 0; i < blocks.length; i++) {
-            harvestAndRemoveBlock(blocks[i], world, player, hand);
+    private void harvestAndRemoveBlocks(BlockPos[] blocks, World world, PlayerEntity player, Hand hand) {
+        for (int i = 0; i < blocks.length; i++) {
+            BlockPos pos = blocks[i];
+            BlockState blockState = world.getBlockState(pos);
+            Block block = blockState.getBlock();
+            ItemStack itemStack = player.getHeldItem(hand);
+            TileEntity te = world.getTileEntity(pos);
+            if (te != null) {
+                te.remove();
+            }
+            world.destroyBlock(pos, true);
         }
-
-    }
-
-    private void harvestAndRemoveBlock(BlockPos pos, World world, PlayerEntity player, Hand hand) {
-        BlockState blockState = world.getBlockState(pos);
-        Block block = blockState.getBlock();
-        ItemStack itemStack = player.getHeldItem(hand);
-        TileEntity te = world.getTileEntity(pos);
-        if(te != null) {
-            te.remove();
-            te = null;
-        }
-        block.harvestBlock(world, player, pos, blockState, te, itemStack);
-        world.setBlockState(pos, Blocks.AIR.getDefaultState());
     }
 
     private BlockPos[] getBlocksIn(BlockPos origin, int radius, int depth, Direction facing) throws VoidChiselException {
@@ -91,7 +87,6 @@ public class ItemVoidChisel extends Item {
         Direction verticalAxis = facing == EAST || facing == WEST || facing == NORTH || facing == SOUTH ? DOWN : NORTH;
 
         Direction radialAxis = facing;
-
 
         BlockPos bottomLeftCorner = origin.offset(horizontalAxis, radius).offset(verticalAxis, radius);
 

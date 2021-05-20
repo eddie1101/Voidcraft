@@ -15,7 +15,7 @@ public class PacketSetLodestarDestination {
     private final BlockPos pos;
     private final ItemStack item;
 
-    public PacketSetLodestarDestination(BlockPos pos, ItemStack item) {
+    public PacketSetLodestarDestination(ItemStack item, BlockPos pos) {
         this.pos = pos;
         this.item = item;
     }
@@ -28,7 +28,7 @@ public class PacketSetLodestarDestination {
     public static PacketSetLodestarDestination decode(PacketBuffer buf) {
         BlockPos pos = buf.readBlockPos();
         ItemStack item = buf.readItemStack();
-        return new PacketSetLodestarDestination(pos, item);
+        return new PacketSetLodestarDestination(item, pos);
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {

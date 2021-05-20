@@ -41,13 +41,13 @@ public class VoidcraftItems {
     @ObjectHolder("voidcraft:item_void_pickaxe")
     public static final ItemVoidPickaxe itemVoidPickaxe = null;
     @ObjectHolder("voidcraft:item_void_axe")
-    public static final ItemVoidPickaxe itemVoidAxe = null;
+    public static final ItemVoidAxe itemVoidAxe = null;
     @ObjectHolder("voidcraft:item_void_shovel")
-    public static final ItemVoidPickaxe itemVoidShovel = null;
+    public static final ItemVoidShovel itemVoidShovel = null;
     @ObjectHolder("voidcraft:item_void_sword")
-    public static final ItemVoidPickaxe itemVoidSword = null;
+    public static final ItemVoidSword itemVoidSword = null;
     @ObjectHolder("voidcraft:item_void_hoe")
-    public static final ItemVoidPickaxe itemVoidHoe = null;
+    public static final ItemVoidHoe itemVoidHoe = null;
     @ObjectHolder("voidcraft:item_void_helmet")
     public static final ArmorVoid itemVoidHelmet = null;
     @ObjectHolder("voidcraft:item_void_chestplate")

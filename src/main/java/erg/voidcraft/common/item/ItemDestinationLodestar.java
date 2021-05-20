@@ -1,5 +1,6 @@
 package erg.voidcraft.common.item;
 
+import erg.voidcraft.common.network.PacketSetLodestarDestination;
 import erg.voidcraft.common.network.VoidcraftPacketHandler;
 import erg.voidcraft.common.network.PacketSetPortalDestination;
 import net.minecraft.client.util.ITooltipFlag;
@@ -35,23 +36,12 @@ public class ItemDestinationLodestar extends Item {
         BlockPos pos = ctx.getPos();
         World world = ctx.getWorld();
 
-        if(player.isSneaking()) {
-            if(world.isRemote) {
-//                Vector3d hit = Minecraft.getInstance().objectMouseOver.getHitVec();
-//
-//                double x = hit.getX();
-//                double y = hit.getY();
-//                double z = hit.getZ();
-//
-//                BlockPos looking = new BlockPos(x, y, z);
 
-                VoidcraftPacketHandler.channel.sendToServer(new PacketSetPortalDestination(item, pos));
-                return ActionResultType.SUCCESS;
-            }
-        }else {
-            if (!(item.getItem() instanceof ItemDestinationLodestar)) {
-                return ActionResultType.PASS;
-            }
+        if (!(item.getItem() instanceof ItemDestinationLodestar)) {
+            return ActionResultType.PASS;
+        }
+
+        if (!world.isRemote) {
 
             CompoundNBT parent = item.getTag();
             CompoundNBT child = new CompoundNBT();
@@ -66,7 +56,9 @@ public class ItemDestinationLodestar extends Item {
 
             item.setTag(parent);
             return ActionResultType.SUCCESS;
+
         }
+
         return ActionResultType.PASS;
     }
 
@@ -77,7 +69,7 @@ public class ItemDestinationLodestar extends Item {
 
     @Override
     public void addInformation(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent("Right click on a block to store its position\nSneak-right click on a Portal Base to set its destination"));
+        tooltip.add(new StringTextComponent("Right click on a block to store its position"));
         CompoundNBT tag = itemStack.getTag();
         if(tag != null && tag.contains("destinationBlockPos")) {
             CompoundNBT blockPosTag = tag.getCompound("destinationBlockPos");
