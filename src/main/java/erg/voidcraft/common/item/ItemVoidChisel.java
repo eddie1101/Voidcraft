@@ -41,16 +41,20 @@ public class ItemVoidChisel extends Item {
 
         BlockPos[] blocks = null;
 
-        try {
-            blocks = getBlocksIn(pos, 1, 3, direction);
-        } catch(VoidChiselException e) {
-            player.sendMessage(new StringTextComponent(e.getMessage()), player.getUniqueID());
-        }
+        if(!world.isRemote) {
 
-        if(blocks != null) {
-            harvestAndRemoveBlocks(blocks, world, player, hand);
-            chisel.damageItem(1, player, p -> {} );
-            return ActionResultType.SUCCESS;
+            try {
+                blocks = getBlocksIn(pos, 1, 3, direction);
+            } catch (VoidChiselException e) {
+                player.sendMessage(new StringTextComponent(e.getMessage()), player.getUniqueID());
+            }
+
+            if (blocks != null) {
+                harvestAndRemoveBlocks(blocks, world, player, hand);
+                chisel.damageItem(1, player, p -> {
+                });
+                return ActionResultType.SUCCESS;
+            }
         }
         return ActionResultType.PASS;
     }
@@ -62,10 +66,12 @@ public class ItemVoidChisel extends Item {
             Block block = blockState.getBlock();
             ItemStack itemStack = player.getHeldItem(hand);
             TileEntity te = world.getTileEntity(pos);
+
+            world.destroyBlock(pos, true);
+
             if (te != null) {
                 te.remove();
             }
-            world.destroyBlock(pos, true);
         }
     }
 
