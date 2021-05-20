@@ -2,7 +2,7 @@ package erg.voidcraft.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import erg.voidcraft.common.container.ContainerPortalBase;
+import erg.voidcraft.common.inventory.container.ContainerPortalBase;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;

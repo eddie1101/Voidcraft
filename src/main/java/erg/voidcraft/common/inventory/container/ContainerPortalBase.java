@@ -1,7 +1,9 @@
-package erg.voidcraft.common.container;
+package erg.voidcraft.common.inventory.container;
 
 import erg.voidcraft.common.init.VoidcraftContainers;
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
+import erg.voidcraft.common.inventory.container.slot.SlotPortalBase;
+import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.tile.TilePortalBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -78,7 +80,7 @@ public class ContainerPortalBase extends Container {
 //        for(int i = 0; i < NUM_TE_SLOTS; i++) {
 //            addSlot(new Slot(portalContents, i, TE_INV_XPOS + SLOT_X_SPACING * i, TE_INV_YPOS));
 //        }
-        addSlot(new Slot(portalContents, 0, TE_INV_XPOS + SLOT_X_SPACING * 4, TE_INV_YPOS));
+        addSlot(new SlotPortalBase(portalContents, 0, TE_INV_XPOS + SLOT_X_SPACING * 4, TE_INV_YPOS));
     }
 
     @Override
@@ -91,7 +93,7 @@ public class ContainerPortalBase extends Container {
 
 
         //ALL THIS SHIT IS UNNECESSARY AND SHOULD GET REDONE
-        //THERE IS ONLY ONE SLOT THIS LOGIC IS UNNECESSARY
+        //THERE IS ONLY ONE SLOT MOST OF THIS LOGIC IS UNNECESSARY
 
 
         Slot sourceSlot = inventorySlots.get(sourceSlotIndex);
