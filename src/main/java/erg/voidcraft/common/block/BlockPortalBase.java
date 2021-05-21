@@ -35,27 +35,27 @@ import javax.annotation.Nullable;
 
 public class BlockPortalBase extends ContainerBlock {
 
-    private static final Vector3d BASE_MIN_CORNER = new Vector3d(0.0, 0.0, 0.0);
-    private static final Vector3d BASE_MAX_CORNER = new Vector3d(16.0, 1.0, 16.0);
-
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(BASE_MIN_CORNER.getX(), BASE_MIN_CORNER.getY(), BASE_MIN_CORNER.getZ(),
-            BASE_MAX_CORNER.getX(), BASE_MAX_CORNER.getY(), BASE_MAX_CORNER.getZ());
-
-
-    private static final VoxelShape EMPTY_SPACE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), SHAPE, IBooleanFunction.ONLY_FIRST);
+//    private static final Vector3d BASE_MIN_CORNER = new Vector3d(0.0, 0.0, 0.0);
+//    private static final Vector3d BASE_MAX_CORNER = new Vector3d(16.0, 1.0, 16.0);
+//
+//    private static final VoxelShape SHAPE = Block.makeCuboidShape(BASE_MIN_CORNER.getX(), BASE_MIN_CORNER.getY(), BASE_MIN_CORNER.getZ(),
+//            BASE_MAX_CORNER.getX(), BASE_MAX_CORNER.getY(), BASE_MAX_CORNER.getZ());
+//
+//
+//    private static final VoxelShape EMPTY_SPACE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), SHAPE, IBooleanFunction.ONLY_FIRST);
 
     public BlockPortalBase() {
         super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5f, 3.5f).harvestTool(ToolType.PICKAXE).harvestLevel(1).setRequiresTool());
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState blockState) {
+    public BlockRenderType getRenderType(BlockState iBlockState) {
         return BlockRenderType.MODEL;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext ctx) {
-        return SHAPE;
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return VoxelShapes.fullCube();
     }
 
     @Override
@@ -94,8 +94,7 @@ public class BlockPortalBase extends ContainerBlock {
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-
+    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
         TilePortalBase tilePortalBase;
         BlockPos destination = null;
