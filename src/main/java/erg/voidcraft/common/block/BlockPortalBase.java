@@ -2,6 +2,7 @@ package erg.voidcraft.common.block;
 
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
 import erg.voidcraft.common.item.ItemDestinationLodestar;
+import erg.voidcraft.common.item.ItemDimensionalLodestar;
 import erg.voidcraft.common.tile.TilePortalBase;
 import erg.voidcraft.common.util.SetBlockStateFlag;
 import net.minecraft.block.Block;
@@ -28,12 +29,16 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class BlockPortalBase extends ContainerBlock {
 
@@ -124,7 +129,6 @@ public class BlockPortalBase extends ContainerBlock {
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
         TilePortalBase tilePortalBase;
-        BlockPos destination = null;
 
         BlockState state = worldIn.getBlockState(pos);
 
@@ -135,29 +139,37 @@ public class BlockPortalBase extends ContainerBlock {
 
             ItemStack item = contents.getStackInSlot(0);
 
-            if(item.getItem() instanceof ItemDestinationLodestar) {
+            if(item.getItem() instanceof ItemDestinationLodestar || item.getItem() instanceof ItemDimensionalLodestar) {
                 CompoundNBT tag = item.getTag();
-                if(tag != null && tag.contains("destinationBlockPos")) {
-                    CompoundNBT posTag = tag.getCompound("destinationBlockPos");
-                    double x = posTag.getInt("x");
-                    double y = posTag.getInt("y");
-                    double z = posTag.getInt("z");
+                if(tag != null && tag.contains("destinationBlockPos") && tag.contains("dimension")) {
 
-                    destination = new BlockPos(x, y, z);
+                    if(!worldIn.isRemote) {
+
+                        ServerWorld destinationWorld = (ServerWorld) worldIn;
+
+                        String dimension = tag.getString("dimension");
+                        if (!dimension.equals(worldIn.getDimensionKey().getLocation().toString())) {
+                            dimension = tag.getString("dimension").split(":")[1];
+                            RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dimension));
+                            destinationWorld = entityIn.getServer().getWorld(dimensionKey);
+                        }
+
+                        CompoundNBT posTag = tag.getCompound("destinationBlockPos");
+                        double x = posTag.getInt("x");
+                        double y = posTag.getInt("y");
+                        double z = posTag.getInt("z");
+
+                        if (!destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString())) {
+                            entityIn.changeDimension(destinationWorld);
+                        }
+                        destinationWorld.getChunk(new BlockPos(x, y, z));
+                        entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+
+                    } else {
+                        worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
+                    }
                 }
             }
-        }
-
-        if (destination != null) {
-            double x = destination.getX();
-            double y = destination.getY();
-            double z = destination.getZ();
-
-            if(worldIn.isRemote)
-                worldIn.playSound(x, y, z, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
-
-            if(!worldIn.isRemote)
-                entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
         }
     }
 

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    "SVS",
+    "DSD"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "minecraft:sand"
+    },
+    "V": {
+      "item": "voidcraft:item_void_crystal"
+    }
+  },
+  "result": {
+    "item": "voidcraft:item_dimensional_lodestar"
+  }
+}

@@ -32,6 +32,9 @@ public class VoidcraftItems {
     @ObjectHolder("voidcraft:block_end_void_ore")
     public static BlockItem itemBlockEndVoidOre = null;
 
+
+    @ObjectHolder("voidcraft:item_dimensional_lodestar")
+    public static final ItemDimensionalLodestar itemDimensionalLodestar = null;
     @ObjectHolder("voidcraft:item_destination_lodestar")
     public static final ItemDestinationLodestar itemDestinationLodestar = null;
     @ObjectHolder("voidcraft:item_void_crystal")
@@ -61,6 +64,7 @@ public class VoidcraftItems {
     public static void registerItems(final RegistryEvent.Register<Item> event) {
 
         event.getRegistry().registerAll(
+                setItemName(new ItemDimensionalLodestar(), "item_dimensional_lodestar"),
                 setItemName(new ItemDestinationLodestar(), "item_destination_lodestar"),
                 setItemName(new ItemVoidCrystal(), "item_void_crystal"),
                 setItemName(new ItemVoidChisel(), "item_void_chisel"),

@@ -5,6 +5,7 @@
     "block.voidcraft.block_nether_void_ore": "Void Ore",
     "block.voidcraft.block_end_void_ore": "Void Ore",
 
+    "item.voidcraft.item_dimensional_lodestar": "Dimensional Lodestar",
     "item.voidcraft.item_destination_lodestar": "Destination Lodestar",
     "item.voidcraft.item_void_crystal": "Void Crystal",
     "item.voidcraft.item_void_chisel": "Void Chisel",
