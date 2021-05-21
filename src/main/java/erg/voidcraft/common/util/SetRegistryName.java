@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 import static erg.voidcraft.common.Voidcraft.MODID;
 
-public class Util {
+public class SetRegistryName {
 
     public static Block setBlockName(Block block, String blockName) {
         block.setRegistryName(MODID, blockName);

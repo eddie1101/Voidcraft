@@ -6,7 +6,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-import static erg.voidcraft.common.util.Util.setBlockName;
+import static erg.voidcraft.common.util.SetRegistryName.setBlockName;
 
 public class VoidcraftBlocks {
 

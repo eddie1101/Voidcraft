@@ -11,8 +11,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import static erg.voidcraft.common.init.VoidcraftBlocks.*;
-import static erg.voidcraft.common.util.Util.setBlockItemName;
-import static erg.voidcraft.common.util.Util.setItemName;
+import static erg.voidcraft.common.util.SetRegistryName.setBlockItemName;
+import static erg.voidcraft.common.util.SetRegistryName.setItemName;
 
 public class VoidcraftItems {
 

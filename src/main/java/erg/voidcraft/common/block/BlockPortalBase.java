@@ -3,22 +3,24 @@ package erg.voidcraft.common.block;
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
 import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.tile.TilePortalBase;
+import erg.voidcraft.common.util.SetBlockStateFlag;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -35,14 +37,7 @@ import javax.annotation.Nullable;
 
 public class BlockPortalBase extends ContainerBlock {
 
-//    private static final Vector3d BASE_MIN_CORNER = new Vector3d(0.0, 0.0, 0.0);
-//    private static final Vector3d BASE_MAX_CORNER = new Vector3d(16.0, 1.0, 16.0);
-//
-//    private static final VoxelShape SHAPE = Block.makeCuboidShape(BASE_MIN_CORNER.getX(), BASE_MIN_CORNER.getY(), BASE_MIN_CORNER.getZ(),
-//            BASE_MAX_CORNER.getX(), BASE_MAX_CORNER.getY(), BASE_MAX_CORNER.getZ());
-//
-//
-//    private static final VoxelShape EMPTY_SPACE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), SHAPE, IBooleanFunction.ONLY_FIRST);
+    private static final BooleanProperty POWERED = BooleanProperty.create("powered");
 
     public BlockPortalBase() {
         super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5f, 3.5f).harvestTool(ToolType.PICKAXE).harvestLevel(1).setRequiresTool());
@@ -59,6 +54,21 @@ public class BlockPortalBase extends ContainerBlock {
     }
 
     @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(POWERED);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+        return this.getDefaultState().with(POWERED, false);
+    }
+
+    @Override
+    public boolean canConnectRedstone(BlockState state, IBlockReader world, BlockPos pos, @Nullable Direction direction) {
+        return false;
+    }
+
+    @Override
     public boolean hasTileEntity(BlockState state) {
         return true;
     }
@@ -66,6 +76,23 @@ public class BlockPortalBase extends ContainerBlock {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return createNewTileEntity(world);
+    }
+
+    @Override
+    public void neighborChanged(BlockState currentState, World world, BlockPos pos, Block block, BlockPos from, boolean moving) {
+        BlockState newState = getPower(world, pos, currentState);
+        if (newState != currentState) {
+            final int FLAGS = SetBlockStateFlag.get(SetBlockStateFlag.BLOCK_UPDATE, SetBlockStateFlag.SEND_TO_CLIENTS);
+            world.setBlockState(pos, newState, FLAGS);
+        }
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        super.onBlockPlacedBy(world, pos, state, placer, stack);
+        BlockState newState = getPower(world, pos, state);
+        final int FLAGS = SetBlockStateFlag.get(SetBlockStateFlag.BLOCK_UPDATE, SetBlockStateFlag.SEND_TO_CLIENTS);
+        world.setBlockState(pos, newState, FLAGS);
     }
 
     @Override
@@ -99,7 +126,9 @@ public class BlockPortalBase extends ContainerBlock {
         TilePortalBase tilePortalBase;
         BlockPos destination = null;
 
-        if (tileEntity instanceof TilePortalBase) {
+        BlockState state = worldIn.getBlockState(pos);
+
+        if (tileEntity instanceof TilePortalBase && !state.get(POWERED)) {
             tilePortalBase = (TilePortalBase) tileEntity;
 
             InventoryPortalBaseContents contents = tilePortalBase.getContents();
@@ -124,10 +153,11 @@ public class BlockPortalBase extends ContainerBlock {
             double y = destination.getY();
             double z = destination.getZ();
 
-            if(worldIn.isRemote) worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
-            else {
+            if(worldIn.isRemote)
+                worldIn.playSound(x, y, z, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
+
+            if(!worldIn.isRemote)
                 entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
-            }
         }
     }
 
@@ -135,6 +165,11 @@ public class BlockPortalBase extends ContainerBlock {
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
         return new TilePortalBase();
+    }
+
+    private BlockState getPower(World world, BlockPos pos, BlockState state) {
+        boolean powered = world.isBlockPowered(pos);
+        return state.with(POWERED, powered);
     }
 
 //    @Override
