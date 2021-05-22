@@ -1,6 +1,7 @@
 package erg.voidcraft.common.block;
 
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
+import erg.voidcraft.common.item.AbstractLodestar;
 import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.item.ItemDimensionalLodestar;
 import erg.voidcraft.common.tile.TilePortalBase;
@@ -32,6 +33,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
@@ -139,34 +141,39 @@ public class BlockPortalBase extends ContainerBlock {
 
             ItemStack item = contents.getStackInSlot(0);
 
-            if(item.getItem() instanceof ItemDestinationLodestar || item.getItem() instanceof ItemDimensionalLodestar) {
+            if(item.getItem() instanceof AbstractLodestar) {
                 CompoundNBT tag = item.getTag();
                 if(tag != null && tag.contains("destinationBlockPos") && tag.contains("dimension")) {
 
-                    if(!worldIn.isRemote) {
+                    String dimension = tag.getString("dimension").split(":")[1];
+                    RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dimension));
 
-                        ServerWorld destinationWorld = (ServerWorld) worldIn;
+                    if(worldIn instanceof ServerWorld) {
 
-                        String dimension = tag.getString("dimension");
-                        if (!dimension.equals(worldIn.getDimensionKey().getLocation().toString())) {
-                            dimension = tag.getString("dimension").split(":")[1];
-                            RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dimension));
-                            destinationWorld = entityIn.getServer().getWorld(dimensionKey);
-                        }
+                        ServerWorld destinationWorld = entityIn.getServer().getWorld(dimensionKey);
+                        Teleporter teleporter = entityIn.getServer().getWorld(worldIn.getDimensionKey()).getDefaultTeleporter();
 
                         CompoundNBT posTag = tag.getCompound("destinationBlockPos");
                         double x = posTag.getInt("x");
                         double y = posTag.getInt("y");
                         double z = posTag.getInt("z");
 
-                        if (!destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString())) {
-                            entityIn.changeDimension(destinationWorld);
+//                      this logic could probably be condensed but im too tired right now
+                        if (item.getItem() instanceof ItemDimensionalLodestar) {
+                            if(!destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString())) {
+                                entityIn.changeDimension(destinationWorld, teleporter);
+                            }
+                            destinationWorld.getChunk(new BlockPos(x, y, z));
+                            entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+                        } else if (destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString()) && item.getItem() instanceof ItemDestinationLodestar) {
+                            destinationWorld.getChunk(new BlockPos(x, y, z));
+                            entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
                         }
-                        destinationWorld.getChunk(new BlockPos(x, y, z));
-                        entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
 
                     } else {
-                        worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
+                        if(item.getItem() instanceof ItemDimensionalLodestar || (item.getItem() instanceof ItemDestinationLodestar && worldIn.getDimensionKey().getLocation().equals(dimensionKey.getLocation()))) {
+                            worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
+                        }
                     }
                 }
             }

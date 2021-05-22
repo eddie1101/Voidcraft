@@ -1,19 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DSD",
-    "SVS",
-    "DSD"
+    "NRV",
+    "RCE",
+    "NEV"
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
+    "N": {
+      "item": "voidcraft:block_nether_void_ore"
     },
-    "S": {
-      "item": "minecraft:sand"
+    "C": {
+      "item": "voidcraft:item_crystal_catalyst"
     },
     "V": {
-      "item": "voidcraft:item_void_crystal"
+      "item": "voidcraft:block_end_void_ore"
+    },
+    "R": {
+      "item": "minecraft:netherrack"
+    },
+    "E": {
+      "item": "minecraft:end_stone"
     }
   },
   "result": {

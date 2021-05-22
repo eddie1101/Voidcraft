@@ -39,6 +39,9 @@ public class VoidcraftItems {
     public static final ItemDestinationLodestar itemDestinationLodestar = null;
     @ObjectHolder("voidcraft:item_void_crystal")
     public static final ItemVoidCrystal itemVoidCrystal = null;
+    @ObjectHolder("voidcraft:item_crystal_catalyst")
+    public static final ItemCrystalCatalyst itemCrystalCatalyst = null;
+
     @ObjectHolder("voidcraft:item_void_chisel")
     public static final ItemVoidChisel itemVoidChisel = null;
     @ObjectHolder("voidcraft:item_void_pickaxe")
@@ -66,6 +69,7 @@ public class VoidcraftItems {
         event.getRegistry().registerAll(
                 setItemName(new ItemDimensionalLodestar(), "item_dimensional_lodestar"),
                 setItemName(new ItemDestinationLodestar(), "item_destination_lodestar"),
+                setItemName(new ItemCrystalCatalyst(), "item_crystal_catalyst"),
                 setItemName(new ItemVoidCrystal(), "item_void_crystal"),
                 setItemName(new ItemVoidChisel(), "item_void_chisel"),
                 setItemName(new ItemVoidPickaxe(), "item_void_pickaxe"),
