@@ -8,6 +8,7 @@ import erg.voidcraft.common.init.VoidcraftTiles;
 import erg.voidcraft.common.world.gen.OreGeneration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -25,6 +26,8 @@ public class Voidcraft {
 
         registerCommonEvents();
 
+        FORGE_EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
+
         DistExecutor.runWhenOn(Dist.CLIENT, () -> this::registerClientEvents);
     }
 
@@ -33,7 +36,6 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftTiles.class);
         MOD_EVENT_BUS.register(VoidcraftContainers.class);
         MOD_EVENT_BUS.register(VoidcraftItems.class);
-        MOD_EVENT_BUS.register(OreGeneration.class);
     }
 
    public void registerClientEvents() {

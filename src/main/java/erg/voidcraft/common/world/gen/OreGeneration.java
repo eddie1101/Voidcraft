@@ -20,10 +20,10 @@ public class OreGeneration {
     public static void generateOres(final BiomeLoadingEvent event) {
         if (!(event.getCategory().equals(Biome.Category.NETHER) || event.getCategory().equals(Biome.Category.THEEND))) {
             generateOre(event.getGeneration(), new erg.voidcraft.common.world.gen.VoidOreRuleTest(Blocks.BEDROCK),
-                    VoidcraftBlocks.blockVoidOre.getDefaultState(), 3, 1, 5, 2);
+                    VoidcraftBlocks.blockVoidOre.getDefaultState(), 3, 1, 8, 3);
         }else if(event.getCategory().equals(Biome.Category.NETHER)) {
             generateOre(event.getGeneration(), new erg.voidcraft.common.world.gen.VoidOreNetherRuleTest(Blocks.BEDROCK),
-                    VoidcraftBlocks.blockNetherVoidOre.getDefaultState(), 4, 1, 5, 3);
+                    VoidcraftBlocks.blockNetherVoidOre.getDefaultState(), 4, 1, 10, 4);
         }else if(event.getCategory().equals(Biome.Category.THEEND)) {
             generateOre(event.getGeneration(), new BlockMatchRuleTest(Blocks.END_STONE),
                     VoidcraftBlocks.blockEndVoidOre.getDefaultState(), 6, 1, 128, 8);
