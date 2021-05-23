@@ -15,7 +15,7 @@ public class VoidcraftBlocks {
     @ObjectHolder("voidcraft:block_portal_base")
     public static final BlockPortalBase blockPortalBase = null;
     @ObjectHolder("voidcraft:block_void_ore")
-    public static final BlockVoidOre blockVoidOre = null;
+    public static final BlockOverworldVoidOre blockVoidOre = null;
     @ObjectHolder("voidcraft:block_nether_void_ore")
     public static final BlockNetherVoidOre blockNetherVoidOre = null;
     @ObjectHolder("voidcraft:block_end_void_ore")
@@ -26,7 +26,7 @@ public class VoidcraftBlocks {
         event.getRegistry().registerAll(
                 setBlockName(new BlockVoid(), "block_void"),
                 setBlockName(new BlockPortalBase(), "block_portal_base"),
-                setBlockName(new BlockVoidOre(), "block_void_ore"),
+                setBlockName(new BlockOverworldVoidOre(), "block_void_ore"),
                 setBlockName(new BlockNetherVoidOre(), "block_nether_void_ore"),
                 setBlockName(new BlockEndVoidOre(), "block_end_void_ore")
         );

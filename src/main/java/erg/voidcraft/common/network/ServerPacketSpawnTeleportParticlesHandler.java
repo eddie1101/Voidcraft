@@ -36,6 +36,13 @@ public class ServerPacketSpawnTeleportParticlesHandler {
         ctx.enqueueWork(() -> processMessage(message, clientWorld.get()));
     }
 
+    /*
+    This is extremely annoying, but when a player is teleported to another dimension they will
+    not see the particles spawn. This is because at the time the packet is dispatched, the player
+    has not yet entered the target dimension, so they will not receive it. Not sure how to fix,
+    but it would be a huge amount of work and not worth the effort given how small of a bug this
+    is IMO
+     */
     public static void processMessage(PacketSpawnTeleportParticles message, ClientWorld client) {
 
         BlockPos pos = message.getPos();
