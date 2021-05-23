@@ -165,15 +165,15 @@ public class BlockPortalBase extends ContainerBlock {
                             }
                             destinationWorld.getChunk(new BlockPos(x, y, z));
                             entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+                            worldIn.playSound(null, pos, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
                         } else if (destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString()) && item.getItem() instanceof ItemDestinationLodestar) {
                             destinationWorld.getChunk(new BlockPos(x, y, z));
                             entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+                            worldIn.playSound(null, pos, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
                         }
 
-                    } else {
-                        if(item.getItem() instanceof ItemDimensionalLodestar || (item.getItem() instanceof ItemDestinationLodestar && worldIn.getDimensionKey().getLocation().equals(dimensionKey.getLocation()))) {
-                            worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0f, 1.0f, false);
-                        }
                     }
                 }
             }
