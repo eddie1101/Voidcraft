@@ -6,6 +6,7 @@ import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.item.ItemDimensionalLodestar;
 import erg.voidcraft.common.tile.TilePortalBase;
 import erg.voidcraft.common.util.SetBlockStateFlag;
+import erg.voidcraft.common.world.teleporter.VoidcraftTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -45,9 +46,11 @@ import java.util.Objects;
 public class BlockPortalBase extends ContainerBlock {
 
     private static final BooleanProperty POWERED = BooleanProperty.create("powered");
+    private final VoidcraftTeleporter teleporter;
 
     public BlockPortalBase() {
         super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5f, 3.5f).harvestTool(ToolType.PICKAXE).harvestLevel(1).setRequiresTool());
+        this.teleporter = new VoidcraftTeleporter();
     }
 
     @Override
@@ -151,7 +154,6 @@ public class BlockPortalBase extends ContainerBlock {
                     if(worldIn instanceof ServerWorld) {
 
                         ServerWorld destinationWorld = entityIn.getServer().getWorld(dimensionKey);
-                        Teleporter teleporter = entityIn.getServer().getWorld(worldIn.getDimensionKey()).getDefaultTeleporter();
 
                         CompoundNBT posTag = tag.getCompound("destinationBlockPos");
                         double x = posTag.getInt("x");
