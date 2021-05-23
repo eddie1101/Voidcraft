@@ -6,7 +6,7 @@ import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.item.ItemDimensionalLodestar;
 import erg.voidcraft.common.tile.TilePortalBase;
 import erg.voidcraft.common.util.SetBlockStateFlag;
-import erg.voidcraft.common.world.gen.VoidcraftTeleporter;
+import erg.voidcraft.common.world.teleporter.VoidcraftTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
