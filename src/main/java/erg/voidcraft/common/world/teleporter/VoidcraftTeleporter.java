@@ -1,4 +1,4 @@
-package erg.voidcraft.common.world.gen;
+package erg.voidcraft.common.world.teleporter;
 
 import net.minecraft.block.PortalInfo;
 import net.minecraft.entity.Entity;
