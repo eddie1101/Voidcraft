@@ -34,6 +34,7 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftContainers.class);
         MOD_EVENT_BUS.register(VoidcraftItems.class);
         MOD_EVENT_BUS.register(VoidcraftParticles.class);
+        MOD_EVENT_BUS.register(VoidcraftPacketHandler.class);
     }
 
    public void registerClientEvents() {

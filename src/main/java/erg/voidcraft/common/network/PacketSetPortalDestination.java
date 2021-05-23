@@ -10,6 +10,7 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
+@Deprecated
 public class PacketSetPortalDestination {
 
     private ItemStack item;

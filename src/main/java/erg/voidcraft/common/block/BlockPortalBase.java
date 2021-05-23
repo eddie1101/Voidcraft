@@ -1,9 +1,12 @@
 package erg.voidcraft.common.block;
 
+import erg.voidcraft.common.init.VoidcraftPacketHandler;
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
 import erg.voidcraft.common.item.AbstractLodestar;
 import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.item.ItemDimensionalLodestar;
+import erg.voidcraft.common.network.PacketSpawnTeleportParticles;
+import erg.voidcraft.common.particle.MiasmaParticleData;
 import erg.voidcraft.common.tile.TilePortalBase;
 import erg.voidcraft.common.util.SetBlockStateFlag;
 import erg.voidcraft.common.world.teleporter.VoidcraftTeleporter;
@@ -42,8 +45,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.Objects;
 import java.util.Random;
 
@@ -171,18 +176,28 @@ public class BlockPortalBase extends ContainerBlock {
                             }
                             destinationWorld.getChunk(new BlockPos(x, y, z));
                             entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+                            spawnParticles(destinationWorld, new BlockPos(x, y, z));
                             worldIn.playSound(null, pos, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
                             worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
                         } else if (destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString()) && item.getItem() instanceof ItemDestinationLodestar) {
                             destinationWorld.getChunk(new BlockPos(x, y, z));
                             entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+                            spawnParticles(destinationWorld, new BlockPos(x, y, z));
                             worldIn.playSound(null, pos, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
                             worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
                         }
-
                     }
                 }
             }
+        }
+    }
+
+    private void spawnParticles(World world, BlockPos pos) {
+        if(!world.isRemote) {
+            ResourceLocation worldRL = world.getDimensionKey().getLocation();
+
+            PacketSpawnTeleportParticles packet = new PacketSpawnTeleportParticles(worldRL, pos);
+            VoidcraftPacketHandler.channel.send(PacketDistributor.DIMENSION.with(() -> world.getDimensionKey()), packet);
         }
     }
 
@@ -196,15 +211,23 @@ public class BlockPortalBase extends ContainerBlock {
             double ypos = pos.getY() + 1;
             double zpos = pos.getZ() + rand.nextDouble();
 
-            double xvel = rand.nextDouble() / 10;
-            double yvel = 0.25d;
-            double zvel = rand.nextDouble() / 10d;
+            double xvel = (rand.nextDouble() - 0.5) / 50d;
+            double yvel = 0.025d;
+            double zvel = (rand.nextDouble() - 0.5) / 50d;
 
             final boolean IGNORE_RANGE_CHECK = false;
-            final double PERCENT_CHANCE = 100;
+            final double PERCENT_CHANCE = 50;
 
             if(rand.nextDouble() <= PERCENT_CHANCE / 100d) {
-                world.addParticle(ParticleTypes.LANDING_OBSIDIAN_TEAR, IGNORE_RANGE_CHECK,
+
+                Color tint = new Color(0.5f, 0.5f, 0.5f);
+                final double MIN_DIAMETER = 0.05;
+                final double MAX_DIAMETER = 0.40;
+                double diameter = MIN_DIAMETER + (MAX_DIAMETER - MIN_DIAMETER) * rand.nextDouble();
+
+                MiasmaParticleData miasma = new MiasmaParticleData(tint, diameter);
+
+                world.addParticle(miasma, IGNORE_RANGE_CHECK,
                         xpos, ypos, zpos, xvel, yvel, zvel);
             }
 

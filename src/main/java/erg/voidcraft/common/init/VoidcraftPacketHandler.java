@@ -1,6 +1,12 @@
-package erg.voidcraft.common.network;
+package erg.voidcraft.common.init;
 
+import erg.voidcraft.common.network.PacketSetLodestarDestination;
+import erg.voidcraft.common.network.PacketSetPortalDestination;
+import erg.voidcraft.common.network.PacketSpawnTeleportParticles;
+import erg.voidcraft.common.network.ServerPacketSpawnTeleportParticlesHandler;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -14,10 +20,11 @@ public class VoidcraftPacketHandler {
         return ID++;
     }
 
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "1.0";
     public static SimpleChannel channel;
 
-    public static void registerMessages() {
+    @SubscribeEvent
+    public static void registerMessages(FMLCommonSetupEvent event) {
         channel = NetworkRegistry.newSimpleChannel(
                 new ResourceLocation("voidcraft", "main"),
                 () -> PROTOCOL_VERSION,
@@ -40,6 +47,14 @@ public class VoidcraftPacketHandler {
                 PacketSetPortalDestination::decode,
                 PacketSetPortalDestination::handle,
                 Optional.of(NetworkDirection.PLAY_TO_SERVER));
+
+        channel.registerMessage(
+                nextID(),
+                PacketSpawnTeleportParticles.class,
+                PacketSpawnTeleportParticles::encode,
+                PacketSpawnTeleportParticles::decode,
+                ServerPacketSpawnTeleportParticlesHandler::onMessageReceived,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
 

@@ -24,7 +24,7 @@ public class MiasmaParticle extends SpriteTexturedParticle {
 
         particleScale = 0.5f * (float)diameter;
 
-        maxAge = 100;
+        maxAge = 50;
 
         final float ALPHA_VALUE = 1.0F;
         this.particleAlpha = ALPHA_VALUE;
