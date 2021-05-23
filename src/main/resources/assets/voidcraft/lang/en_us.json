@@ -20,6 +20,8 @@
     "item.voidcraft.item_void_hoe": "Void Hoe",
     "item.voidcraft.item_void_sword": "Void Sword",
 
+    "item.voidcraft.item_particle_tester": "Particle Tester",
+
     "itemGroup.item_group_basic_portals": "Basic Portals",
 
     "container.voidcraft.container_portal_base": "Portal Base"

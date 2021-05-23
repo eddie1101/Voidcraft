@@ -20,6 +20,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -37,11 +38,14 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Random;
 
 public class BlockPortalBase extends ContainerBlock {
 
@@ -180,6 +184,32 @@ public class BlockPortalBase extends ContainerBlock {
                 }
             }
         }
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+
+        if(world.isRemote && !state.get(POWERED)) {
+
+            double xpos = pos.getX() + rand.nextDouble();
+            double ypos = pos.getY() + 1;
+            double zpos = pos.getZ() + rand.nextDouble();
+
+            double xvel = rand.nextDouble() / 10;
+            double yvel = 0.25d;
+            double zvel = rand.nextDouble() / 10d;
+
+            final boolean IGNORE_RANGE_CHECK = false;
+            final double PERCENT_CHANCE = 100;
+
+            if(rand.nextDouble() <= PERCENT_CHANCE / 100d) {
+                world.addParticle(ParticleTypes.LANDING_OBSIDIAN_TEAR, IGNORE_RANGE_CHECK,
+                        xpos, ypos, zpos, xvel, yvel, zvel);
+            }
+
+        }
+
     }
 
     @Nullable

@@ -63,6 +63,9 @@ public class VoidcraftItems {
     @ObjectHolder("voidcraft:item_void_boots")
     public static final ArmorVoid itemVoidBoots = null;
 
+    @ObjectHolder("voidcraft:item_particle_tester")
+    public static final ItemParticleTester itemParticleTester = null;
+
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
 
@@ -80,7 +83,9 @@ public class VoidcraftItems {
                 setItemName(new ArmorVoid(EquipmentSlotType.HEAD), "item_void_helmet"),
                 setItemName(new ArmorVoid(EquipmentSlotType.CHEST), "item_void_chestplate"),
                 setItemName(new ArmorVoid(EquipmentSlotType.LEGS), "item_void_leggings"),
-                setItemName(new ArmorVoid(EquipmentSlotType.FEET), "item_void_boots")
+                setItemName(new ArmorVoid(EquipmentSlotType.FEET), "item_void_boots"),
+
+                setItemName(new ItemParticleTester(), "item_particle_tester")
         );
     }
 

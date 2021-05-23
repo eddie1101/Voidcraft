@@ -1,10 +1,7 @@
 package erg.voidcraft.common;
 
 import erg.voidcraft.client.init.ClientSetup;
-import erg.voidcraft.common.init.VoidcraftBlocks;
-import erg.voidcraft.common.init.VoidcraftContainers;
-import erg.voidcraft.common.init.VoidcraftItems;
-import erg.voidcraft.common.init.VoidcraftTiles;
+import erg.voidcraft.common.init.*;
 import erg.voidcraft.common.world.gen.OreGeneration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +33,7 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftTiles.class);
         MOD_EVENT_BUS.register(VoidcraftContainers.class);
         MOD_EVENT_BUS.register(VoidcraftItems.class);
+        MOD_EVENT_BUS.register(VoidcraftParticles.class);
     }
 
    public void registerClientEvents() {
