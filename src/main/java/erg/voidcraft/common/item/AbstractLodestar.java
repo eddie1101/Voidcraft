@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AbstractLodestar extends Item {
+public abstract class AbstractLodestar extends Item {
 
     protected AbstractLodestar(Item.Properties properties) {
         super(properties);

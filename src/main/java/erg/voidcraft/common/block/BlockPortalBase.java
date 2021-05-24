@@ -52,7 +52,7 @@ public class BlockPortalBase extends ContainerBlock {
     private final VoidcraftTeleporter teleporter;
 
     public BlockPortalBase() {
-        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5f, 3.5f).harvestTool(ToolType.PICKAXE).harvestLevel(1).setRequiresTool());
+        super(ContainerBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.5f, 3.5f).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool());
         this.teleporter = new VoidcraftTeleporter();
     }
 

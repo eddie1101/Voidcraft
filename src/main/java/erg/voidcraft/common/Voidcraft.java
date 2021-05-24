@@ -48,23 +48,20 @@ public class Voidcraft {
         Soon
         -----------------------
         armor models
-        Dimensional Lodestar
+        Some sort of TE to refine void crystals
+        Voidlurker mob? (maybe some cool drops needed for crafting cool shit?)
         -----------------------
         Not so soon and ideas
         -----------------------
-        Voidlurker mob? (maybe some cool drops needed for crafting cool shit?)
         maybe some magic shit idk
         definitely some black-hole stuff
         make portals cooler (multiblock?)
         Some sort of power source for portals? other things that might require that power source?
-        Make tileentities save nbt data when broken, that would be cool
         a way to access the void
         collect power from the void
         some way to infuse void crystals
         Soul Slay Bow (& void crystal arrows)
         void miasma when void is accessed
-        particles for miasma
-        big breaker thingy that breaks lots of blocks
      */
 
 
