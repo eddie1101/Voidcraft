@@ -1,6 +1,6 @@
 package erg.voidcraft.common.block;
 
-import erg.voidcraft.common.particle.MiasmaParticleData;
+import erg.voidcraft.common.particle.ParticleDataMiasma;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -51,7 +51,7 @@ public class BlockOverworldVoidOre extends Block {
 
                 final boolean IGNORE_RANGE_CHECK = false;
 
-                final boolean validLocation = world.getBlockState(pos.offset(facing)).getBlock().equals(Blocks.AIR);
+                final boolean validLocation = world.isAirBlock(pos.offset(facing, 1));
 
                 final double PERCENT_CHANCE = validLocation ? 50 : 0;
 
@@ -62,7 +62,7 @@ public class BlockOverworldVoidOre extends Block {
                     final double MAX_DIAMETER = 0.40;
                     double diameter = MIN_DIAMETER + (MAX_DIAMETER - MIN_DIAMETER) * rand.nextDouble();
 
-                    MiasmaParticleData miasma = new MiasmaParticleData(tint, diameter);
+                    ParticleDataMiasma miasma = new ParticleDataMiasma(tint, diameter);
 
                     world.addParticle(miasma, IGNORE_RANGE_CHECK,
                             xpos, ypos, zpos, xvel, yvel, zvel);

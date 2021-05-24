@@ -1,7 +1,7 @@
 package erg.voidcraft.client.init;
 
 import erg.voidcraft.client.gui.screen.ScreenPortalBase;
-import erg.voidcraft.client.particle.MiasmaParticleFactory;
+import erg.voidcraft.client.particle.ParticleMiasmaFactory;
 import erg.voidcraft.common.init.VoidcraftBlocks;
 import erg.voidcraft.common.init.VoidcraftContainers;
 import erg.voidcraft.common.init.VoidcraftParticles;
@@ -31,7 +31,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particles.registerFactory(VoidcraftParticles.miasmaParticleType, sprite -> new MiasmaParticleFactory(sprite));
+        Minecraft.getInstance().particles.registerFactory(VoidcraftParticles.miasmaParticleType, sprite -> new ParticleMiasmaFactory(sprite));
     }
 
 }

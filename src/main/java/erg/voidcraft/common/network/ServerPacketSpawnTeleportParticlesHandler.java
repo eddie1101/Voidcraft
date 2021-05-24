@@ -1,11 +1,8 @@
 package erg.voidcraft.common.network;
 
-import erg.voidcraft.common.particle.MiasmaParticleData;
+import erg.voidcraft.common.particle.ParticleDataMiasma;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -56,7 +53,7 @@ public class ServerPacketSpawnTeleportParticlesHandler {
             final double MAX_DIAMETER = 0.40;
             double diameter = MIN_DIAMETER + (MAX_DIAMETER - MIN_DIAMETER) * rand.nextDouble();
 
-            MiasmaParticleData miasma = new MiasmaParticleData(tint, diameter);
+            ParticleDataMiasma miasma = new ParticleDataMiasma(tint, diameter);
 
             double xvel = (rand.nextDouble() - 0.5) / 10;
             double yvel = (rand.nextDouble() - 0.5) / 10;

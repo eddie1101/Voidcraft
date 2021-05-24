@@ -9,25 +9,25 @@ import net.minecraft.client.world.ClientWorld;
 import javax.annotation.Nullable;
 
 //https://github.com/TheGreyGhost/MinecraftByExample/blob/master/src/main/java/minecraftbyexample/mbe50_particle/FlameParticleFactory.java
-public class MiasmaParticleFactory implements IParticleFactory<ParticleDataMiasma> {
+public class ParticleMiasmaFactory implements IParticleFactory<ParticleDataMiasma> {
 
     private final IAnimatedSprite sprites;
 
     @Nullable
     @Override
     public Particle makeParticle(ParticleDataMiasma flameParticleData, ClientWorld world, double xPos, double yPos, double zPos, double xVelocity, double yVelocity, double zVelocity) {
-        MiasmaParticle newParticle = new MiasmaParticle(world, xPos, yPos, zPos, xVelocity, yVelocity, zVelocity,
+        ParticleMiasma newParticle = new ParticleMiasma(world, xPos, yPos, zPos, xVelocity, yVelocity, zVelocity,
                 flameParticleData.getTint(), flameParticleData.getDiameter(),
                 sprites);
         newParticle.selectSpriteRandomly(sprites);
         return newParticle;
     }
 
-    public MiasmaParticleFactory(IAnimatedSprite sprite) {
+    public ParticleMiasmaFactory(IAnimatedSprite sprite) {
         this.sprites = sprite;
     }
 
-    private MiasmaParticleFactory() {
+    private ParticleMiasmaFactory() {
         throw new UnsupportedOperationException("Use the MiasmaParticleFactory(IAnimatedSprite sprite) constructor");
     }
 

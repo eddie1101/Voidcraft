@@ -1,15 +1,10 @@
 package erg.voidcraft.common.item;
 
-import erg.voidcraft.common.init.VoidcraftParticles;
-import erg.voidcraft.common.particle.MiasmaParticleData;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
+import erg.voidcraft.common.particle.ParticleDataMiasma;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -52,7 +47,7 @@ public class ItemParticleTester extends Item {
                 final double MAX_DIAMETER = 0.40;
                 double diameter = MIN_DIAMETER + (MAX_DIAMETER - MIN_DIAMETER) * random.nextDouble();
 
-                MiasmaParticleData miasma = new MiasmaParticleData(tint, diameter);
+                ParticleDataMiasma miasma = new ParticleDataMiasma(tint, diameter);
 
                 zpos += POSITION_WOBBLE * (rand.nextDouble() - 0.5);
                 xpos += POSITION_WOBBLE * (rand.nextDouble() - 0.5);

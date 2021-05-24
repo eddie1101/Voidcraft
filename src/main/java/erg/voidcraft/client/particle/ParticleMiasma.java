@@ -7,11 +7,11 @@ import net.minecraft.client.world.ClientWorld;
 
 import java.awt.*;
 
-public class MiasmaParticle extends SpriteTexturedParticle {
+public class ParticleMiasma extends SpriteTexturedParticle {
 
     private final IAnimatedSprite sprites;
 
-    public MiasmaParticle(ClientWorld world, double x, double y, double z,
+    public ParticleMiasma(ClientWorld world, double x, double y, double z,
                           double velocityX, double velocityY, double velocityZ,
                           Color tint, double diameter,
                           IAnimatedSprite sprites) {

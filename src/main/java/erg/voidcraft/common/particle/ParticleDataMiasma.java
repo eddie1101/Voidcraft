@@ -16,9 +16,9 @@ import java.util.Locale;
 
 //https://github.com/TheGreyGhost/MinecraftByExample/tree/master/src/main/java/minecraftbyexample/mbe50_particle
 
-public class MiasmaParticleData implements IParticleData {
+public class ParticleDataMiasma implements IParticleData {
 
-    public MiasmaParticleData(Color tint, double diameter) {
+    public ParticleDataMiasma(Color tint, double diameter) {
         this.tint = tint;
         this.diameter = constrainDiameterToValidRange(diameter);
     }
@@ -36,7 +36,7 @@ public class MiasmaParticleData implements IParticleData {
 
     @Nonnull
     @Override
-    public ParticleType<MiasmaParticleData> getType() {
+    public ParticleType<ParticleDataMiasma> getType() {
         return VoidcraftParticles.miasmaParticleType;
     }
 
@@ -64,23 +64,23 @@ public class MiasmaParticleData implements IParticleData {
     private Color tint;
     private double diameter;
 
-    public static final Codec<MiasmaParticleData> CODEC = RecordCodecBuilder.create(
+    public static final Codec<ParticleDataMiasma> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     Codec.INT.fieldOf("tint").forGetter(d -> d.tint.getRGB()),
                     Codec.DOUBLE.fieldOf("diameter").forGetter(d -> d.diameter)
-            ).apply(instance, MiasmaParticleData::new)
+            ).apply(instance, ParticleDataMiasma::new)
     );
 
-    private MiasmaParticleData(int tintRGB, double diameter) {
+    private ParticleDataMiasma(int tintRGB, double diameter) {
         this.tint = new Color(tintRGB);
         this.diameter = constrainDiameterToValidRange(diameter);
     }
 
-    public static final IDeserializer<MiasmaParticleData> DESERIALIZER = new IDeserializer<MiasmaParticleData>() {
+    public static final IDeserializer<ParticleDataMiasma> DESERIALIZER = new IDeserializer<ParticleDataMiasma>() {
 
         @Nonnull
         @Override
-        public MiasmaParticleData deserialize(@Nonnull ParticleType<MiasmaParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
+        public ParticleDataMiasma deserialize(@Nonnull ParticleType<ParticleDataMiasma> type, @Nonnull StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
             double diameter = constrainDiameterToValidRange(reader.readDouble());
 
@@ -94,11 +94,11 @@ public class MiasmaParticleData implements IParticleData {
             int blue = MathHelper.clamp(reader.readInt(), MIN_COLOUR, MAX_COLOUR);
             Color color = new Color(red, green, blue);
 
-            return new MiasmaParticleData(color, diameter);
+            return new ParticleDataMiasma(color, diameter);
         }
 
         @Override
-        public MiasmaParticleData read(@Nonnull ParticleType<MiasmaParticleData> type, PacketBuffer buf) {
+        public ParticleDataMiasma read(@Nonnull ParticleType<ParticleDataMiasma> type, PacketBuffer buf) {
 
             final int MIN_COLOUR = 0;
             final int MAX_COLOUR = 255;
@@ -109,7 +109,7 @@ public class MiasmaParticleData implements IParticleData {
 
             double diameter = constrainDiameterToValidRange(buf.readDouble());
 
-            return new MiasmaParticleData(color, diameter);
+            return new ParticleDataMiasma(color, diameter);
         }
     };
 

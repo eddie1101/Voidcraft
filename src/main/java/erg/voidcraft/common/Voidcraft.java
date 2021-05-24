@@ -25,6 +25,8 @@ public class Voidcraft {
 
         FORGE_EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
 
+        FORGE_EVENT_BUS.register(VoidcraftCommands.class);
+
         DistExecutor.runWhenOn(Dist.CLIENT, () -> this::registerClientEvents);
     }
 

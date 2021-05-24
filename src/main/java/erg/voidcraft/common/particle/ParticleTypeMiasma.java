@@ -3,15 +3,15 @@ package erg.voidcraft.common.particle;
 import com.mojang.serialization.Codec;
 import net.minecraft.particles.ParticleType;
 
-public class MiasmaParticleType extends ParticleType<MiasmaParticleData> {
+public class ParticleTypeMiasma extends ParticleType<ParticleDataMiasma> {
 
     private static boolean IGNORE_RANGE_CHECK = false;
-    public MiasmaParticleType() {
-        super(IGNORE_RANGE_CHECK, MiasmaParticleData.DESERIALIZER);
+    public ParticleTypeMiasma() {
+        super(IGNORE_RANGE_CHECK, ParticleDataMiasma.DESERIALIZER);
     }
 
-    public Codec<MiasmaParticleData> func_230522_e_() {
-        return MiasmaParticleData.CODEC;
+    public Codec<ParticleDataMiasma> func_230522_e_() {
+        return ParticleDataMiasma.CODEC;
     }
 
 }

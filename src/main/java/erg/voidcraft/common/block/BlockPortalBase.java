@@ -6,7 +6,7 @@ import erg.voidcraft.common.item.AbstractLodestar;
 import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.item.ItemDimensionalLodestar;
 import erg.voidcraft.common.network.PacketSpawnTeleportParticles;
-import erg.voidcraft.common.particle.MiasmaParticleData;
+import erg.voidcraft.common.particle.ParticleDataMiasma;
 import erg.voidcraft.common.tile.TilePortalBase;
 import erg.voidcraft.common.util.SetBlockStateFlag;
 import erg.voidcraft.common.world.teleporter.VoidcraftTeleporter;
@@ -23,22 +23,17 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,7 +44,6 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.Objects;
 import java.util.Random;
 
 public class BlockPortalBase extends ContainerBlock {
@@ -225,7 +219,7 @@ public class BlockPortalBase extends ContainerBlock {
                 final double MAX_DIAMETER = 0.40;
                 double diameter = MIN_DIAMETER + (MAX_DIAMETER - MIN_DIAMETER) * rand.nextDouble();
 
-                MiasmaParticleData miasma = new MiasmaParticleData(tint, diameter);
+                ParticleDataMiasma miasma = new ParticleDataMiasma(tint, diameter);
 
                 world.addParticle(miasma, IGNORE_RANGE_CHECK,
                         xpos, ypos, zpos, xvel, yvel, zvel);
