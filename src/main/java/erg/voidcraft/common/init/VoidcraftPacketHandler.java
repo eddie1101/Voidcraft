@@ -1,9 +1,6 @@
 package erg.voidcraft.common.init;
 
-import erg.voidcraft.common.network.PacketSetLodestarDestination;
-import erg.voidcraft.common.network.PacketSetPortalDestination;
-import erg.voidcraft.common.network.PacketSpawnTeleportParticles;
-import erg.voidcraft.common.network.ServerPacketSpawnTeleportParticlesHandler;
+import erg.voidcraft.common.network.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -53,7 +50,15 @@ public class VoidcraftPacketHandler {
                 PacketSpawnTeleportParticles.class,
                 PacketSpawnTeleportParticles::encode,
                 PacketSpawnTeleportParticles::decode,
-                ServerPacketSpawnTeleportParticlesHandler::onMessageReceived,
+                ClientPacketSpawnTeleportParticlesHandler::onMessageReceived,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+
+        channel.registerMessage(
+                nextID(),
+                PacketSpawnTestParticles.class,
+                PacketSpawnTestParticles::encode,
+                PacketSpawnTestParticles::decode,
+                ClientPacketSpawnTestParticlesHandler::onMessageReceived,
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 

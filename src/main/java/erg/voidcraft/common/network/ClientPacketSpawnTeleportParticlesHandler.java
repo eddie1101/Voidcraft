@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class ServerPacketSpawnTeleportParticlesHandler {
+public class ClientPacketSpawnTeleportParticlesHandler {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -26,7 +26,7 @@ public class ServerPacketSpawnTeleportParticlesHandler {
         Optional<ClientWorld> clientWorld = LogicalSidedProvider.CLIENTWORLD.get(ctx.getDirection().getReceptionSide());
 
         if (sideReceived != LogicalSide.CLIENT) {
-            LOGGER.warn("AirstrikeMessageToServer received on wrong side:" + ctx.getDirection().getReceptionSide());
+            LOGGER.warn("SpawnTeleportParticles message received on wrong side!" + ctx.getDirection().getReceptionSide());
             return;
         }
 
