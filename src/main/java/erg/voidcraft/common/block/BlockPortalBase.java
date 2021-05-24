@@ -140,7 +140,7 @@ public class BlockPortalBase extends ContainerBlock {
 
         BlockState state = worldIn.getBlockState(pos);
 
-        if (tileEntity instanceof TilePortalBase && !state.get(POWERED)) {
+        if (tileEntity instanceof TilePortalBase && !state.get(POWERED) && !entityIn.isCrouching()) {
             tilePortalBase = (TilePortalBase) tileEntity;
 
             InventoryPortalBaseContents contents = tilePortalBase.getContents();

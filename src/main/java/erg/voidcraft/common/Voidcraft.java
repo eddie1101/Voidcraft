@@ -49,6 +49,7 @@ public class Voidcraft {
         -----------------------
         armor models
         Some sort of TE to refine void crystals
+        Expand AbstractBlockRadiatesMiasma to control sides and particle speed
         Voidlurker mob? (maybe some cool drops needed for crafting cool shit?)
         -----------------------
         Not so soon and ideas
