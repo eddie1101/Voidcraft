@@ -53,7 +53,13 @@ public class CommandFindNearestOre {
         Vector3d sourcePosition = ctx.getSource().getPos();
 
         BlockPos corner1 = new BlockPos(sourcePosition.x - 128, 1, sourcePosition.z - 128);
-        BlockPos corner2 = new BlockPos(sourcePosition.x + 128, 8, sourcePosition.z + 128);
+        int corner_y = 8;
+        if(sourceWorld.getDimensionKey().getLocation().toString().equals("minecraft:the_nether")) {
+            corner_y = 10;
+        } else if (sourceWorld.getDimensionKey().getLocation().toString().equals("minecraft:the_end")) {
+            corner_y = 70;
+        }
+        BlockPos corner2 = new BlockPos(sourcePosition.x + 128, corner_y, sourcePosition.z + 128);
 
         double minDistance = 10000;
         BlockPos closest = null;
