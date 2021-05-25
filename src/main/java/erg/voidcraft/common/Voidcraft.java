@@ -11,6 +11,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+
 @Mod(Voidcraft.MODID)
 public class Voidcraft {
     public static final String MODID = "voidcraft";
@@ -37,6 +38,9 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftItems.class);
         MOD_EVENT_BUS.register(VoidcraftParticles.class);
         MOD_EVENT_BUS.register(VoidcraftPacketHandler.class);
+        MOD_EVENT_BUS.register(VoidcraftEntities.class);
+
+        MOD_EVENT_BUS.addListener(VoidcraftEntities::registerAttributes);
     }
 
    public void registerClientEvents() {
@@ -49,8 +53,7 @@ public class Voidcraft {
         -----------------------
         armor models
         Some sort of TE to refine void crystals
-        Voidlurker mob? (maybe some cool drops needed for crafting cool shit?)
-        Update to mojmaps
+        Voidlurker mob? (maybe some cool drops needed for crafting cool shit?) look into registering models and renderers
         -----------------------
         Not so soon and ideas
         -----------------------
