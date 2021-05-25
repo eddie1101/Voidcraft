@@ -5,12 +5,11 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
-
-import java.rmi.registry.Registry;
 
 public class VoidcraftEntities {
 
@@ -19,7 +18,7 @@ public class VoidcraftEntities {
             .setUpdateInterval(6)
             .setTrackingRange(10)
             .setShouldReceiveVelocityUpdates(true)
-            .build("");
+            .build(new ResourceLocation("voidcraft", "entity_void_lurker").toString());
 
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
