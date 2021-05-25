@@ -58,7 +58,7 @@ public abstract class AbstractBlockRadiatesMiasma extends Block {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 
-        if(world.isRemote) {
+        if(world.isClientSide) {
 
             for(Direction facing: FACINGS) {
 
@@ -74,7 +74,7 @@ public abstract class AbstractBlockRadiatesMiasma extends Block {
 
                 final boolean IGNORE_RANGE_CHECK = false;
 
-                final boolean validLocation = IGNORE_VALID_SPAWN_BLOCKS || isValidSpawn(pos.offset(facing), world);
+                final boolean validLocation = IGNORE_VALID_SPAWN_BLOCKS || isValidSpawn(pos.relative(facing), world);
 
                 final double PERCENT_CHANCE = validLocation ? PARTICLE_RATE : 0;
 

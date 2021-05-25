@@ -17,21 +17,21 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerScreens(FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(VoidcraftContainers.containerTypePortalBase, ScreenPortalBase::new);
+        ScreenManager.register(VoidcraftContainers.containerTypePortalBase, ScreenPortalBase::new);
     }
 
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event) {
-        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockVoid, RenderType.getSolid());
-        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockPortalBase, RenderType.getSolid());
-        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockVoidOre, RenderType.getSolid());
-        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockNetherVoidOre, RenderType.getSolid());
-        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockEndVoidOre, RenderType.getSolid());
+        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockVoid, RenderType.solid());
+        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockPortalBase, RenderType.solid());
+        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockVoidOre, RenderType.solid());
+        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockNetherVoidOre, RenderType.solid());
+        RenderTypeLookup.setRenderLayer(VoidcraftBlocks.blockEndVoidOre, RenderType.solid());
     }
 
     @SubscribeEvent
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particles.registerFactory(VoidcraftParticles.miasmaParticleType, sprite -> new ParticleMiasmaFactory(sprite));
+        Minecraft.getInstance().particleEngine.register(VoidcraftParticles.miasmaParticleType, sprite -> new ParticleMiasmaFactory(sprite));
     }
 
 }

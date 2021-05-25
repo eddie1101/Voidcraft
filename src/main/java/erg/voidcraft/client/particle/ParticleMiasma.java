@@ -22,18 +22,18 @@ public class ParticleMiasma extends SpriteTexturedParticle {
         setColor(tint.getRed()/255.0F, tint.getGreen()/255.0F, tint.getBlue()/255.0F);
         setSize((float)diameter, (float)diameter);
 
-        particleScale = 0.5f * (float)diameter;
+        quadSize = 0.5f * (float)diameter;
 
-        maxAge = 50;
+        lifetime = 50;
 
         final float ALPHA_VALUE = 1.0F;
-        this.particleAlpha = ALPHA_VALUE;
+        this.alpha = ALPHA_VALUE;
 
-        motionX = velocityX;
-        motionY = velocityY;
-        motionZ = velocityZ;
+        xd = velocityX;
+        yd = velocityY;
+        zd = velocityZ;
 
-        this.canCollide = true;
+        this.hasPhysics = true;
 
     }
 
@@ -45,22 +45,22 @@ public class ParticleMiasma extends SpriteTexturedParticle {
     @Override
     public void tick() {
 
-        prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
+        xo = x;
+        yo = y;
+        zo = z;
 
-        move(motionX, motionY, motionZ);
+        move(xd, yd, zd);
 
         if (onGround) {
-            this.setExpired();
+            this.remove();
         }
 
-        if (prevPosY == posY && motionY > 0) {
-            this.setExpired();
+        if (yo == y && yd > 0) {
+            this.remove();
         }
 
-        if (this.age++ >= this.maxAge) {
-            this.setExpired();
+        if (this.age++ >= this.lifetime) {
+            this.remove();
         }
     }
 }

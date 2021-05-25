@@ -30,7 +30,7 @@ public class VoidcraftTeleporter implements ITeleporter {
 
     @Override
     public PortalInfo getPortalInfo(Entity entity, ServerWorld destWorld, Function<ServerWorld, PortalInfo> defaultPortalInfo) {
-        return new PortalInfo(entity.getPositionVec(), Vector3d.ZERO, entity.rotationYaw, entity.rotationPitch);
+        return new PortalInfo(entity.position(), Vector3d.ZERO, entity.yRot, entity.xRot);
     }
 
     @Override

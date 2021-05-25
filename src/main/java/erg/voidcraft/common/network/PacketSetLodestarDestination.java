@@ -23,12 +23,12 @@ public class PacketSetLodestarDestination {
 
     public void encode(PacketBuffer buf) {
         buf.writeBlockPos(this.pos);
-        buf.writeItemStack(this.item);
+        buf.writeItem(this.item);
     }
 
     public static PacketSetLodestarDestination decode(PacketBuffer buf) {
         BlockPos pos = buf.readBlockPos();
-        ItemStack item = buf.readItemStack();
+        ItemStack item = buf.readItem();
         return new PacketSetLodestarDestination(item, pos);
     }
 
@@ -52,7 +52,7 @@ public class PacketSetLodestarDestination {
 
             item.setTag(parent);
 
-            ctx.get().getSender().sendMessage(new StringTextComponent("Stored location:\nX=" + pos.getX() + "\nY=" + pos.getY() + "\nZ=" + pos.getZ() + "\nin LODESTAR"), ctx.get().getSender().getUniqueID());
+            ctx.get().getSender().sendMessage(new StringTextComponent("Stored location:\nX=" + pos.getX() + "\nY=" + pos.getY() + "\nZ=" + pos.getZ() + "\nin LODESTAR"), ctx.get().getSender().getUUID());
         });
         ctx.get().setPacketHandled(true);
     }

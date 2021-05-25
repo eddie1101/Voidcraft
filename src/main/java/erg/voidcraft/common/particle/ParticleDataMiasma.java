@@ -41,7 +41,7 @@ public class ParticleDataMiasma implements IParticleData {
     }
 
     @Override
-    public void write(PacketBuffer buf) {
+    public void writeToNetwork(PacketBuffer buf) {
         buf.writeInt(tint.getRed());
         buf.writeInt(tint.getGreen());
         buf.writeInt(tint.getBlue());
@@ -50,7 +50,7 @@ public class ParticleDataMiasma implements IParticleData {
 
     @Nonnull
     @Override
-    public String getParameters() {
+    public String writeToString() {
         return String.format(Locale.ROOT, "%s %.2f %i %i %i",
                 this.getType().getRegistryName(), diameter, tint.getRed(), tint.getGreen(), tint.getBlue());
     }
@@ -80,7 +80,7 @@ public class ParticleDataMiasma implements IParticleData {
 
         @Nonnull
         @Override
-        public ParticleDataMiasma deserialize(@Nonnull ParticleType<ParticleDataMiasma> type, @Nonnull StringReader reader) throws CommandSyntaxException {
+        public ParticleDataMiasma fromCommand(@Nonnull ParticleType<ParticleDataMiasma> type, @Nonnull StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
             double diameter = constrainDiameterToValidRange(reader.readDouble());
 
@@ -98,7 +98,7 @@ public class ParticleDataMiasma implements IParticleData {
         }
 
         @Override
-        public ParticleDataMiasma read(@Nonnull ParticleType<ParticleDataMiasma> type, PacketBuffer buf) {
+        public ParticleDataMiasma fromNetwork(@Nonnull ParticleType<ParticleDataMiasma> type, PacketBuffer buf) {
 
             final int MIN_COLOUR = 0;
             final int MAX_COLOUR = 255;

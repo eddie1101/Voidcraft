@@ -11,39 +11,39 @@ public class ItemTierVoid implements IItemTier {
     private final float attackDamage = 4.0f;
     private final int harvestLevel = 4;
     private final int enchantability = 30;
-    private Ingredient repairMaterial = Ingredient.fromItems(VoidcraftItems.itemVoidCrystal);
+    private Ingredient repairMaterial = Ingredient.of(VoidcraftItems.itemVoidCrystal);
 
     public ItemTierVoid() {
 
     }
 
     @Override
-    public int getMaxUses() {
+    public int getUses() {
         return maxUses;
     }
 
     @Override
-    public float getEfficiency() {
+    public float getSpeed() {
         return efficiency;
     }
 
     @Override
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return attackDamage;
     }
 
     @Override
-    public int getHarvestLevel() {
+    public int getLevel() {
         return harvestLevel;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return enchantability;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return repairMaterial;
     }
 }

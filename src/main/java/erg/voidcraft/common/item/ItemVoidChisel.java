@@ -27,31 +27,31 @@ import static net.minecraft.util.Direction.*;
 public class ItemVoidChisel extends Item {
 
     public ItemVoidChisel() {
-        super((new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1).maxDamage(250)));
+        super((new Item.Properties().tab(ItemGroup.TAB_TOOLS).stacksTo(1).durability(250)));
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext ctx) {
-        World world = ctx.getWorld();
-        BlockPos pos = ctx.getPos();
-        Direction direction = ctx.getFace();
+    public ActionResultType useOn(ItemUseContext ctx) {
+        World world = ctx.getLevel();
+        BlockPos pos = ctx.getClickedPos();
+        Direction direction = ctx.getClickedFace();
         PlayerEntity player = ctx.getPlayer();
         Hand hand = ctx.getHand();
-        ItemStack chisel = ctx.getItem();
+        ItemStack chisel = ctx.getItemInHand();
 
         BlockPos[] blocks = null;
 
-        if(!world.isRemote) {
+        if(!world.isClientSide) {
 
             try {
                 blocks = getBlocksIn(pos, 1, 3, direction);
             } catch (VoidChiselException e) {
-                player.sendMessage(new StringTextComponent(e.getMessage()), player.getUniqueID());
+                player.sendMessage(new StringTextComponent(e.getMessage()), player.getUUID());
             }
 
             if (blocks != null) {
                 harvestAndRemoveBlocks(blocks, world, player, hand);
-                chisel.damageItem(1, player, p -> {
+                chisel.hurtAndBreak(1, player, p -> {
                 });
                 return ActionResultType.SUCCESS;
             }
@@ -64,13 +64,13 @@ public class ItemVoidChisel extends Item {
             BlockPos pos = blocks[i];
             BlockState blockState = world.getBlockState(pos);
             Block block = blockState.getBlock();
-            ItemStack itemStack = player.getHeldItem(hand);
-            TileEntity te = world.getTileEntity(pos);
+            ItemStack itemStack = player.getItemInHand(hand);
+            TileEntity te = world.getBlockEntity(pos);
 
             world.destroyBlock(pos, true);
 
             if (te != null) {
-                te.remove();
+                te.setRemoved();
             }
         }
     }
@@ -94,7 +94,7 @@ public class ItemVoidChisel extends Item {
 
         Direction radialAxis = facing;
 
-        BlockPos bottomLeftCorner = origin.offset(horizontalAxis, radius).offset(verticalAxis, radius);
+        BlockPos bottomLeftCorner = origin.relative(horizontalAxis, radius).relative(verticalAxis, radius);
 
         int debugD = 0;
         int debugI = 0;
@@ -112,12 +112,12 @@ public class ItemVoidChisel extends Item {
                     for (int n = 0; n < diameter; n++) {
                         debugN = n;
                         blocks[d * facingSurfaceArea + ((i % facingSurfaceArea) * diameter) + n] = index;
-                        index = index.offset(horizontalAxis.getOpposite());
+                        index = index.relative(horizontalAxis.getOpposite());
                         debugIndex = index;
                     }
-                    index = index.offset(horizontalAxis, diameter).offset(verticalAxis.getOpposite());
+                    index = index.relative(horizontalAxis, diameter).relative(verticalAxis.getOpposite());
                 }
-                index = index.offset(verticalAxis, diameter).offset(radialAxis);
+                index = index.relative(verticalAxis, diameter).relative(radialAxis);
             }
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new VoidChiselException(debugD, debugI, debugN, debugCorner, debugIndex);
@@ -128,12 +128,12 @@ public class ItemVoidChisel extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack itemStack) {
+    public UseAction getUseAnimation(ItemStack itemStack) {
         return UseAction.BLOCK;
     }
 
     @Override
-    public void addInformation(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         tooltip.add(new StringTextComponent("Right click to remove blocks in a 3x3x3 volume"));
     }
 

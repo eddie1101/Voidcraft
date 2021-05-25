@@ -16,30 +16,30 @@ public class ArmorMaterialVoid implements IArmorMaterial {
     private final int maxDamageFactor = 65;
     private final int[] damageReductionAmountArray = {4, 8, 10, 4};
     private final int enchantability = 30;
-    private final SoundEvent soundEvent = SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE;
+    private final SoundEvent soundEvent = SoundEvents.ARMOR_EQUIP_NETHERITE;
     private final float toughness = 4.0F;
     private final float knockbackResistance = 0.2f;
-    private final Ingredient repairMaterial = Ingredient.fromItems(VoidcraftItems.itemVoidCrystal);
+    private final Ingredient repairMaterial = Ingredient.of(VoidcraftItems.itemVoidCrystal);
 
     public ArmorMaterialVoid() {}
 
-    public int getDurability(EquipmentSlotType slotIn) {
+    public int getDurabilityForSlot(EquipmentSlotType slotIn) {
         return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
     }
 
-    public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+    public int getDefenseForSlot(EquipmentSlotType slotIn) {
         return this.damageReductionAmountArray[slotIn.getIndex()];
     }
 
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getEquipSound() {
         return this.soundEvent;
     }
 
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return this.repairMaterial;
     }
 

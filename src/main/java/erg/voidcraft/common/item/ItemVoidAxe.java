@@ -8,7 +8,7 @@ import net.minecraft.item.ItemGroup;
 public class ItemVoidAxe extends AxeItem {
 
     public ItemVoidAxe(){
-        super(VoidcraftItems.itemTierVoid, 6.0F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS).isImmuneToFire());
+        super(VoidcraftItems.itemTierVoid, 6.0F, -3.0F, new Item.Properties().tab(ItemGroup.TAB_TOOLS).fireResistant());
     }
 
 }

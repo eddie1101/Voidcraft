@@ -27,7 +27,7 @@ public class CommandFindNearestOre {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> findNearestOreCommand =
                 Commands.literal("findvoidore")
-                .requires((commandSource) -> commandSource.hasPermissionLevel(1))
+                .requires((commandSource) -> commandSource.hasPermission(1))
                 .executes(commandContext -> sendMessage(commandContext, findOre(commandContext)));
         dispatcher.register(findNearestOreCommand);
     }
@@ -39,9 +39,9 @@ public class CommandFindNearestOre {
         Entity source = commandContext.getSource().getEntity();
 
         if(source != null) {
-            commandContext.getSource().getServer().getPlayerList().func_232641_a_(text, ChatType.CHAT, source.getUniqueID());
+            commandContext.getSource().getServer().getPlayerList().broadcastMessage(text, ChatType.CHAT, source.getUUID());
         } else {
-            commandContext.getSource().getServer().getPlayerList().func_232641_a_(text, ChatType.SYSTEM, Util.DUMMY_UUID);
+            commandContext.getSource().getServer().getPlayerList().broadcastMessage(text, ChatType.SYSTEM, Util.NIL_UUID);
         }
 
         return 1;
@@ -49,14 +49,14 @@ public class CommandFindNearestOre {
 
     static String findOre(CommandContext<CommandSource> ctx) {
 
-        World sourceWorld = ctx.getSource().getEntity().getEntityWorld();
-        Vector3d sourcePosition = ctx.getSource().getPos();
+        World sourceWorld = ctx.getSource().getEntity().getCommandSenderWorld();
+        Vector3d sourcePosition = ctx.getSource().getPosition();
 
         BlockPos corner1 = new BlockPos(sourcePosition.x - 128, 1, sourcePosition.z - 128);
         int corner_y = 8;
-        if(sourceWorld.getDimensionKey().getLocation().toString().equals("minecraft:the_nether")) {
+        if(sourceWorld.dimension().location().toString().equals("minecraft:the_nether")) {
             corner_y = 10;
-        } else if (sourceWorld.getDimensionKey().getLocation().toString().equals("minecraft:the_end")) {
+        } else if (sourceWorld.dimension().location().toString().equals("minecraft:the_end")) {
             corner_y = 70;
         }
         BlockPos corner2 = new BlockPos(sourcePosition.x + 128, corner_y, sourcePosition.z + 128);
@@ -95,9 +95,9 @@ public class CommandFindNearestOre {
     }
 
     private static double oreDistance(BlockPos ore, Vector3d source) {
-        double x = Math.pow(ore.getX() - source.getX(), 2);
-        double y = Math.pow(ore.getY() - source.getY(), 2);
-        double z = Math.pow(ore.getZ() - source.getZ(), 2);
+        double x = Math.pow(ore.getX() - source.x(), 2);
+        double y = Math.pow(ore.getY() - source.y(), 2);
+        double z = Math.pow(ore.getZ() - source.z(), 2);
         return Math.sqrt(x + y + z);
     }
 

@@ -22,12 +22,12 @@ public class ItemParticleTester extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 
-        if (world.isRemote) {
-            VoidcraftPacketHandler.channel.send(PacketDistributor.DIMENSION.with((() -> world.getDimensionKey())), new PacketSpawnTestParticles(player.getPosition()));
+        if (world.isClientSide) {
+            VoidcraftPacketHandler.channel.send(PacketDistributor.DIMENSION.with((() -> world.dimension())), new PacketSpawnTestParticles(player.blockPosition()));
         }
-        return super.onItemRightClick(world, player, hand);
+        return super.use(world, player, hand);
     }
 
 }

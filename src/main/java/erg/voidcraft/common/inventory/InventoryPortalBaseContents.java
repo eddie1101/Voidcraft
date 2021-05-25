@@ -55,32 +55,32 @@ public class InventoryPortalBaseContents implements IInventory {
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
+    public boolean stillValid(PlayerEntity player) {
         return canPlayerAccessInventoryLambda.test(player);
     }
 
     @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
+    public boolean canPlaceItem(int index, ItemStack stack) {
         return portalContents.isItemValid(index, stack);
     }
 
     @Override
-    public void markDirty() {
+    public void setChanged() {
         markDirtyNotificationLambda.invoke();
     }
 
     @Override
-    public void openInventory(PlayerEntity player) {
+    public void startOpen(PlayerEntity player) {
         openInventoryNotificationLambda.invoke();
     }
 
     @Override
-    public void closeInventory(PlayerEntity player) {
+    public void stopOpen(PlayerEntity player) {
         closeInventoryNotificationLambda.invoke();
     }
 
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return portalContents.getSlots();
     }
 
@@ -93,28 +93,28 @@ public class InventoryPortalBaseContents implements IInventory {
     }
 
     @Override
-    public ItemStack getStackInSlot(int index) {
+    public ItemStack getItem(int index) {
         return portalContents.getStackInSlot(index);
     }
 
     @Override
-    public ItemStack decrStackSize(int index, int count) {
+    public ItemStack removeItem(int index, int count) {
         return portalContents.extractItem(index, count, false);
     }
 
     @Override
-    public ItemStack removeStackFromSlot(int index) {
+    public ItemStack removeItemNoUpdate(int index) {
         int maxPossibleItemStackSize = portalContents.getSlotLimit(index);
         return portalContents.extractItem(index, maxPossibleItemStackSize, false);
     }
 
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setItem(int index, ItemStack stack) {
         portalContents.setStackInSlot(index, stack);
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         for(int i = 0; i < portalContents.getSlots(); ++i) {
             portalContents.setStackInSlot(i, ItemStack.EMPTY);
         }

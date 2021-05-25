@@ -84,32 +84,32 @@ public class ContainerPortalBase extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean stillValid(PlayerEntity playerIn) {
         return portalContents.isUsableByPlayer(playerIn);
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerEntity, int sourceSlotIndex) {
+    public ItemStack quickMoveStack(PlayerEntity playerEntity, int sourceSlotIndex) {
 
 
         //ALL THIS SHIT IS UNNECESSARY AND SHOULD GET REDONE
         //THERE IS ONLY ONE SLOT MOST OF THIS LOGIC IS UNNECESSARY
 
 
-        Slot sourceSlot = inventorySlots.get(sourceSlotIndex);
-        if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;  //EMPTY_ITEM
-        ItemStack sourceStack = sourceSlot.getStack();
+        Slot sourceSlot = slots.get(sourceSlotIndex);
+        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
+        ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
         // Check if the slot clicked is one of the vanilla container slots
         if (sourceSlotIndex >= FIRST_INV_SLOT_INDEX && sourceSlotIndex < FIRST_INV_SLOT_INDEX + NUM_TOTAL_SLOTS) {
             // This is a vanilla container slot so merge the stack into the tile inventory
-            if (!mergeItemStack(sourceStack, TE_SLOT_INDEX, TE_SLOT_INDEX + NUM_TE_SLOTS, false)){
+            if (!moveItemStackTo(sourceStack, TE_SLOT_INDEX, TE_SLOT_INDEX + NUM_TE_SLOTS, false)){
                 return ItemStack.EMPTY;  // EMPTY_ITEM
             }
         } else if (sourceSlotIndex >= TE_SLOT_INDEX && sourceSlotIndex < TE_SLOT_INDEX + NUM_TE_SLOTS) {
             // This is a TE slot so merge the stack into the players inventory
-            if (!mergeItemStack(sourceStack, FIRST_INV_SLOT_INDEX, FIRST_INV_SLOT_INDEX + NUM_TOTAL_SLOTS, false)) {
+            if (!moveItemStackTo(sourceStack, FIRST_INV_SLOT_INDEX, FIRST_INV_SLOT_INDEX + NUM_TOTAL_SLOTS, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
@@ -118,9 +118,9 @@ public class ContainerPortalBase extends Container {
 
         // If stack size == 0 (the entire stack was moved) set slot contents to null
         if (sourceStack.getCount() == 0) {
-            sourceSlot.putStack(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         } else {
-            sourceSlot.onSlotChanged();
+            sourceSlot.setChanged();
         }
 
         sourceSlot.onTake(playerEntity, sourceStack);

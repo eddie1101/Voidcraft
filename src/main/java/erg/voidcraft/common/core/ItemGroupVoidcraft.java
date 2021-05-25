@@ -16,17 +16,17 @@ public class ItemGroupVoidcraft extends ItemGroup {
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(VoidcraftItems.itemVoidCrystal);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public void fill(NonNullList<ItemStack> toFill) {
+    public void fillItemList(NonNullList<ItemStack> toFill) {
         for(Item item: ForgeRegistries.ITEMS) {
             if(item != null) {
                 if(item.getRegistryName().getNamespace().equals("voidcraft")) {
-                    item.fillItemGroup(ItemGroup.SEARCH, toFill);
+                    item.fillItemCategory(ItemGroup.TAB_SEARCH, toFill);
                 }
             }
         }

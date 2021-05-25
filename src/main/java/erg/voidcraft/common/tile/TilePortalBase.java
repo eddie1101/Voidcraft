@@ -31,48 +31,48 @@ public class TilePortalBase extends TileEntity implements INamedContainerProvide
 
     public TilePortalBase() {
         super(VoidcraftTiles.tileEntityPortalBaseType);
-        portalBaseContents = InventoryPortalBaseContents.createForTileEntity(NUM_SLOTS, this::canPlayerAccessInventory, this::markDirty);
+        portalBaseContents = InventoryPortalBaseContents.createForTileEntity(NUM_SLOTS, this::canPlayerAccessInventory, this::setChanged);
     }
 
     public boolean canPlayerAccessInventory(PlayerEntity player) {
-        if(this.world.getTileEntity(this.pos) != this) return false;
+        if(this.level.getBlockEntity(worldPosition) != this) return false;
         final double X_CENTRE_OFFSET = 0.5;
         final double Y_CENTRE_OFFSET = 0.5;
         final double Z_CENTRE_OFFSET = 0.5;
         final double MAXIMUM_DISTANCE_SQ = 8.0 * 8.0;
-        return player.getDistanceSq(pos.getX() + X_CENTRE_OFFSET, pos.getY() + Y_CENTRE_OFFSET, pos.getZ() + Z_CENTRE_OFFSET) < MAXIMUM_DISTANCE_SQ;
+        return player.distanceToSqr(worldPosition.getX() + X_CENTRE_OFFSET, worldPosition.getY() + Y_CENTRE_OFFSET, worldPosition.getZ() + Z_CENTRE_OFFSET) < MAXIMUM_DISTANCE_SQ;
     }
 
     @Override
     @Nullable
     public SUpdateTileEntityPacket getUpdatePacket() {
         CompoundNBT nbt = new CompoundNBT();
-        write(nbt);
+        save(nbt);
         int tileEntityType = 69;
-        return new SUpdateTileEntityPacket(this.pos, tileEntityType, nbt);
+        return new SUpdateTileEntityPacket(this.worldPosition, tileEntityType, nbt);
     }
 
     @Override
     public void onDataPacket(NetworkManager network, SUpdateTileEntityPacket packet) {
-        BlockState blockState = world.getBlockState(pos);
-        read(blockState, packet.getNbtCompound());
+        BlockState blockState = level.getBlockState(worldPosition);
+        load(blockState, packet.getTag());
     }
 
     @Override
     public CompoundNBT getUpdateTag() {
         CompoundNBT nbtTagCompound = new CompoundNBT();
-        write(nbtTagCompound);
+        save(nbtTagCompound);
         return nbtTagCompound;
     }
 
     @Override
     public void handleUpdateTag(BlockState blockState, CompoundNBT parentNBTTagCompound) {
-        this.read(blockState, parentNBTTagCompound);
+        this.load(blockState, parentNBTTagCompound);
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT parentNBTTagCompound) {
-        super.write(parentNBTTagCompound);
+    public CompoundNBT save(CompoundNBT parentNBTTagCompound) {
+        super.save(parentNBTTagCompound);
 
         CompoundNBT inventoryNBT = portalBaseContents.serializeNBT();
         parentNBTTagCompound.put(PORTAL_CONTENTS_INV_TAG, inventoryNBT);
@@ -89,32 +89,20 @@ public class TilePortalBase extends TileEntity implements INamedContainerProvide
     }
 
     @Override
-    public void read(BlockState blockState, CompoundNBT parentNBTTagCompound) {
-        super.read(blockState, parentNBTTagCompound);
+    public void load(BlockState blockState, CompoundNBT parentNBTTagCompound) {
+        super.load(blockState, parentNBTTagCompound);
 
         CompoundNBT inventoryNBT = parentNBTTagCompound.getCompound(PORTAL_CONTENTS_INV_TAG);
         portalBaseContents.deserializeNBT(inventoryNBT);
 
-        if(portalBaseContents.getSizeInventory() != NUM_SLOTS) {
+        if(portalBaseContents.getContainerSize() != NUM_SLOTS) {
             throw new IllegalArgumentException("Corrupted NBT: Unexpected number of inventory slots for Portal Base.");
         }
-
-//        BlockPos pos;
-//        CompoundNBT blockPosNBT = null;
-//
-//        if(parentNBTTagCompound.contains("destinationBlockPos")) {
-//            blockPosNBT = parentNBTTagCompound.getCompound("destinationBlockPos");
-//        }
-//
-//        if(blockPosNBT != null && blockPosNBT.contains("x") && blockPosNBT.contains("y") && blockPosNBT.contains("z")) {
-//            pos = new BlockPos(blockPosNBT.getInt("x"), blockPosNBT.getInt("y"), blockPosNBT.getInt("z"));
-//            this.destinationBlockPos = pos;
-//        }
 
     }
 
     public void dropAllContents(World world, BlockPos blockPos) {
-        InventoryHelper.dropInventoryItems(world, blockPos, portalBaseContents);
+        InventoryHelper.dropContents(world, blockPos, portalBaseContents);
     }
 
     @Override

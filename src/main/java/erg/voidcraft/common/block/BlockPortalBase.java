@@ -52,28 +52,28 @@ public class BlockPortalBase extends ContainerBlock {
     private final VoidcraftTeleporter teleporter;
 
     public BlockPortalBase() {
-        super(ContainerBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.5f, 3.5f).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool());
+        super(ContainerBlock.Properties.of(Material.STONE).strength(3.5f, 3.5f).harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops());
         this.teleporter = new VoidcraftTeleporter();
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState iBlockState) {
+    public BlockRenderType getRenderShape(BlockState iBlockState) {
         return BlockRenderType.MODEL;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return VoxelShapes.fullCube();
+        return VoxelShapes.block();
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(POWERED);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-        return this.getDefaultState().with(POWERED, false);
+        return this.defaultBlockState().setValue(POWERED, false);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class BlockPortalBase extends ContainerBlock {
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return createNewTileEntity(world);
+        return newBlockEntity(world);
     }
 
     @Override
@@ -96,23 +96,23 @@ public class BlockPortalBase extends ContainerBlock {
         BlockState newState = getPower(world, pos, currentState);
         if (newState != currentState) {
             final int FLAGS = SetBlockStateFlag.get(SetBlockStateFlag.BLOCK_UPDATE, SetBlockStateFlag.SEND_TO_CLIENTS);
-            world.setBlockState(pos, newState, FLAGS);
+            world.setBlock(pos, newState, FLAGS);
         }
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        super.onBlockPlacedBy(world, pos, state, placer, stack);
+    public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(world, pos, state, placer, stack);
         BlockState newState = getPower(world, pos, state);
         final int FLAGS = SetBlockStateFlag.get(SetBlockStateFlag.BLOCK_UPDATE, SetBlockStateFlag.SEND_TO_CLIENTS);
-        world.setBlockState(pos, newState, FLAGS);
+        world.setBlock(pos, newState, FLAGS);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
-        if(worldIn.isRemote) return ActionResultType.SUCCESS;
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        if(worldIn.isClientSide) return ActionResultType.SUCCESS;
 
-        INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
+        INamedContainerProvider namedContainerProvider = this.getMenuProvider(state, worldIn, pos);
         if(namedContainerProvider != null) {
             if(!(player instanceof ServerPlayerEntity)) return ActionResultType.FAIL;
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
@@ -122,41 +122,41 @@ public class BlockPortalBase extends ContainerBlock {
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() != newState.getBlock()) {
-            TileEntity te = world.getTileEntity(blockPos);
+            TileEntity te = world.getBlockEntity(blockPos);
             if(te instanceof TilePortalBase) {
                 TilePortalBase tilePortalBase = (TilePortalBase) te;
                 tilePortalBase.dropAllContents(world, blockPos);
             }
-            super.onReplaced(state, world, blockPos, newState, isMoving);
+            super.onRemove(state, world, blockPos, newState, isMoving);
         }
     }
 
     @Override
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
+    public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
+        TileEntity tileEntity = worldIn.getBlockEntity(pos);
         TilePortalBase tilePortalBase;
 
         BlockState state = worldIn.getBlockState(pos);
 
-        if (tileEntity instanceof TilePortalBase && !state.get(POWERED) && !entityIn.isCrouching()) {
+        if (tileEntity instanceof TilePortalBase && !state.getValue(POWERED) && !entityIn.isCrouching()) {
             tilePortalBase = (TilePortalBase) tileEntity;
 
             InventoryPortalBaseContents contents = tilePortalBase.getContents();
 
-            ItemStack item = contents.getStackInSlot(0);
+            ItemStack item = contents.getItem(0);
 
             if(item.getItem() instanceof AbstractLodestar) {
                 CompoundNBT tag = item.getTag();
                 if(tag != null && tag.contains("destinationBlockPos") && tag.contains("dimension")) {
 
                     String dimension = tag.getString("dimension").split(":")[1];
-                    RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dimension));
+                    RegistryKey<World> dimensionKey = RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(dimension));
 
                     if(worldIn instanceof ServerWorld) {
 
-                        ServerWorld destinationWorld = entityIn.getServer().getWorld(dimensionKey);
+                        ServerWorld destinationWorld = entityIn.getServer().getLevel(dimensionKey);
 
                         CompoundNBT posTag = tag.getCompound("destinationBlockPos");
                         double x = posTag.getInt("x");
@@ -165,20 +165,20 @@ public class BlockPortalBase extends ContainerBlock {
 
 //                      this logic could probably be condensed but im too tired right now
                         if (item.getItem() instanceof ItemDimensionalLodestar) {
-                            if(!destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString())) {
+                            if(!destinationWorld.dimension().location().toString().equals(worldIn.dimension().location().toString())) {
                                 entityIn.changeDimension(destinationWorld, teleporter);
                             }
                             destinationWorld.getChunk(new BlockPos(x, y, z));
-                            entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+                            entityIn.teleportTo(x + 0.5, y + 1, z + 0.5);
                             spawnParticles(destinationWorld, new BlockPos(x, y, z));
-                            worldIn.playSound(null, pos, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                        } else if (destinationWorld.getDimensionKey().getLocation().toString().equals(worldIn.getDimensionKey().getLocation().toString()) && item.getItem() instanceof ItemDestinationLodestar) {
+                            worldIn.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        } else if (destinationWorld.dimension().location().toString().equals(worldIn.dimension().location().toString()) && item.getItem() instanceof ItemDestinationLodestar) {
                             destinationWorld.getChunk(new BlockPos(x, y, z));
-                            entityIn.setPositionAndUpdate(x + 0.5, y + 1, z + 0.5);
+                            entityIn.teleportTo(x + 0.5, y + 1, z + 0.5);
                             spawnParticles(destinationWorld, new BlockPos(x, y, z));
-                            worldIn.playSound(null, pos, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            worldIn.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
                         }
                     }
                 }
@@ -187,11 +187,11 @@ public class BlockPortalBase extends ContainerBlock {
     }
 
     private void spawnParticles(World world, BlockPos pos) {
-        if(!world.isRemote) {
-            ResourceLocation worldRL = world.getDimensionKey().getLocation();
+        if(!world.isClientSide) {
+            ResourceLocation worldRL = world.dimension().location();
 
             PacketSpawnTeleportParticles packet = new PacketSpawnTeleportParticles(worldRL, pos);
-            VoidcraftPacketHandler.channel.send(PacketDistributor.DIMENSION.with(() -> world.getDimensionKey()), packet);
+            VoidcraftPacketHandler.channel.send(PacketDistributor.DIMENSION.with(() -> world.dimension()), packet);
         }
     }
 
@@ -199,7 +199,7 @@ public class BlockPortalBase extends ContainerBlock {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 
-        if(world.isRemote && !state.get(POWERED)) {
+        if(world.isClientSide && !state.getValue(POWERED)) {
 
             double xpos = pos.getX() + rand.nextDouble();
             double ypos = pos.getY() + 1;
@@ -231,13 +231,13 @@ public class BlockPortalBase extends ContainerBlock {
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(IBlockReader worldIn) {
+    public TileEntity newBlockEntity(IBlockReader worldIn) {
         return new TilePortalBase();
     }
 
     private BlockState getPower(World world, BlockPos pos, BlockState state) {
-        boolean powered = world.isBlockPowered(pos);
-        return state.with(POWERED, powered);
+        boolean powered = world.hasNeighborSignal(pos);
+        return state.setValue(POWERED, powered);
     }
 
 //    @Override
@@ -245,7 +245,7 @@ public class BlockPortalBase extends ContainerBlock {
 //
 //        if (!(player.getHeldItem(handIn).getItem() instanceof ItemDestinationLodestar) || !player.isSneaking()) return ActionResultType.PASS;
 //
-//        if (worldIn.isRemote) {
+//        if (worldIn.isClientSide) {
 //            voidcraftPacketHandler.channel.sendToServer(new PacketSetPortalDestination(player.getHeldItem(handIn), pos));
 //            return ActionResultType.SUCCESS;
 //        }

@@ -23,25 +23,25 @@ public abstract class AbstractLodestar extends Item {
     }
 
     @Override
-    public boolean hasEffect(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         CompoundNBT tag = stack.getTag();
         if(tag == null) return false;
         return tag.contains("destinationBlockPos");
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext ctx) {
+    public ActionResultType useOn(ItemUseContext ctx) {
         PlayerEntity player = ctx.getPlayer();
-        ItemStack item = ctx.getItem();
-        BlockPos pos = ctx.getPos();
-        World world = ctx.getWorld();
+        ItemStack item = ctx.getItemInHand();
+        BlockPos pos = ctx.getClickedPos();
+        World world = ctx.getLevel();
 
 
         if (!(item.getItem() instanceof AbstractLodestar)) {
             return ActionResultType.PASS;
         }
 
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
 
             CompoundNBT parent = item.getTag();
             CompoundNBT child = new CompoundNBT();
@@ -54,7 +54,7 @@ public abstract class AbstractLodestar extends Item {
 
             parent.put("destinationBlockPos", child);
 
-            parent.putString("dimension", world.getDimensionKey().getLocation().toString());
+            parent.putString("dimension", world.dimension().location().toString());
 
             item.setTag(parent);
             return ActionResultType.SUCCESS;
@@ -65,12 +65,12 @@ public abstract class AbstractLodestar extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack itemStack) {
+    public UseAction getUseAnimation(ItemStack itemStack) {
         return UseAction.BLOCK;
     }
 
     @Override
-    public void addInformation(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         tooltip.add(new StringTextComponent("Right click on a block to store its position"));
         CompoundNBT tag = itemStack.getTag();
         if(tag != null && tag.contains("destinationBlockPos") && tag.contains("dimension")) {

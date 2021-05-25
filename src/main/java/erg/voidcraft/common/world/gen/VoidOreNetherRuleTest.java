@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class VoidOreNetherRuleTest extends RuleTest {
 
-    public static final Codec<VoidOreNetherRuleTest> field_237075_a_ = Registry.BLOCK.fieldOf("block").xmap(VoidOreNetherRuleTest::new, (VoidOreNetherRuleTest) -> {
+    public static final Codec<VoidOreNetherRuleTest> CODEC = Registry.BLOCK.fieldOf("block").xmap(VoidOreNetherRuleTest::new, (VoidOreNetherRuleTest) -> {
         return Blocks.BEDROCK;
     }).codec();
 
@@ -20,11 +20,11 @@ public class VoidOreNetherRuleTest extends RuleTest {
 
     @Override
     public boolean test(BlockState state, Random random) {
-        return  state.isIn(Blocks.BEDROCK) || state.isIn(Blocks.NETHERRACK) || state.isIn(Blocks.BASALT) || state.isIn(Blocks.BLACKSTONE);
+        return  state.is(Blocks.BEDROCK) || state.is(Blocks.NETHERRACK) || state.is(Blocks.BASALT) || state.is(Blocks.BLACKSTONE);
     }
 
     @Override
     protected IRuleTestType<?> getType() {
-        return IRuleTestType.BLOCK_MATCH;
+        return IRuleTestType.BLOCK_TEST;
     }
 }

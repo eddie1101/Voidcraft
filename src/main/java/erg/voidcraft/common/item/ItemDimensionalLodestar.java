@@ -16,13 +16,13 @@ import java.util.List;
 public class ItemDimensionalLodestar extends AbstractLodestar {
 
     public ItemDimensionalLodestar() {
-        super(new Item.Properties().group(ItemGroup.MISC).maxStackSize(1));
+        super(new Item.Properties().tab(ItemGroup.TAB_MISC).stacksTo(1));
     }
 
     @Override
-    public void addInformation(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 
-        super.addInformation(itemStack, world, tooltip, flag);
+        super.appendHoverText(itemStack, world, tooltip, flag);
 
         tooltip.set(1, new StringTextComponent("Right click on a block to store its position and dimension."));
         CompoundNBT tag = itemStack.getTag();

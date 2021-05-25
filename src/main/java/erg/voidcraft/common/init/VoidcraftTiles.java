@@ -14,7 +14,8 @@ public class VoidcraftTiles {
     @SubscribeEvent
     public static void registerTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) {
 
-        tileEntityPortalBaseType = TileEntityType.Builder.create(TilePortalBase::new, blockPortalBase).build(null);
+        //
+        tileEntityPortalBaseType = TileEntityType.Builder.of(TilePortalBase::new, blockPortalBase).build(null);
         tileEntityPortalBaseType.setRegistryName("voidcraft", "tile_entity_portal_base");
 
         event.getRegistry().registerAll(

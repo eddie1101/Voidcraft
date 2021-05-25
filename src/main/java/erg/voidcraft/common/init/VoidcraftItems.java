@@ -92,7 +92,7 @@ public class VoidcraftItems {
     @SubscribeEvent
     public static void registerItemBlocks(final RegistryEvent.Register<Item> event) {
 
-        Item.Properties defaultProperties = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
+        Item.Properties defaultProperties = new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS);
 
         itemBlockVoid = new BlockItem(blockVoid, defaultProperties);
         itemBlockPortalBase = new BlockItem(blockPortalBase, defaultProperties);

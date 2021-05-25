@@ -21,7 +21,7 @@ import java.util.Random;
 public class BlockOverworldVoidOre extends AbstractBlockRadiatesMiasma {
 
     public BlockOverworldVoidOre() {
-        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(22, 18).harvestTool(ToolType.PICKAXE).harvestLevel(3).setRequiresTool(), 50, false);
+        super(Block.Properties.of(Material.STONE).strength(22, 18).harvestTool(ToolType.PICKAXE).harvestLevel(3).requiresCorrectToolForDrops(), 50, false);
     }
 
     @Override

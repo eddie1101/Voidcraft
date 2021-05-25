@@ -5,7 +5,7 @@ import net.minecraft.item.*;
 public class ItemDestinationLodestar extends AbstractLodestar {
 
     public ItemDestinationLodestar() {
-        super(new Item.Properties().group(ItemGroup.MISC).maxStackSize(1));
+        super(new Item.Properties().tab(ItemGroup.TAB_MISC).stacksTo(1));
     }
 
 }

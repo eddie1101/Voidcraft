@@ -10,7 +10,7 @@ public class ParticleTypeMiasma extends ParticleType<ParticleDataMiasma> {
         super(IGNORE_RANGE_CHECK, ParticleDataMiasma.DESERIALIZER);
     }
 
-    public Codec<ParticleDataMiasma> func_230522_e_() {
+    public Codec<ParticleDataMiasma> codec() {
         return ParticleDataMiasma.CODEC;
     }
 

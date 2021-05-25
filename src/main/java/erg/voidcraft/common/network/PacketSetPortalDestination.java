@@ -23,25 +23,25 @@ public class PacketSetPortalDestination {
 
     public void encode(PacketBuffer buf) {
         buf.writeBlockPos(pos);
-        buf.writeItemStack(item);
+        buf.writeItem(item);
     }
 
     public static PacketSetPortalDestination decode(PacketBuffer buf) {
         BlockPos pos = buf.readBlockPos();
-        ItemStack item = buf.readItemStack();
+        ItemStack item = buf.readItem();
         return new PacketSetPortalDestination(item, pos);
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        if(!(ctx.get().getSender().getServerWorld().getTileEntity(pos) instanceof TilePortalBase)) {
+        if(!(ctx.get().getSender().getLevel().getBlockEntity(pos) instanceof TilePortalBase)) {
             ctx.get().setPacketHandled(true);
             return;
         }
 
         ctx.get().enqueueWork(() -> {
-            ServerWorld world = ctx.get().getSender().getServerWorld();
+            ServerWorld world = ctx.get().getSender().getLevel();
 
-            TilePortalBase tilePortalBase = (TilePortalBase)world.getTileEntity(this.pos);
+            TilePortalBase tilePortalBase = (TilePortalBase)world.getBlockEntity(this.pos);
 
             CompoundNBT itemTag = item.getTag();
 

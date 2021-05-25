@@ -11,12 +11,12 @@ import net.minecraftforge.common.ToolType;
 public class BlockVoid extends AbstractBlockRadiatesMiasma {
 
     public BlockVoid() {
-        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(32, 30).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool(),
+        super(Block.Properties.of(Material.STONE).strength(32, 30).harvestLevel(3).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops(),
                 100, false);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState blockState) {
+    public BlockRenderType getRenderShape(BlockState blockState) {
         return BlockRenderType.MODEL;
     }
 }
