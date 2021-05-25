@@ -18,14 +18,18 @@ import java.util.Random;
 public abstract class AbstractBlockRadiatesMiasma extends Block {
 
     protected final int PARTICLE_RATE;
-    protected final boolean IGNORE_VALID_SPAWN_BLOCKS;
+    protected final double PARTICLE_SPEED;
+    protected final Direction[] FACINGS;
     protected final Block[] VALID_SPAWN_BLOCKS;
+    protected final boolean IGNORE_VALID_SPAWN_BLOCKS;
 
     public AbstractBlockRadiatesMiasma(AbstractBlock.Properties properties, int particleRate, boolean ignoreValidSpawns) {
         super(properties);
         if(particleRate > 100) particleRate = 100;
         if(particleRate < 0) particleRate = 0;
         this.PARTICLE_RATE = particleRate;
+        this.PARTICLE_SPEED = 0.01;
+        this.FACINGS = Direction.values();
         this.IGNORE_VALID_SPAWN_BLOCKS = ignoreValidSpawns;
         this.VALID_SPAWN_BLOCKS = new Block[]{Blocks.AIR};
     }
@@ -35,8 +39,19 @@ public abstract class AbstractBlockRadiatesMiasma extends Block {
         if(particleRate > 100) particleRate = 100;
         if(particleRate < 0) particleRate = 0;
         this.PARTICLE_RATE = particleRate;
+        this.PARTICLE_SPEED = 0.01;
+        this.FACINGS = Direction.values();
         this.IGNORE_VALID_SPAWN_BLOCKS = false;
         this.VALID_SPAWN_BLOCKS = validSpawns;
+    }
+
+    public AbstractBlockRadiatesMiasma(AbstractBlock.Properties properties, int particleRate, int particleSpeed, Direction[] facings, Block[] validSpawns) {
+        super(properties);
+        this.PARTICLE_RATE = particleRate;
+        this.PARTICLE_SPEED = particleSpeed;
+        this.FACINGS = facings;
+        this.VALID_SPAWN_BLOCKS = validSpawns;
+        IGNORE_VALID_SPAWN_BLOCKS = false;
     }
 
     @Override
@@ -45,7 +60,7 @@ public abstract class AbstractBlockRadiatesMiasma extends Block {
 
         if(world.isRemote) {
 
-            for(Direction facing: Direction.values()) {
+            for(Direction facing: FACINGS) {
 
                 Vector3d[] posAndVel = getParticlePositionAndVelocityOnSide(facing, pos, rand);
 
@@ -89,31 +104,31 @@ public abstract class AbstractBlockRadiatesMiasma extends Block {
         double z = pos.getZ() + rand.nextDouble();
 
         double xvel = (rand.nextDouble() - 0.5) / 100;
-        double yvel = -0.01;
+        double yvel = -PARTICLE_SPEED;
         double zvel = (rand.nextDouble() - 0.5) / 100;
 
         if(facing == Direction.UP) {
             y++;
-            yvel = 0.01;
+            yvel = PARTICLE_SPEED;
         } else if (facing == Direction.EAST) { // +X
             x = pos.getX() + 1;
             y += rand.nextDouble();
-            xvel = 0.01;
+            xvel = PARTICLE_SPEED;
             yvel = (rand.nextDouble() - 0.5) / 100;
         } else if (facing == Direction.WEST) { // -X
             x = pos.getX();
             y += rand.nextDouble();
-            xvel = -0.01;
+            xvel = -PARTICLE_SPEED;
             yvel = (rand.nextDouble() - 0.5) / 100;
         } else if(facing == Direction.SOUTH) { // +Z
             z = pos.getZ() + 1;
             y += rand.nextDouble();
-            zvel = 0.01;
+            zvel = PARTICLE_SPEED;
             yvel = (rand.nextDouble() - 0.5) / 100;
         } else if(facing == Direction.NORTH) { // -Z
             z = pos.getZ();
             y += rand.nextDouble();
-            zvel = -0.01;
+            zvel = -PARTICLE_SPEED;
             yvel = (rand.nextDouble() - 0.5) / 100;
         }
 
