@@ -15,11 +15,11 @@ public class ParticleMiasmaFactory implements IParticleFactory<ParticleDataMiasm
 
     @Nullable
     @Override
-    public Particle makeParticle(ParticleDataMiasma flameParticleData, ClientWorld world, double xPos, double yPos, double zPos, double xVelocity, double yVelocity, double zVelocity) {
+    public Particle createParticle(ParticleDataMiasma flameParticleData, ClientWorld world, double xPos, double yPos, double zPos, double xVelocity, double yVelocity, double zVelocity) {
         ParticleMiasma newParticle = new ParticleMiasma(world, xPos, yPos, zPos, xVelocity, yVelocity, zVelocity,
                 flameParticleData.getTint(), flameParticleData.getDiameter(),
                 sprites);
-        newParticle.selectSpriteRandomly(sprites);
+        newParticle.pickSprite(sprites);
         return newParticle;
     }
 

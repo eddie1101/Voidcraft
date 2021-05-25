@@ -72,7 +72,7 @@ public class ContainerPortalBase extends Container {
             }
         }
 
-        if(NUM_TE_SLOTS != portalContents.getSizeInventory()) {
+        if(NUM_TE_SLOTS != portalContents.getContainerSize()) {
             //this is bad but I dont have a logger lol oh well
         }
 
@@ -85,7 +85,7 @@ public class ContainerPortalBase extends Container {
 
     @Override
     public boolean stillValid(PlayerEntity playerIn) {
-        return portalContents.isUsableByPlayer(playerIn);
+        return portalContents.stillValid(playerIn);
     }
 
     @Override

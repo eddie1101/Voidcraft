@@ -22,7 +22,7 @@ public class ScreenPortalBase extends ContainerScreen<ContainerPortalBase> {
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderToolTip(matrixStack, mouseX, mouseY);
+        renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
