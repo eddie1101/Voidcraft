@@ -51,9 +51,12 @@ public class Voidcraft {
         -----------------------
         Soon
         -----------------------
+        add a gamerule to toggle voidlurkers taking damage above y=15
+        rewrite voidlurker model in a sensible way FOR THE LOVE OF GOD PLEASE
+        make voidlurkers spawn naturally
+        give voidlurkers some cool drops
         armor models
         Some sort of TE to refine void crystals
-        Voidlurker mob? (maybe some cool drops needed for crafting cool shit?) look into registering models and renderers
         -----------------------
         Not so soon and ideas
         -----------------------
@@ -63,6 +66,7 @@ public class Voidcraft {
         Some sort of power source for portals? other things that might require that power source?
         a way to access the void
         collect power from the void
+        void dimension
         some way to infuse void crystals
         Soul Slay Bow (& void crystal arrows)
         void miasma when void is accessed
