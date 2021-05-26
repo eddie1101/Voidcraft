@@ -25,6 +25,7 @@ public class Voidcraft {
         registerCommonEvents();
 
         FORGE_EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
+        FORGE_EVENT_BUS.addListener(VoidcraftEntities::registerWorldSpawn);
 
         FORGE_EVENT_BUS.register(VoidcraftCommands.class);
 
@@ -53,10 +54,11 @@ public class Voidcraft {
         -----------------------
         add a gamerule to toggle voidlurkers taking damage above y=15
         rewrite voidlurker model in a sensible way FOR THE LOVE OF GOD PLEASE
-        make voidlurkers spawn naturally
+        IM GONNA MAKE A FUCKING GRENADE
         give voidlurkers some cool drops
         armor models
         Some sort of TE to refine void crystals
+        add button to portal base to invert redstone input
         -----------------------
         Not so soon and ideas
         -----------------------
