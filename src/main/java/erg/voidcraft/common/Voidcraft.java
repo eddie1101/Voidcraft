@@ -11,6 +11,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+
 @Mod(Voidcraft.MODID)
 public class Voidcraft {
     public static final String MODID = "voidcraft";
@@ -37,6 +38,9 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftItems.class);
         MOD_EVENT_BUS.register(VoidcraftParticles.class);
         MOD_EVENT_BUS.register(VoidcraftPacketHandler.class);
+        MOD_EVENT_BUS.register(VoidcraftEntities.class);
+
+        MOD_EVENT_BUS.addListener(VoidcraftEntities::registerAttributes);
     }
 
    public void registerClientEvents() {
@@ -47,10 +51,12 @@ public class Voidcraft {
         -----------------------
         Soon
         -----------------------
+        add a gamerule to toggle voidlurkers taking damage above y=15
+        rewrite voidlurker model in a sensible way FOR THE LOVE OF GOD PLEASE
+        make voidlurkers spawn naturally
+        give voidlurkers some cool drops
         armor models
         Some sort of TE to refine void crystals
-        Voidlurker mob? (maybe some cool drops needed for crafting cool shit?)
-        Update to mojmaps
         -----------------------
         Not so soon and ideas
         -----------------------
@@ -60,6 +66,7 @@ public class Voidcraft {
         Some sort of power source for portals? other things that might require that power source?
         a way to access the void
         collect power from the void
+        void dimension
         some way to infuse void crystals
         Soul Slay Bow (& void crystal arrows)
         void miasma when void is accessed
