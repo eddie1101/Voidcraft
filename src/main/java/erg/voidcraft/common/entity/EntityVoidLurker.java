@@ -60,18 +60,27 @@ public class EntityVoidLurker extends MonsterEntity {
     public void baseTick() {
         super.baseTick();
 
+        if(this.position().y() > 15) {
+            this.hurt(DamageSource.MAGIC, 1);
+        }
+
         if(level.isClientSide) {
 
             Color tint = new Color(0.5f, 0.5f, 0.5f);
             double diameter = 0.1f + (Math.random() * 0.25f);
 
-            double posX = getX() + (Math.random() - 0.5) * 0.25;
-            double posY = getY() + (Math.random() - 0.5) * 0.25;
-            double posZ = getZ() + (Math.random() - 0.5) * 0.25;
+            double posX = getX() + (Math.random() - 0.5);
+            double posY = getY() + ((2 * Math.random()) - 0.5) + 1;
+            double posZ = getZ() + (Math.random() - 0.5);
 
             ParticleDataMiasma dataMiasma = new ParticleDataMiasma(tint, diameter);
             level.addParticle(dataMiasma, posX, posY, posZ, 0, -0.01, 0);
         }
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
     }
 
     @Override

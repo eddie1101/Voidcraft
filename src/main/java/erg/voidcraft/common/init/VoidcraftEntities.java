@@ -14,8 +14,8 @@ import net.minecraftforge.registries.ObjectHolder;
 public class VoidcraftEntities {
 
     public static final EntityType<EntityVoidLurker> VOID_LURKER = EntityType.Builder.<EntityVoidLurker>of(EntityVoidLurker::new, EntityClassification.MONSTER)
-            .sized(1, 1)
-            .setUpdateInterval(6)
+            .sized(0.75f, 2.5f)
+            .setUpdateInterval(1)
             .setTrackingRange(10)
             .setShouldReceiveVelocityUpdates(true)
             .build(new ResourceLocation("voidcraft", "entity_void_lurker").toString());
@@ -29,11 +29,13 @@ public class VoidcraftEntities {
 
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(VOID_LURKER, MobEntity.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.75)
+                .add(Attributes.MOVEMENT_SPEED, 0.5)
                 .add(Attributes.ATTACK_DAMAGE, 6)
                 .add(Attributes.FOLLOW_RANGE, 50)
                 .add(Attributes.ARMOR, 8)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 2)
+                .add(Attributes.ATTACK_SPEED, 0.5)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .build());
     }
