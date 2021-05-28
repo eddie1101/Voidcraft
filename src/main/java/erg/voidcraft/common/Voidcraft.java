@@ -2,7 +2,9 @@ package erg.voidcraft.common;
 
 import erg.voidcraft.client.init.ClientSetup;
 import erg.voidcraft.common.init.*;
+import erg.voidcraft.common.world.VoidcraftGameRules;
 import erg.voidcraft.common.world.gen.OreGeneration;
+import net.minecraft.world.GameRules;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -10,7 +12,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
 
 @Mod(Voidcraft.MODID)
 public class Voidcraft {
@@ -43,6 +44,7 @@ public class Voidcraft {
         MOD_EVENT_BUS.addListener(VoidcraftFeatures::registerFeatures);
         MOD_EVENT_BUS.addListener(VoidcraftEntitySpawns::registerSpawnPlacement);
         MOD_EVENT_BUS.addListener(VoidcraftEntities::registerAttributes);
+        MOD_EVENT_BUS.addListener(VoidcraftGameRules::registerGameRules);
     }
 
     public void registerClientEvents() {
@@ -56,11 +58,13 @@ public class Voidcraft {
         Soon
         -----------------------
         add a gamerule to toggle voidlurkers taking damage above y=15
-        rewrite voidlurker model in a sensible way FOR THE LOVE OF GOD PLEASE
-        IM GONNA MAKE A FUCKING GRENADE
+        make the portal block animated based on whether it's powered or inverted
         give voidlurkers some cool drops
-        armor models
         Some sort of TE to refine void crystals
+        Pouch and bottomless pouch
+        IM GONNA MAKE A FUCKING GRENADE
+        armor models
+        rewrite voidlurker model in a sensible way FOR THE LOVE OF GOD PLEASE
         -----------------------
         Not so soon and ideas
         -----------------------
