@@ -48,8 +48,8 @@ import java.util.Random;
 
 public class BlockPortalBase extends ContainerBlock {
 
-    private static final BooleanProperty POWERED = BooleanProperty.create("powered");
-    private static final BooleanProperty INVERTED = BooleanProperty.create("inverted");
+    public static final BooleanProperty POWERED = BooleanProperty.create("powered");
+    public static final BooleanProperty INVERTED = BooleanProperty.create("inverted");
     private final VoidcraftTeleporter teleporter;
 
     public BlockPortalBase() {
@@ -136,10 +136,14 @@ public class BlockPortalBase extends ContainerBlock {
 
     @Override
     public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
+
         TileEntity tileEntity = worldIn.getBlockEntity(pos);
         TilePortalBase tilePortalBase;
 
         BlockState state = worldIn.getBlockState(pos);
+
+        System.out.println("Inverted: " + state.getValue(INVERTED));
+        System.out.println("My position: " + pos.toString());
 
         boolean active = state.getValue(INVERTED) ? state.getValue(POWERED) : !state.getValue(POWERED);
 

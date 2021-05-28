@@ -60,6 +60,14 @@ public class VoidcraftPacketHandler {
                 PacketSpawnTestParticles::decode,
                 ClientPacketSpawnTestParticlesHandler::onMessageReceived,
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+
+        channel.registerMessage(
+                nextID(),
+                PacketSetInverted.class,
+                PacketSetInverted::encode,
+                PacketSetInverted::decode,
+                ServerPacketSetInvertedHandler::onMessageReceived,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
 
 

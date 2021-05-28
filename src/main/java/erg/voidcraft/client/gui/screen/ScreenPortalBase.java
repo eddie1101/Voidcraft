@@ -2,20 +2,47 @@ package erg.voidcraft.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import erg.voidcraft.common.init.VoidcraftPacketHandler;
 import erg.voidcraft.common.inventory.container.ContainerPortalBase;
+import erg.voidcraft.common.network.PacketSetInverted;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.client.gui.screen.inventory.CraftingScreen;
 
 import java.awt.*;
 
+
 public class ScreenPortalBase extends ContainerScreen<ContainerPortalBase> {
+
+    private Button toggleRedstoneInput;
 
     public ScreenPortalBase(ContainerPortalBase containerPortalBase, PlayerInventory playerInventory, ITextComponent title) {
         super(containerPortalBase, playerInventory, title);
         imageWidth = 176;
         imageHeight = 133;
+
+        if(containerPortalBase.pos != null) {
+            BlockPos statePos = containerPortalBase.pos;
+            toggleRedstoneInput = new Button(100, 100, 25, 20,
+                    new StringTextComponent("!"),
+                    button -> VoidcraftPacketHandler.channel.send(PacketDistributor.SERVER.noArg(), new PacketSetInverted(statePos)));
+        } else {
+            toggleRedstoneInput = new Button(100, 100, 25, 20,
+                    new StringTextComponent("!"),
+                    button -> {});
+        }
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        addButton(toggleRedstoneInput);
     }
 
     @Override
