@@ -49,6 +49,7 @@ import java.util.Random;
 public class BlockPortalBase extends ContainerBlock {
 
     private static final BooleanProperty POWERED = BooleanProperty.create("powered");
+    private static final BooleanProperty INVERTED = BooleanProperty.create("inverted");
     private final VoidcraftTeleporter teleporter;
 
     public BlockPortalBase() {
@@ -73,7 +74,7 @@ public class BlockPortalBase extends ContainerBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-        return this.defaultBlockState().setValue(POWERED, false);
+        return this.defaultBlockState().setValue(POWERED, false).setValue(INVERTED, false);
     }
 
     @Override
@@ -116,7 +117,7 @@ public class BlockPortalBase extends ContainerBlock {
         if(namedContainerProvider != null) {
             if(!(player instanceof ServerPlayerEntity)) return ActionResultType.FAIL;
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
-            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, packetBuffer -> {});
+            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, pos);
         }
         return ActionResultType.SUCCESS;
     }
@@ -140,7 +141,9 @@ public class BlockPortalBase extends ContainerBlock {
 
         BlockState state = worldIn.getBlockState(pos);
 
-        if (tileEntity instanceof TilePortalBase && !state.getValue(POWERED) && !entityIn.isCrouching()) {
+        boolean active = state.getValue(INVERTED) ? state.getValue(POWERED) : !state.getValue(POWERED);
+
+        if (tileEntity instanceof TilePortalBase && active && !entityIn.isCrouching()) {
             tilePortalBase = (TilePortalBase) tileEntity;
 
             InventoryPortalBaseContents contents = tilePortalBase.getContents();

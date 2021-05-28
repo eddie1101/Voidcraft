@@ -24,9 +24,8 @@ public class Voidcraft {
 
         registerCommonEvents();
 
-        FORGE_EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
+        FORGE_EVENT_BUS.addListener(OreGeneration::generateOres);
         FORGE_EVENT_BUS.addListener(VoidcraftEntities::registerWorldSpawn);
-
         FORGE_EVENT_BUS.register(VoidcraftCommands.class);
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> this::registerClientEvents);
@@ -41,12 +40,16 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftPacketHandler.class);
         MOD_EVENT_BUS.register(VoidcraftEntities.class);
 
+
+        MOD_EVENT_BUS.addListener(VoidcraftFeatures::registerFeatures);
         MOD_EVENT_BUS.addListener(VoidcraftEntities::registerAttributes);
     }
 
-   public void registerClientEvents() {
-       MOD_EVENT_BUS.register(ClientSetup.class);
+    public void registerClientEvents() {
+        MOD_EVENT_BUS.register(ClientSetup.class);
     }
+
+}
 
     /*TODO:
         -----------------------
@@ -58,7 +61,7 @@ public class Voidcraft {
         give voidlurkers some cool drops
         armor models
         Some sort of TE to refine void crystals
-        add button to portal base to invert redstone input
+        add button to portal base to invert redstone input (apparently there's an overload of networkHooks.openGui that lets you write data to a packet)
         -----------------------
         Not so soon and ideas
         -----------------------
@@ -75,4 +78,3 @@ public class Voidcraft {
      */
 
 
-}
