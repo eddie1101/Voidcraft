@@ -58,7 +58,7 @@ public class EntityVoidLurker extends MonsterEntity {
         if (sourceEntity != null) {
             sourceEntity.hurt(DamageSource.GENERIC, amount / 2);
         }
-        return super.hurt(source, amount);
+        return super.hurt(source, amount / 2);
     }
 
     @Override

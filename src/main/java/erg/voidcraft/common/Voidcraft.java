@@ -61,7 +61,6 @@ public class Voidcraft {
         give voidlurkers some cool drops
         armor models
         Some sort of TE to refine void crystals
-        add button to portal base to invert redstone input (apparently there's an overload of networkHooks.openGui that lets you write data to a packet)
         -----------------------
         Not so soon and ideas
         -----------------------
