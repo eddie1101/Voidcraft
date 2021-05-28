@@ -29,10 +29,8 @@ public class ServerPacketSetInvertedHandler {
         ctx.setPacketHandled(true);
 
         if(ctx.getSender() == null) {
-            System.out.println("This ain't gonna work, chief");
+            LOGGER.warn("SetInverted message does not have a sender!");
             return;
-        } else {
-            System.out.println("A surprise, but a welcome one");
         }
 
 //        Optional<ClientWorld> clientWorld = LogicalSidedProvider.CLIENTWORLD.get(ctx.getDirection().getReceptionSide());
@@ -64,7 +62,6 @@ public class ServerPacketSetInvertedHandler {
         }
         boolean inverted = state.getValue(BlockPortalBase.INVERTED);
         world.setBlockAndUpdate(pos, state.setValue(BlockPortalBase.INVERTED, !inverted));
-        System.out.println("Changed state from " + inverted + " to " + state.getValue(BlockPortalBase.INVERTED) + " at pos " + pos.toString());
     }
 
 }
