@@ -69,7 +69,7 @@ public class BlockPortalBase extends ContainerBlock {
 
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(POWERED);
+        builder.add(POWERED).add(INVERTED);
     }
 
     @Override

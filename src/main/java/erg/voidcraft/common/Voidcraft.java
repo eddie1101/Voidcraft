@@ -25,7 +25,7 @@ public class Voidcraft {
         registerCommonEvents();
 
         FORGE_EVENT_BUS.addListener(OreGeneration::generateOres);
-        FORGE_EVENT_BUS.addListener(VoidcraftEntities::registerWorldSpawn);
+        FORGE_EVENT_BUS.addListener(VoidcraftEntitySpawns::onBiomeLoad);
         FORGE_EVENT_BUS.register(VoidcraftCommands.class);
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> this::registerClientEvents);
@@ -40,8 +40,8 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftPacketHandler.class);
         MOD_EVENT_BUS.register(VoidcraftEntities.class);
 
-
         MOD_EVENT_BUS.addListener(VoidcraftFeatures::registerFeatures);
+        MOD_EVENT_BUS.addListener(VoidcraftEntitySpawns::registerSpawnPlacement);
         MOD_EVENT_BUS.addListener(VoidcraftEntities::registerAttributes);
     }
 

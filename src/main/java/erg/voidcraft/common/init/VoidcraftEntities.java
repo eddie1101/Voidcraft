@@ -2,15 +2,20 @@ package erg.voidcraft.common.init;
 
 import erg.voidcraft.common.entity.EntityVoidLurker;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class VoidcraftEntities {
@@ -27,10 +32,6 @@ public class VoidcraftEntities {
         event.getRegistry().registerAll(
             VOID_LURKER.setRegistryName("voidcraft:entity_void_lurker")
         );
-    }
-
-    public static void registerWorldSpawn(BiomeLoadingEvent event) {
-        event.getSpawns().addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(VOID_LURKER, 2, 1, 3));
     }
 
     public static void registerAttributes(EntityAttributeCreationEvent event) {

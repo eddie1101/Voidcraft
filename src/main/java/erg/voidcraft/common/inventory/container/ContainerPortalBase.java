@@ -11,6 +11,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.PlayerInvWrapper;
 
@@ -32,6 +33,7 @@ public class ContainerPortalBase extends Container {
     public static final int PLAYER_INVENTORY_YPOS = 51;
 
     private InventoryPortalBaseContents portalContents;
+    public BlockPos pos = null;
 
     public static ContainerPortalBase createContainerServerSide(int windowID, PlayerInventory playerInventory, InventoryPortalBaseContents portalContents) {
         return new ContainerPortalBase(windowID, playerInventory, portalContents);
@@ -41,7 +43,12 @@ public class ContainerPortalBase extends Container {
 
         InventoryPortalBaseContents portalContents = InventoryPortalBaseContents.createForClientSideContainer(TilePortalBase.NUM_SLOTS);
 
-        return new ContainerPortalBase(windowID, playerInventory, portalContents);
+        return new ContainerPortalBase(windowID, playerInventory, portalContents, data.readBlockPos());
+    }
+
+    private ContainerPortalBase(int WindowID, PlayerInventory playerInventory, InventoryPortalBaseContents portalContents, BlockPos pos) {
+        this(WindowID, playerInventory, portalContents);
+        this.pos = pos;
     }
 
     private ContainerPortalBase(int windowID, PlayerInventory playerInventory, InventoryPortalBaseContents portalContents) {
@@ -53,6 +60,7 @@ public class ContainerPortalBase extends Container {
         PlayerInvWrapper playerInventoryForge = new PlayerInvWrapper(playerInventory);
 
         this.portalContents = portalContents;
+        this.pos = pos;
 
         final int SLOT_X_SPACING = 18;
         final int SLOT_Y_SPACING = 18;

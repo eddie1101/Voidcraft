@@ -3,7 +3,9 @@ package erg.voidcraft.common.entity;
 import erg.voidcraft.common.init.VoidcraftEntities;
 import erg.voidcraft.common.particle.ParticleDataMiasma;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.CatEntity;
@@ -13,10 +15,13 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.Random;
 
 public class EntityVoidLurker extends MonsterEntity {
 
@@ -60,7 +65,7 @@ public class EntityVoidLurker extends MonsterEntity {
     public void baseTick() {
         super.baseTick();
 
-        if(this.position().y() > 15) {
+        if(this.position().y() > 15 && !this.level.dimension().equals(World.END)) {
             this.hurt(DamageSource.MAGIC, 1);
         }
 
@@ -110,6 +115,10 @@ public class EntityVoidLurker extends MonsterEntity {
     @Override
     public boolean canBeLeashed(PlayerEntity player) {
         return false;
+    }
+
+    public static boolean checkSpawnRules(EntityType<? extends MonsterEntity> entity, IServerWorld world, SpawnReason reason, BlockPos pos, Random rand) {
+        return pos.getY() < 15 && MonsterEntity.checkMonsterSpawnRules(entity, world, reason, pos, rand);
     }
 
 }
