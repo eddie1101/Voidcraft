@@ -5,7 +5,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class VoidcraftGameRules {
 
-    public static GameRules.RuleKey<?> RULE_VOIDLURKERHEIGHTDAMAGE;
+    public static GameRules.RuleKey<GameRules.BooleanValue> RULE_VOIDLURKERHEIGHTDAMAGE;
 
     public static void registerGameRules(FMLCommonSetupEvent event) {
         RULE_VOIDLURKERHEIGHTDAMAGE = GameRules.register("voidLurkersTakeHeightDamage", GameRules.Category.MOBS, GameRules.BooleanValue.create(true));

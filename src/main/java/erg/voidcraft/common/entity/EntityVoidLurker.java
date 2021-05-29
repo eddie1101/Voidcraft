@@ -2,6 +2,7 @@ package erg.voidcraft.common.entity;
 
 import erg.voidcraft.common.init.VoidcraftEntities;
 import erg.voidcraft.common.particle.ParticleDataMiasma;
+import erg.voidcraft.common.world.VoidcraftGameRules;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.EntityType;
@@ -65,7 +66,7 @@ public class EntityVoidLurker extends MonsterEntity {
     public void baseTick() {
         super.baseTick();
 
-        if(this.position().y() > 15 && !this.level.dimension().equals(World.END)) {
+        if(this.position().y() > 15 && !this.level.dimension().equals(World.END) && this.level.getGameRules().getBoolean(VoidcraftGameRules.RULE_VOIDLURKERHEIGHTDAMAGE)) {
             this.hurt(DamageSource.MAGIC, 1);
         }
 
