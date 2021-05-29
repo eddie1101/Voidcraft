@@ -17,6 +17,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
@@ -55,11 +56,21 @@ public class EntityVoidLurker extends MonsterEntity {
 
     @Override
     public boolean hurt(@Nonnull DamageSource source, float amount) {
-        Entity sourceEntity = source.getDirectEntity();
-        if (sourceEntity != null) {
-            sourceEntity.hurt(DamageSource.GENERIC, amount / 2);
+        Entity sourceEntity = source.getEntity();
+        float reflectionFraction = 0.0f;
+        if(level.getDifficulty().equals(Difficulty.EASY)) {
+            reflectionFraction = 0.25f;
+        } else if(level.getDifficulty().equals(Difficulty.NORMAL)) {
+            reflectionFraction = 0.5f;
+        } else if(level.getDifficulty().equals(Difficulty.HARD)) {
+            reflectionFraction = 0.75f;
         }
-        return super.hurt(source, amount / 2);
+
+        float takenFraction = 1f - reflectionFraction;
+        if (sourceEntity != null) {
+            sourceEntity.hurt(DamageSource.GENERIC, amount * reflectionFraction);
+        }
+        return super.hurt(source, amount * takenFraction);
     }
 
     @Override

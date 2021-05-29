@@ -36,12 +36,12 @@ public class VoidcraftEntities {
 
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(VOID_LURKER, MobEntity.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.5)
-                .add(Attributes.ATTACK_DAMAGE, 6)
+                .add(Attributes.MOVEMENT_SPEED, 0.65)
+                .add(Attributes.ATTACK_DAMAGE, 10)
                 .add(Attributes.FOLLOW_RANGE, 50)
                 .add(Attributes.ARMOR, 8)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
-                .add(Attributes.ATTACK_SPEED, 0.5)
+                .add(Attributes.ATTACK_SPEED, 0.1)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .build());

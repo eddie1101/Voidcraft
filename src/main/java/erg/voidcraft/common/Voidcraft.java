@@ -57,14 +57,21 @@ public class Voidcraft {
         -----------------------
         Soon
         -----------------------
-        add a gamerule to toggle voidlurkers taking damage above y=15
         make the portal block animated based on whether it's powered or inverted
+        voidlurker spawn egg
         give voidlurkers some cool drops
         Some sort of TE to refine void crystals
         Pouch and bottomless pouch
         IM GONNA MAKE A FUCKING GRENADE
         armor models
         rewrite voidlurker model in a sensible way FOR THE LOVE OF GOD PLEASE
+        -----------------------
+        Pending fixes
+        -----------------------
+        Portal Base totally glitching out in multiplayer
+        particle tester crashing dedicated servers (gonna remove the item anyways, but it would be nice to know why)
+        voidlurkers don't reflect ranged damage (and they should)
+        void lurkers need to be stronger (do more damage and run faster)
         -----------------------
         Not so soon and ideas
         -----------------------
