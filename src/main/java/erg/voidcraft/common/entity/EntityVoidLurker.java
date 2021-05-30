@@ -77,6 +77,10 @@ public class EntityVoidLurker extends MonsterEntity {
     public void baseTick() {
         super.baseTick();
 
+        if(level.getDifficulty().equals(Difficulty.PEACEFUL)) {
+            this.remove();
+        }
+
         if(this.position().y() > 15 && !this.level.dimension().equals(World.END) && this.level.getGameRules().getBoolean(VoidcraftGameRules.RULE_VOIDLURKERHEIGHTDAMAGE)) {
             this.hurt(DamageSource.MAGIC, 1);
         }
@@ -117,6 +121,10 @@ public class EntityVoidLurker extends MonsterEntity {
                 level.addParticle(dataMiasma, posX, posY, posZ, 0, -0.01, 0);
             }
         }
+    }
+    @Override
+    public boolean shouldDespawnInPeaceful() {
+        return true;
     }
 
     @Override

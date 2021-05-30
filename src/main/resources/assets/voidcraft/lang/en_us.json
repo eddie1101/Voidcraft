@@ -9,6 +9,7 @@
     "item.voidcraft.item_destination_lodestar": "Destination Lodestar",
     "item.voidcraft.item_crystal_catalyst": "Crystal Catalyst",
     "item.voidcraft.item_void_crystal": "Void Crystal",
+    "item.voidcraft.item_void_pearl": "Void Pearl",
     "item.voidcraft.item_void_chisel": "Void Chisel",
     "item.voidcraft.item_void_helmet": "Void Helmet",
     "item.voidcraft.item_void_chestplate": "Void Chesplate",
@@ -19,6 +20,8 @@
     "item.voidcraft.item_void_axe": "Void Axe",
     "item.voidcraft.item_void_hoe": "Void Hoe",
     "item.voidcraft.item_void_sword": "Void Sword",
+
+    "item.voidcraft.item_void_lurker_spawn_egg": "VoidLurker Spawn Egg",
 
     "item.voidcraft.item_particle_tester": "Particle Tester",
 

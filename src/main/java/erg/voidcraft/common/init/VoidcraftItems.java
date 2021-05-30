@@ -6,15 +6,20 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Rarity;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static erg.voidcraft.common.init.VoidcraftBlocks.*;
 import static erg.voidcraft.common.util.SetRegistryName.setBlockItemName;
 import static erg.voidcraft.common.util.SetRegistryName.setItemName;
 
 public class VoidcraftItems {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static final ItemGroupVoidcraft group = new ItemGroupVoidcraft("item_group_basic_portals");
 
@@ -41,6 +46,8 @@ public class VoidcraftItems {
     public static final ItemVoidCrystal itemVoidCrystal = null;
     @ObjectHolder("voidcraft:item_crystal_catalyst")
     public static final ItemCrystalCatalyst itemCrystalCatalyst = null;
+    @ObjectHolder("voidcraft:item_void_pearl")
+    public static final Item itemVoidPearl = null;
 
     @ObjectHolder("voidcraft:item_void_chisel")
     public static final ItemVoidChisel itemVoidChisel = null;
@@ -68,12 +75,13 @@ public class VoidcraftItems {
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
-
+        LOGGER.debug("Registering Items...");
         event.getRegistry().registerAll(
                 setItemName(new ItemDimensionalLodestar(), "item_dimensional_lodestar"),
                 setItemName(new ItemDestinationLodestar(), "item_destination_lodestar"),
                 setItemName(new ItemCrystalCatalyst(), "item_crystal_catalyst"),
                 setItemName(new ItemVoidCrystal(), "item_void_crystal"),
+                setItemName(new Item(new Item.Properties().stacksTo(16).tab(ItemGroup.TAB_MISC).rarity(Rarity.RARE)), "item_void_pearl"),
                 setItemName(new ItemVoidChisel(), "item_void_chisel"),
                 setItemName(new ItemVoidPickaxe(), "item_void_pickaxe"),
                 setItemName(new ItemVoidAxe(), "item_void_axe"),
@@ -91,7 +99,7 @@ public class VoidcraftItems {
 
     @SubscribeEvent
     public static void registerItemBlocks(final RegistryEvent.Register<Item> event) {
-
+        LOGGER.debug("Registering BlockItems...");
         Item.Properties defaultProperties = new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS);
 
         itemBlockVoid = new BlockItem(blockVoid, defaultProperties);

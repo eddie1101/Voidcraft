@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:entity",
+  "pools":
+  [
+    {
+      "rolls": 1,
+      "bonus_rolls": 2,
+      "entries":
+              [
+                {
+                  "type": "minecraft:tags",
+                  "functions":
+                          [
+                            {
+                              "function": "minecraft:set_count",
+                              "count":
+                              {
+                                "min": 0,
+                                "max": 2
+                              }
+                            }
+                          ],
+                  "name": "voidcraft:item_void_pearl",
+                  "expand": true,
+                  "weight": 100
+                }
+              ]
+    }
+  ]
+}

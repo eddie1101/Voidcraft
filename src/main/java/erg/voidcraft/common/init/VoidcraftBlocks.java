@@ -5,10 +5,14 @@ import net.minecraft.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static erg.voidcraft.common.util.SetRegistryName.setBlockName;
 
 public class VoidcraftBlocks {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @ObjectHolder("voidcraft:block_void")
     public static final BlockVoid blockVoid = null;
@@ -23,6 +27,7 @@ public class VoidcraftBlocks {
 
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event) {
+        LOGGER.debug("Registering Blocks...");
         event.getRegistry().registerAll(
                 setBlockName(new BlockVoid(), "block_void"),
                 setBlockName(new BlockPortalBase(), "block_portal_base"),

@@ -15,8 +15,12 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class VoidcraftFeatures {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static ConfiguredFeature<?, ?> OVERWORLD_VOID_ORE_CONFIG;
     public static ConfiguredFeature<?, ?> NETHER_VOID_ORE_CONFIG;
@@ -24,6 +28,8 @@ public class VoidcraftFeatures {
 
     @SubscribeEvent
     public static void registerFeatures(FMLCommonSetupEvent event) {
+
+        LOGGER.debug("Registering Features...");
 
         OVERWORLD_VOID_ORE_CONFIG = register("overworld_ore_void",
                 Feature.ORE.configured(new OreFeatureConfig(

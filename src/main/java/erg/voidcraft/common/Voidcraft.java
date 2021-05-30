@@ -19,6 +19,8 @@ public class Voidcraft {
     public static IEventBus MOD_EVENT_BUS;
     public static IEventBus FORGE_EVENT_BUS;
 
+    public final VoidcraftMobDrops dropEvents = new VoidcraftMobDrops();
+
     public Voidcraft() {
         MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
         FORGE_EVENT_BUS = MinecraftForge.EVENT_BUS;
@@ -28,6 +30,7 @@ public class Voidcraft {
         FORGE_EVENT_BUS.addListener(OreGeneration::generateOres);
         FORGE_EVENT_BUS.addListener(VoidcraftEntitySpawns::onBiomeLoad);
         FORGE_EVENT_BUS.register(VoidcraftCommands.class);
+        FORGE_EVENT_BUS.register(dropEvents);
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> this::registerClientEvents);
     }
@@ -58,7 +61,6 @@ public class Voidcraft {
         Soon
         -----------------------
         make the portal block animated based on whether it's powered or inverted
-        voidlurker spawn egg
         give voidlurkers some cool drops
         Some sort of TE to refine void crystals
         Pouch and bottomless pouch
@@ -69,7 +71,6 @@ public class Voidcraft {
         Pending fixes
         -----------------------
         Portal Base totally glitching out on dedicated server (can't reproduce)
-        Portal Base block can't be harvested
         -----------------------
         Not so soon and ideas
         -----------------------

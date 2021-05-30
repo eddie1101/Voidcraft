@@ -7,10 +7,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
 public class VoidcraftPacketHandler {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private static int ID = 0;
     public static int nextID() {
@@ -22,6 +26,7 @@ public class VoidcraftPacketHandler {
 
     @SubscribeEvent
     public static void registerMessages(FMLCommonSetupEvent event) {
+        LOGGER.debug("Registering Network Messages...");
         channel = NetworkRegistry.newSimpleChannel(
                 new ResourceLocation("voidcraft", "main"),
                 () -> PROTOCOL_VERSION,

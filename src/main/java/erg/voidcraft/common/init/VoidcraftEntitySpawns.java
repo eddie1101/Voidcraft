@@ -9,10 +9,15 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class VoidcraftEntitySpawns {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     public static void registerSpawnPlacement(FMLCommonSetupEvent event) {
+        LOGGER.debug("Registering Entity Spawns...");
         EntitySpawnPlacementRegistry.register(VoidcraftEntities.VOID_LURKER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityVoidLurker::checkSpawnRules);
     }
 
