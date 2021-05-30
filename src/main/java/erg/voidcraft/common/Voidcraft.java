@@ -53,7 +53,7 @@ public class Voidcraft {
 
 }
 
-    /*TODO:
+      /*TODO:
         -----------------------
         Soon
         -----------------------
@@ -68,23 +68,30 @@ public class Voidcraft {
         -----------------------
         Pending fixes
         -----------------------
-        Portal Base totally glitching out in multiplayer
+        Portal Base totally glitching out in multiplayer (can't reproduce)
         particle tester crashing dedicated servers (gonna remove the item anyways, but it would be nice to know why)
-        voidlurkers don't reflect ranged damage (and they should)
-        void lurkers need to be stronger (do more damage and run faster)
+        Portal Base block can't be harvested
         -----------------------
         Not so soon and ideas
         -----------------------
-        maybe some magic shit idk
         definitely some black-hole stuff
         make portals cooler (multiblock?)
-        Some sort of power source for portals? other things that might require that power source?
-        a way to access the void
-        collect power from the void
         void dimension
-        some way to infuse void crystals
         Soul Slay Bow (& void crystal arrows)
-        void miasma when void is accessed
-     */
+
+
+        Crystal Core, a block of crystal catalyst and void block, which is an incredibly hard and resistant block,
+        and is also used to make a crusher, crush void crystals into (void dust?)
+        use void dust to craft void capacitor
+        place void capacitor into a ritual block at y < 10 in an open area, will continually spawn
+        voidlurkers. Each slain voidlurker fills the ritual block with essence. once it is
+        completely filled, the capacitor becomes charged, and can be used to craft things like lodestars,
+        the void chisel, the extra dimensional pouch, and even more powerful void armor (which will also grant abilities)
+        voidlurkers rarely drop (anomalies), which are used to craft dimensional lodestars
+        with the void chisel, the player can destroy bedrock, and jump down into the void dimension, where you can do
+        even cooler shit that I'll figure out later.
+
+        (maybe have cooler armor, tools, and weapons configurable with runes that do various shit)
+      */
 
 

@@ -24,7 +24,7 @@ public class ItemParticleTester extends Item {
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 
-        if (world.isClientSide) {
+        if (!world.isClientSide) {
             VoidcraftPacketHandler.channel.send(PacketDistributor.DIMENSION.with((() -> world.dimension())), new PacketSpawnTestParticles(player.blockPosition()));
         }
         return super.use(world, player, hand);
