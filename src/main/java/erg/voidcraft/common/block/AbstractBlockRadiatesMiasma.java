@@ -23,14 +23,14 @@ public abstract class AbstractBlockRadiatesMiasma extends Block {
     protected final Block[] VALID_SPAWN_BLOCKS;
     protected final boolean IGNORE_VALID_SPAWN_BLOCKS;
 
-    public AbstractBlockRadiatesMiasma(AbstractBlock.Properties properties, int particleRate, boolean ignoreValidSpawns) {
+    public AbstractBlockRadiatesMiasma(AbstractBlock.Properties properties, int particleRate, boolean ignoreValidParticleSpawnPositions) {
         super(properties);
         if(particleRate > 100) particleRate = 100;
         if(particleRate < 0) particleRate = 0;
         this.PARTICLE_RATE = particleRate;
         this.PARTICLE_SPEED = 0.01;
         this.FACINGS = Direction.values();
-        this.IGNORE_VALID_SPAWN_BLOCKS = ignoreValidSpawns;
+        this.IGNORE_VALID_SPAWN_BLOCKS = ignoreValidParticleSpawnPositions;
         this.VALID_SPAWN_BLOCKS = new Block[]{Blocks.AIR};
     }
 

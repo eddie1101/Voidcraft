@@ -53,7 +53,7 @@ public class Voidcraft {
 
 }
 
-      /*TODO:
+    /*TODO:
         -----------------------
         Soon
         -----------------------
@@ -68,8 +68,7 @@ public class Voidcraft {
         -----------------------
         Pending fixes
         -----------------------
-        Portal Base totally glitching out in multiplayer (can't reproduce)
-        particle tester crashing dedicated servers (gonna remove the item anyways, but it would be nice to know why)
+        Portal Base totally glitching out on dedicated server (can't reproduce)
         Portal Base block can't be harvested
         -----------------------
         Not so soon and ideas
