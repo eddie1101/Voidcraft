@@ -59,8 +59,14 @@ public class ParticleMiasma extends SpriteTexturedParticle {
             this.remove();
         }
 
+        float timeToDeath = this.lifetime - this.age;
+        if(timeToDeath <= 10) {
+            this.scale(timeToDeath / 10);
+        }
+
         if (this.age++ >= this.lifetime) {
             this.remove();
         }
+
     }
 }

@@ -1,5 +1,8 @@
 {
   "textures": [
-    "voidcraft:miasma_particle"
+    "voidcraft:miasma_particle1",
+    "voidcraft:miasma_particle2",
+    "voidcraft:miasma_particle3",
+    "voidcraft:miasma_particle4"
   ]
 }
