@@ -14,16 +14,16 @@ import java.awt.*;
 
 public class VoidcraftEventListeners {
 
-    @SubscribeEvent
-    public void dropPearls(LivingDropsEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-        if(entity != null && entity instanceof EntityVoidLurker) {
-            double x = event.getEntity().position().x;
-            double y = event.getEntity().position().y;
-            double z = event.getEntity().position().z;
-            event.getDrops().add(new ItemEntity(event.getEntity().level, x, y, z, new ItemStack(VoidcraftItems.itemVoidPearl)));
-        }
-    }
+//    @SubscribeEvent
+//    public void dropPearls(LivingDropsEvent event) {
+//        LivingEntity entity = event.getEntityLiving();
+//        if(entity != null && entity instanceof EntityVoidLurker) {
+//            double x = event.getEntity().position().x;
+//            double y = event.getEntity().position().y;
+//            double z = event.getEntity().position().z;
+//            event.getDrops().add(new ItemEntity(event.getEntity().level, x, y, z, new ItemStack(VoidcraftItems.itemVoidPearl)));
+//        }
+//    }
 
     @SubscribeEvent
     public void spawnDeathParticles(LivingDeathEvent event) {

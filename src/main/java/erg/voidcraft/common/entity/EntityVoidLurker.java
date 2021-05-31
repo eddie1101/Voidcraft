@@ -1,5 +1,6 @@
 package erg.voidcraft.common.entity;
 
+import erg.voidcraft.common.Voidcraft;
 import erg.voidcraft.common.init.VoidcraftEntities;
 import erg.voidcraft.common.particle.ParticleDataMiasma;
 import erg.voidcraft.common.world.VoidcraftGameRules;
@@ -17,6 +18,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Difficulty;
@@ -30,6 +32,8 @@ import java.util.Random;
 public class EntityVoidLurker extends MonsterEntity {
 
     private static final DataParameter<Integer> VOID_LURKER_TYPE = EntityDataManager.defineId(EntityVoidLurker.class, DataSerializers.INT);
+
+    private static final ResourceLocation lootTable = new ResourceLocation(Voidcraft.MODID, "entities/entity_void_lurker");
 
     public EntityVoidLurker(EntityType<EntityVoidLurker> type, World world) {
         super(type, world);
@@ -106,6 +110,11 @@ public class EntityVoidLurker extends MonsterEntity {
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
+    }
+
+    @Override
+    public ResourceLocation getLootTable() {
+        return super.getLootTable();
     }
 
     @Override

@@ -67,7 +67,6 @@ public class Voidcraft {
         -----------------------
         Pending fixes
         -----------------------
-
         get loottables to work for voidlurker drops
         Portal Base totally glitching out on dedicated server (can't reproduce)
         -----------------------

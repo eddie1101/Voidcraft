@@ -6,10 +6,12 @@ import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.world.ClientWorld;
 
 import java.awt.*;
+import java.util.Random;
 
 public class ParticleMiasma extends SpriteTexturedParticle {
 
     private final IAnimatedSprite sprites;
+    private final int shrinkOffset;
 
     public ParticleMiasma(ClientWorld world, double x, double y, double z,
                           double velocityX, double velocityY, double velocityZ,
@@ -18,6 +20,8 @@ public class ParticleMiasma extends SpriteTexturedParticle {
 
         super(world, x, y, z, velocityX, velocityY, velocityZ);
         this.sprites = sprites;
+        Random random = new Random();
+        shrinkOffset = random.nextInt(10);
 
         setColor(tint.getRed()/255.0F, tint.getGreen()/255.0F, tint.getBlue()/255.0F);
         setSize((float)diameter, (float)diameter);
@@ -60,8 +64,8 @@ public class ParticleMiasma extends SpriteTexturedParticle {
         }
 
         float timeToDeath = this.lifetime - this.age;
-        if(timeToDeath <= 10) {
-            this.scale(timeToDeath / 10);
+        if(timeToDeath - shrinkOffset <= 10) {
+            this.scale((timeToDeath - shrinkOffset) / 10);
         }
 
         if (this.age++ >= this.lifetime) {

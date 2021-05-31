@@ -20,9 +20,7 @@
                               }
                             }
                           ],
-                  "name": "voidcraft:item_void_pearl",
-                  "expand": true,
-                  "weight": 100
+                  "name": "voidcraft:item_void_pearl"
                 }
               ]
     }
