@@ -4,10 +4,8 @@ import erg.voidcraft.client.init.ClientSetup;
 import erg.voidcraft.common.init.*;
 import erg.voidcraft.common.world.VoidcraftGameRules;
 import erg.voidcraft.common.world.gen.OreGeneration;
-import net.minecraft.world.GameRules;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -19,7 +17,7 @@ public class Voidcraft {
     public static IEventBus MOD_EVENT_BUS;
     public static IEventBus FORGE_EVENT_BUS;
 
-    public final VoidcraftMobDrops dropEvents = new VoidcraftMobDrops();
+    public final VoidcraftEventListeners dropEvents = new VoidcraftEventListeners();
 
     public Voidcraft() {
         MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
@@ -61,7 +59,6 @@ public class Voidcraft {
         Soon
         -----------------------
         make the portal block animated based on whether it's powered or inverted
-        give voidlurkers some cool drops
         Some sort of TE to refine void crystals
         Pouch and bottomless pouch
         IM GONNA MAKE A FUCKING GRENADE
@@ -70,6 +67,8 @@ public class Voidcraft {
         -----------------------
         Pending fixes
         -----------------------
+
+        get loottables to work for voidlurker drops
         Portal Base totally glitching out on dedicated server (can't reproduce)
         -----------------------
         Not so soon and ideas

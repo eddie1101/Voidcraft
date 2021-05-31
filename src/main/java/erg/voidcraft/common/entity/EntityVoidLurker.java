@@ -3,6 +3,7 @@ package erg.voidcraft.common.entity;
 import erg.voidcraft.common.init.VoidcraftEntities;
 import erg.voidcraft.common.particle.ParticleDataMiasma;
 import erg.voidcraft.common.world.VoidcraftGameRules;
+import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.EntityType;
@@ -17,6 +18,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -77,15 +79,13 @@ public class EntityVoidLurker extends MonsterEntity {
     public void baseTick() {
         super.baseTick();
 
-        if(level.getDifficulty().equals(Difficulty.PEACEFUL)) {
-            this.remove();
-        }
-
-        if(this.position().y() > 15 && !this.level.dimension().equals(World.END) && this.level.getGameRules().getBoolean(VoidcraftGameRules.RULE_VOIDLURKERHEIGHTDAMAGE)) {
-            this.hurt(DamageSource.MAGIC, 1);
-        }
-
-        if(level.isClientSide) {
+        if(!level.isClientSide) {
+            Vector3d pos = this.position();
+            PlayerEntity nearestPlayer = level.getNearestPlayer(pos.x, pos.y, pos.z, 50, true);
+            if(nearestPlayer != null) {
+                this.lookAt(EntityAnchorArgument.Type.EYES, nearestPlayer.position());
+            }
+        } else {
 
             Color tint = new Color(0.5f, 0.5f, 0.5f);
             double diameter = 0.1f + (Math.random() * 0.25f);
@@ -96,6 +96,10 @@ public class EntityVoidLurker extends MonsterEntity {
 
             ParticleDataMiasma dataMiasma = new ParticleDataMiasma(tint, diameter);
             level.addParticle(dataMiasma, posX, posY, posZ, 0, -0.01, 0);
+        }
+
+        if(this.position().y() > 15 && !this.level.dimension().equals(World.END) && this.level.getGameRules().getBoolean(VoidcraftGameRules.RULE_VOIDLURKERHEIGHTDAMAGE)) {
+            this.hurt(DamageSource.MAGIC, 1);
         }
     }
 
@@ -110,18 +114,24 @@ public class EntityVoidLurker extends MonsterEntity {
         if(level != null && level.isClientSide) {
             Color tint = new Color(0.5f, 0.5f, 0.5f);
 
-            for(int i = 0; i < 50; i++) {
+            for(int i = 0; i < 200; i++) {
                 double diameter = 0.1f + (Math.random() * 0.25f);
 
-                double posX = getX() + (Math.random() - 0.5) * 0.25;
-                double posY = getY() + (Math.random() - 0.5) * 0.25;
-                double posZ = getZ() + (Math.random() - 0.5) * 0.25;
+                double posX = getX() + (Math.random() - 0.5) * 1.25;
+                double posY = getY() + ((2 * Math.random()) - 0.5) + 1;
+                double posZ = getZ() + (Math.random() - 0.5) * 1.25;
+
+                double velX = (Math.random() * 0.1) - 0.05;
+                double velY = (Math.random() * 0.1) - 0.05;
+                double velZ = (Math.random() * 0.1) - 0.05;
 
                 ParticleDataMiasma dataMiasma = new ParticleDataMiasma(tint, diameter);
-                level.addParticle(dataMiasma, posX, posY, posZ, 0, -0.01, 0);
+                level.addParticle(dataMiasma, posX, posY, posZ, velX, velY, velZ);
             }
         }
+        super.remove();
     }
+
     @Override
     public boolean shouldDespawnInPeaceful() {
         return true;
