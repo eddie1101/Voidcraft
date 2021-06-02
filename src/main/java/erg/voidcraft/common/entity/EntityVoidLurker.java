@@ -113,11 +113,6 @@ public class EntityVoidLurker extends MonsterEntity {
     }
 
     @Override
-    public ResourceLocation getLootTable() {
-        return super.getLootTable();
-    }
-
-    @Override
     public void remove() {
 
         if(level != null && level.isClientSide) {

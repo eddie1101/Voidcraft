@@ -12,7 +12,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.awt.*;
 
-public class VoidcraftEventListeners {
+public class VoidcraftEventHandlers {
 
 //    @SubscribeEvent
 //    public void dropPearls(LivingDropsEvent event) {

@@ -1,20 +1,22 @@
 {
-  "comment": "PLACEHOLDER",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "  S",
-    " S ",
-    "V  "
+    "DSD",
+    "SVS",
+    "DSD"
   ],
   "key": {
     "V": {
       "item": "voidcraft:item_void_crystal"
     },
+    "D": {
+      "item": "minecraft:diamond"
+    },
     "S": {
-      "item": "minecraft:stick"
+      "item": "minecraft:stone"
     }
   },
   "result": {
-    "item": "voidcraft:item_void_chisel"
+    "item": "voidcraft:item_destination_lodestar"
   }
 }

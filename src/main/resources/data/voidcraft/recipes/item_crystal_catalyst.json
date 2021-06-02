@@ -6,11 +6,11 @@
     "DDD"
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    },
     "V": {
       "item": "voidcraft:block_void"
+    },
+    "D": {
+      "item": "minecraft:diamond"
     }
   },
   "result": {

@@ -65,7 +65,7 @@ public class ParticleMiasma extends SpriteTexturedParticle {
 
         float timeToDeath = this.lifetime - this.age;
         if(timeToDeath - shrinkOffset <= 10) {
-            this.scale((timeToDeath - shrinkOffset) / 10);
+            this.scale((timeToDeath) / (10 + shrinkOffset));
         }
 
         if (this.age++ >= this.lifetime) {

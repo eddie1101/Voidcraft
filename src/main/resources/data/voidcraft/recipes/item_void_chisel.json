@@ -1,22 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DSD",
-    "SVS",
-    "DSD"
+    "  S",
+    " S ",
+    "V  "
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    },
     "S": {
-      "item": "minecraft:stone"
+      "item": "minecraft:stick"
     },
     "V": {
       "item": "voidcraft:item_void_crystal"
     }
   },
   "result": {
-    "item": "voidcraft:item_destination_lodestar"
+    "item": "voidcraft:item_void_chisel"
   }
 }

@@ -3,7 +3,6 @@ package erg.voidcraft.common.inventory.container;
 import erg.voidcraft.common.init.VoidcraftContainers;
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
 import erg.voidcraft.common.inventory.container.slot.SlotPortalBase;
-import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.tile.TilePortalBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -52,8 +51,8 @@ public class ContainerPortalBase extends Container {
     }
 
     private ContainerPortalBase(int windowID, PlayerInventory playerInventory, InventoryPortalBaseContents portalContents) {
-        super(VoidcraftContainers.containerTypePortalBase, windowID);
-        if(VoidcraftContainers.containerTypePortalBase == null) {
+        super(VoidcraftContainers.PORTAL_BASE, windowID);
+        if(VoidcraftContainers.PORTAL_BASE == null) {
             throw new IllegalStateException("Must initialize containerTypeBasic before constructing ContainerPortalBase");
         }
 

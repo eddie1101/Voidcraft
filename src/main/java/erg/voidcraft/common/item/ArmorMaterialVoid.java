@@ -19,7 +19,7 @@ public class ArmorMaterialVoid implements IArmorMaterial {
     private final SoundEvent soundEvent = SoundEvents.ARMOR_EQUIP_NETHERITE;
     private final float toughness = 4.0F;
     private final float knockbackResistance = 0.2f;
-    private final Ingredient repairMaterial = Ingredient.of(VoidcraftItems.itemVoidCrystal);
+    private final Ingredient repairMaterial = Ingredient.of(VoidcraftItems.VOID_CRYSTAL);
 
     public ArmorMaterialVoid() {}
 

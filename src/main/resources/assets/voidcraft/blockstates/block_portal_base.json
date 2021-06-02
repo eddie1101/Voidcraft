@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model":  "voidcraft:block/block_portal_base_model"}
+    "": {
+      "model": "voidcraft:block/block_portal_base"
+    }
   }
 }

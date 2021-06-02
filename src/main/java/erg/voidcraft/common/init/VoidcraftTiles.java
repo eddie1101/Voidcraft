@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static erg.voidcraft.common.init.VoidcraftBlocks.blockPortalBase;
+import static erg.voidcraft.common.init.VoidcraftBlocks.PORTAL_BASE;
 
 public class VoidcraftTiles {
 
@@ -18,7 +18,7 @@ public class VoidcraftTiles {
     @SubscribeEvent
     public static void registerTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) {
         LOGGER.debug("Registering Block Entities...");
-        tileEntityPortalBaseType = TileEntityType.Builder.of(TilePortalBase::new, blockPortalBase).build(null);
+        tileEntityPortalBaseType = TileEntityType.Builder.of(TilePortalBase::new, PORTAL_BASE).build(null);
         tileEntityPortalBaseType.setRegistryName("voidcraft", "tile_entity_portal_base");
 
         event.getRegistry().registerAll(

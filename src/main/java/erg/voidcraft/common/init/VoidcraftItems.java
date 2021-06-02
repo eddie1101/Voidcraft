@@ -21,57 +21,57 @@ public class VoidcraftItems {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static final ItemGroupVoidcraft group = new ItemGroupVoidcraft("item_group_basic_portals");
+    public static final ItemGroupVoidcraft TAB_VOIDCRAFT = new ItemGroupVoidcraft("item_group_voidcraft");
 
     public static final ItemTierVoid itemTierVoid = new ItemTierVoid();
     public static final ArmorMaterialVoid armorMaterialVoid = new ArmorMaterialVoid();
 
     @ObjectHolder("voidcraft:block_void")
-    public static BlockItem itemBlockVoid = null;
+    public static BlockItem ITEM_BLOCK_VOID = null;
     @ObjectHolder("voidcraft:block_portal_base")
-    public static BlockItem itemBlockPortalBase = null;
+    public static BlockItem ITEM_BLOCK_PORTAL_BASE = null;
     @ObjectHolder("voidcraft:block_void_ore")
-    public static BlockItem itemBlockVoidOre = null;
+    public static BlockItem ITEM_BLOCK_VOID_ORE = null;
     @ObjectHolder("voidcraft:block_nether_void_ore")
-    public static BlockItem itemBlockNetherVoidOre = null;
+    public static BlockItem ITEM_BLOCK_NETHER_VOID_ORE = null;
     @ObjectHolder("voidcraft:block_end_void_ore")
-    public static BlockItem itemBlockEndVoidOre = null;
+    public static BlockItem ITEM_BLOCK_END_VOID_ORE = null;
 
 
     @ObjectHolder("voidcraft:item_dimensional_lodestar")
-    public static final ItemDimensionalLodestar itemDimensionalLodestar = null;
+    public static final ItemDimensionalLodestar DIMENSIONAL_LODESTAR = null;
     @ObjectHolder("voidcraft:item_destination_lodestar")
-    public static final ItemDestinationLodestar itemDestinationLodestar = null;
+    public static final ItemDestinationLodestar DESTINATION_LODESTAR = null;
     @ObjectHolder("voidcraft:item_void_crystal")
-    public static final ItemVoidCrystal itemVoidCrystal = null;
+    public static final ItemVoidCrystal VOID_CRYSTAL = null;
     @ObjectHolder("voidcraft:item_crystal_catalyst")
-    public static final ItemCrystalCatalyst itemCrystalCatalyst = null;
+    public static final ItemCrystalCatalyst CRYSTAL_CATALYST = null;
     @ObjectHolder("voidcraft:item_void_pearl")
-    public static final Item itemVoidPearl = null;
+    public static final Item VOID_PEARL = null;
 
     @ObjectHolder("voidcraft:item_void_chisel")
-    public static final ItemVoidChisel itemVoidChisel = null;
+    public static final ItemVoidChisel VOID_CHISEL = null;
     @ObjectHolder("voidcraft:item_void_pickaxe")
-    public static final ItemVoidPickaxe itemVoidPickaxe = null;
+    public static final ItemVoidPickaxe VOID_PICKAXE = null;
     @ObjectHolder("voidcraft:item_void_axe")
-    public static final ItemVoidAxe itemVoidAxe = null;
+    public static final ItemVoidAxe VOID_AXE = null;
     @ObjectHolder("voidcraft:item_void_shovel")
-    public static final ItemVoidShovel itemVoidShovel = null;
+    public static final ItemVoidShovel VOID_SHOVEL = null;
     @ObjectHolder("voidcraft:item_void_sword")
-    public static final ItemVoidSword itemVoidSword = null;
+    public static final ItemVoidSword VOID_SWORD = null;
     @ObjectHolder("voidcraft:item_void_hoe")
-    public static final ItemVoidHoe itemVoidHoe = null;
+    public static final ItemVoidHoe VOID_HOE = null;
     @ObjectHolder("voidcraft:item_void_helmet")
-    public static final ArmorVoid itemVoidHelmet = null;
+    public static final ArmorVoid VOID_HELMET = null;
     @ObjectHolder("voidcraft:item_void_chestplate")
-    public static final ArmorVoid itemVoidChestplate = null;
+    public static final ArmorVoid VOID_CHESTPLATE = null;
     @ObjectHolder("voidcraft:item_void_leggings")
-    public static final ArmorVoid itemVoidLeggings = null;
+    public static final ArmorVoid VOID_LEGGINGS = null;
     @ObjectHolder("voidcraft:item_void_boots")
-    public static final ArmorVoid itemVoidBoots = null;
+    public static final ArmorVoid VOID_BOOTS = null;
 
     @ObjectHolder("voidcraft:item_particle_tester")
-    public static final ItemParticleTester itemParticleTester = null;
+    public static final ItemParticleTester PARTICLE_TESTER = null;
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -102,18 +102,18 @@ public class VoidcraftItems {
         LOGGER.debug("Registering BlockItems...");
         Item.Properties defaultProperties = new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS);
 
-        itemBlockVoid = new BlockItem(blockVoid, defaultProperties);
-        itemBlockPortalBase = new BlockItem(blockPortalBase, defaultProperties);
-        itemBlockVoidOre = new BlockItem(blockVoidOre, defaultProperties);
-        itemBlockNetherVoidOre = new BlockItem(blockNetherVoidOre, defaultProperties);
-        itemBlockEndVoidOre = new BlockItem(blockEndVoidOre, defaultProperties);
+        ITEM_BLOCK_VOID = new BlockItem(VOID_BLOCK, defaultProperties);
+        ITEM_BLOCK_PORTAL_BASE = new BlockItem(PORTAL_BASE, defaultProperties);
+        ITEM_BLOCK_VOID_ORE = new BlockItem(VOID_ORE, defaultProperties);
+        ITEM_BLOCK_NETHER_VOID_ORE = new BlockItem(NETHER_VOID_ORE, defaultProperties);
+        ITEM_BLOCK_END_VOID_ORE = new BlockItem(END_VOID_ORE, defaultProperties);
 
         event.getRegistry().registerAll(
-                setBlockItemName(itemBlockVoid, blockVoid.getRegistryName()),
-                setBlockItemName(itemBlockPortalBase, blockPortalBase.getRegistryName()),
-                setBlockItemName(itemBlockVoidOre, blockVoidOre.getRegistryName()),
-                setBlockItemName(itemBlockNetherVoidOre, blockNetherVoidOre.getRegistryName()),
-                setBlockItemName(itemBlockEndVoidOre, blockEndVoidOre.getRegistryName())
+                setBlockItemName(ITEM_BLOCK_VOID, VOID_BLOCK.getRegistryName()),
+                setBlockItemName(ITEM_BLOCK_PORTAL_BASE, PORTAL_BASE.getRegistryName()),
+                setBlockItemName(ITEM_BLOCK_VOID_ORE, VOID_ORE.getRegistryName()),
+                setBlockItemName(ITEM_BLOCK_NETHER_VOID_ORE, NETHER_VOID_ORE.getRegistryName()),
+                setBlockItemName(ITEM_BLOCK_END_VOID_ORE, END_VOID_ORE.getRegistryName())
         );
 
     }

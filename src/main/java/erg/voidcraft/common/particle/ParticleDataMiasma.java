@@ -37,7 +37,7 @@ public class ParticleDataMiasma implements IParticleData {
     @Nonnull
     @Override
     public ParticleType<ParticleDataMiasma> getType() {
-        return VoidcraftParticles.miasmaParticleType;
+        return VoidcraftParticles.MIASMA;
     }
 
     @Override

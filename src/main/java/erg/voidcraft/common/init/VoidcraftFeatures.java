@@ -10,7 +10,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.template.BlockMatchRuleTest;
-import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,7 +33,7 @@ public class VoidcraftFeatures {
         OVERWORLD_VOID_ORE_CONFIG = register("overworld_ore_void",
                 Feature.ORE.configured(new OreFeatureConfig(
                         new VoidOreRuleTest(Blocks.BEDROCK),
-                        VoidcraftBlocks.blockVoidOre.defaultBlockState(),
+                        VoidcraftBlocks.VOID_ORE.defaultBlockState(),
                         3))
                         .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(1, 0, 8)))
                         .squared().count(3));
@@ -42,7 +41,7 @@ public class VoidcraftFeatures {
         NETHER_VOID_ORE_CONFIG = register("nether_ore_void",
                 Feature.ORE.configured(new OreFeatureConfig(
                         new VoidOreNetherRuleTest(Blocks.BEDROCK),
-                        VoidcraftBlocks.blockNetherVoidOre.defaultBlockState(),
+                        VoidcraftBlocks.NETHER_VOID_ORE.defaultBlockState(),
                         4))
                         .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(1, 0, 10)))
                         .squared().count(4));
@@ -50,7 +49,7 @@ public class VoidcraftFeatures {
         END_VOID_ORE_CONFIG = register("end_ore_void",
                 Feature.ORE.configured(new OreFeatureConfig(
                         new BlockMatchRuleTest(Blocks.END_STONE),
-                        VoidcraftBlocks.blockEndVoidOre.defaultBlockState(),
+                        VoidcraftBlocks.END_VOID_ORE.defaultBlockState(),
                         6))
                         .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(1, 0, 128)))
                         .squared().count(8));

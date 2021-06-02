@@ -6,20 +6,20 @@
     "NEV"
   ],
   "key": {
-    "N": {
-      "item": "voidcraft:block_nether_void_ore"
-    },
-    "C": {
-      "item": "voidcraft:item_crystal_catalyst"
-    },
     "V": {
       "item": "voidcraft:block_end_void_ore"
+    },
+    "N": {
+      "item": "voidcraft:block_nether_void_ore"
     },
     "R": {
       "item": "minecraft:netherrack"
     },
     "E": {
       "item": "minecraft:end_stone"
+    },
+    "C": {
+      "item": "voidcraft:item_crystal_catalyst"
     }
   },
   "result": {

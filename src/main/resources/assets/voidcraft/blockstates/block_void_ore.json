@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": {"model": "voidcraft:block/block_void_ore_model"}
+    "": {
+      "model": "voidcraft:block/block_void_ore"
+    }
   }
 }

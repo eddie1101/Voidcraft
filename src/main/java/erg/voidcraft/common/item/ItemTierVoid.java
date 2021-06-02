@@ -11,7 +11,7 @@ public class ItemTierVoid implements IItemTier {
     private final float attackDamage = 4.0f;
     private final int harvestLevel = 4;
     private final int enchantability = 30;
-    private Ingredient repairMaterial = Ingredient.of(VoidcraftItems.itemVoidCrystal);
+    private Ingredient repairMaterial = Ingredient.of(VoidcraftItems.VOID_CRYSTAL);
 
     public ItemTierVoid() {
 

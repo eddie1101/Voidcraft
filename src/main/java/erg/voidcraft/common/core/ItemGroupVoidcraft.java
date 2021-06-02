@@ -17,7 +17,7 @@ public class ItemGroupVoidcraft extends ItemGroup {
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(VoidcraftItems.itemVoidCrystal);
+        return new ItemStack(VoidcraftItems.VOID_CRYSTAL);
     }
 
     @Override
