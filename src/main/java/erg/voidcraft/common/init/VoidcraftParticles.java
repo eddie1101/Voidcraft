@@ -10,6 +10,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.client.particle.ParticleManager;
+
 public class VoidcraftParticles {
 
     private static final Logger LOGGER = LogManager.getLogger();

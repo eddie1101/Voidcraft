@@ -25,10 +25,6 @@ public class Voidcraft {
 
     public final VoidcraftEventHandlers dropEvents = new VoidcraftEventHandlers();
 
-    private static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MODID);
-
-    public static final RegistryObject<ParticleType<?>> MIASMA = PARTICLES.register("miasma", ParticleTypeMiasma::new);
-
     public Voidcraft() {
         MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
         FORGE_EVENT_BUS = MinecraftForge.EVENT_BUS;
@@ -48,8 +44,7 @@ public class Voidcraft {
         MOD_EVENT_BUS.register(VoidcraftTiles.class);
         MOD_EVENT_BUS.register(VoidcraftContainers.class);
         MOD_EVENT_BUS.register(VoidcraftItems.class);
-//        MOD_EVENT_BUS.register(VoidcraftParticles.class);
-        PARTICLES.register(MOD_EVENT_BUS);
+        MOD_EVENT_BUS.register(VoidcraftParticles.class);
         MOD_EVENT_BUS.register(VoidcraftPacketHandler.class);
         MOD_EVENT_BUS.register(VoidcraftEntities.class);
 
