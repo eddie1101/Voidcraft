@@ -28,6 +28,7 @@ public class VoidcraftEntities {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    @ObjectHolder("voidcraft:entity_void_lurker")
     public static final EntityType<EntityVoidLurker> VOID_LURKER = EntityType.Builder.<EntityVoidLurker>of(EntityVoidLurker::new, EntityClassification.MONSTER)
             .sized(0.75f, 2.5f)
             .setUpdateInterval(1)

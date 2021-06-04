@@ -2,6 +2,7 @@ package erg.voidcraft.common.world;
 
 import net.minecraft.world.GameRules;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ObjectHolder;
 
 public class VoidcraftGameRules {
 
