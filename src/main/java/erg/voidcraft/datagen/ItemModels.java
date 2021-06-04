@@ -23,8 +23,8 @@ public class ItemModels extends ItemModelProvider {
         withExistingParent("block_void", modLoc("block/block_void"));
         withExistingParent("block_void_ore", modLoc("block/block_void_ore"));
         withExistingParent("block_nether_void_ore", modLoc("block/block_nether_void_ore"));
-        withExistingParent("block_end_void_ore", modLoc("block/block_void"));
-        withExistingParent("block_portal_base", modLoc("block/block_void"));
+        withExistingParent("block_end_void_ore", modLoc("block/block_end_void_ore"));
+        withExistingParent("block_portal_base", modLoc("block/block_portal_base"));
 
         builderWithParent(ITEM_GENERATED, "item_void_crystal");
         builderWithParent(ITEM_GENERATED, "item_crystal_catalyst");
