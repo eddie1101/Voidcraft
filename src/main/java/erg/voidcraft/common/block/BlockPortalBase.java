@@ -32,6 +32,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -41,6 +42,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.network.PacketDistributor;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -142,9 +144,6 @@ public class BlockPortalBase extends ContainerBlock {
 
         BlockState state = worldIn.getBlockState(pos);
 
-        System.out.println("Inverted: " + state.getValue(INVERTED));
-        System.out.println("My position: " + pos.toString());
-
         boolean active = state.getValue(INVERTED) ? state.getValue(POWERED) : !state.getValue(POWERED);
 
         if (tileEntity instanceof TilePortalBase && active && !entityIn.isCrouching()) {
@@ -170,22 +169,12 @@ public class BlockPortalBase extends ContainerBlock {
                         double y = posTag.getInt("y");
                         double z = posTag.getInt("z");
 
-//                      this logic could probably be condensed but im too tired right now
+                        BlockPos destination = new BlockPos(x, y, z);
+
                         if (item.getItem() instanceof ItemDimensionalLodestar) {
-                            if(!destinationWorld.dimension().location().toString().equals(worldIn.dimension().location().toString())) {
-                                entityIn.changeDimension(destinationWorld, teleporter);
-                            }
-                            destinationWorld.getChunk(new BlockPos(x, y, z));
-                            entityIn.teleportTo(x + 0.5, y + 1, z + 0.5);
-                            spawnParticles(destinationWorld, new BlockPos(x, y, z));
-                            worldIn.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                        } else if (destinationWorld.dimension().location().toString().equals(worldIn.dimension().location().toString()) && item.getItem() instanceof ItemDestinationLodestar) {
-                            destinationWorld.getChunk(new BlockPos(x, y, z));
-                            entityIn.teleportTo(x + 0.5, y + 1, z + 0.5);
-                            spawnParticles(destinationWorld, new BlockPos(x, y, z));
-                            worldIn.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                            worldIn.playSound(null, new BlockPos(x, y, z), SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                            teleport(destinationWorld, worldIn, entityIn, pos, destination, true);
+                        } else if (item.getItem() instanceof ItemDestinationLodestar && destinationWorld.dimension().equals(worldIn.dimension())) {
+                            teleport(destinationWorld, worldIn, entityIn, pos, destination, false);
                         }
                     }
                 }
@@ -193,12 +182,37 @@ public class BlockPortalBase extends ContainerBlock {
         }
     }
 
-    private void spawnParticles(World world, BlockPos pos) {
+    protected void teleport(ServerWorld destinationWorld, World thisWorld, Entity entity, BlockPos thisBlock, BlockPos destination, boolean canChangeDimensions) {
+        if(canChangeDimensions && !destinationWorld.dimension().location().toString().equals(thisWorld.dimension().location().toString())) {
+            entity.changeDimension(destinationWorld, teleporter);
+        }
+        destinationWorld.getChunk(destination);
+        entity.teleportTo(destination.getX() + 0.5f, destination.getY() + 1f, destination.getZ() + 0.5f);
+        spawnParticles(destinationWorld, destination);
+        if(entity instanceof ServerPlayerEntity) {
+            spawnParticles(destinationWorld, destination, (ServerPlayerEntity) entity);
+        }
+        playSounds(thisWorld, destinationWorld, thisBlock, destination);
+    }
+
+    protected void playSounds(World thisWorld, World destWorld, BlockPos thisBlock, BlockPos destBlock) {
+        thisWorld.playSound(null, thisBlock, SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        destWorld.playSound(null, destBlock, SoundEvents.FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.0f, 1.0f);
+    }
+
+    protected void spawnParticles(World world, BlockPos pos) {
         if(!world.isClientSide) {
             ResourceLocation worldRL = world.dimension().location();
-
             PacketSpawnTeleportParticles packet = new PacketSpawnTeleportParticles(worldRL, pos);
             VoidcraftPacketHandler.channel.send(PacketDistributor.DIMENSION.with(() -> world.dimension()), packet);
+        }
+    }
+
+    protected void spawnParticles(World world, BlockPos pos, ServerPlayerEntity player) {
+        if(!world.isClientSide) {
+            ResourceLocation worldRL = world.dimension().location();
+            PacketSpawnTeleportParticles packet = new PacketSpawnTeleportParticles(worldRL, pos);
+            VoidcraftPacketHandler.channel.send(PacketDistributor.PLAYER.with(() -> player), packet);
         }
     }
 

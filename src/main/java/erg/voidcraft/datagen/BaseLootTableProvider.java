@@ -12,6 +12,7 @@ import net.minecraft.loot.functions.CopyName;
 import net.minecraft.loot.functions.CopyNbt;
 import net.minecraft.loot.functions.SetContents;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.data.ForgeLootTableProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BaseLootTableProvider extends LootTableProvider {
+public abstract class BaseLootTableProvider extends ForgeLootTableProvider {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -54,6 +55,11 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         return LootTable.lootTable().withPool(builder);
     }
 
+    @Deprecated
+    protected LootTable.Builder createFortuneOre(String name, Block block) {
+        return null;
+    }
+
     @Override
     // Entry point
     public void run(DirectoryCache cache) {
@@ -81,6 +87,6 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 
     @Override
     public String getName() {
-        return "MyTutorial LootTables";
+        return "LootTables";
     }
 }

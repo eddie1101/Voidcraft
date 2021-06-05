@@ -2,6 +2,7 @@ package erg.voidcraft.common.network;
 
 import erg.voidcraft.common.particle.ParticleDataMiasma;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;

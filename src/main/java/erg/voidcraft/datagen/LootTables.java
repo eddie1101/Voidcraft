@@ -3,6 +3,7 @@ package erg.voidcraft.datagen;
 import erg.voidcraft.common.Voidcraft;
 import erg.voidcraft.common.init.VoidcraftBlocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.loot.LootTable;
 
 public class LootTables extends BaseLootTableProvider {
 
@@ -12,7 +13,10 @@ public class LootTables extends BaseLootTableProvider {
 
     @Override
     protected void addTables() {
+
         lootTables.put(VoidcraftBlocks.PORTAL_BASE, createStandardTable("block_portal_base", VoidcraftBlocks.PORTAL_BASE));
+        lootTables.put(VoidcraftBlocks.VOID_BLOCK, createStandardTable("block_void", VoidcraftBlocks.VOID_BLOCK));
+
     }
 
 }
