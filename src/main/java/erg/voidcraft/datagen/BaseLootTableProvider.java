@@ -2,15 +2,22 @@ package erg.voidcraft.datagen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
+import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.*;
-import net.minecraft.loot.functions.CopyName;
-import net.minecraft.loot.functions.CopyNbt;
-import net.minecraft.loot.functions.SetContents;
+import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.conditions.MatchTool;
+import net.minecraft.loot.functions.*;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ForgeLootTableProvider;
 import org.apache.logging.log4j.LogManager;
@@ -55,9 +62,20 @@ public abstract class BaseLootTableProvider extends ForgeLootTableProvider {
         return LootTable.lootTable().withPool(builder);
     }
 
-    @Deprecated
-    protected LootTable.Builder createFortuneOre(String name, Block block) {
-        return null;
+    protected LootTable.Builder createOre(String name, IItemProvider drop, Block block) {
+
+        ILootCondition.IBuilder silkTouch = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
+        LootEntry.Builder normalDrops = ItemLootEntry.lootTableItem(drop).apply(ApplyBonus.addOreBonusCount(Enchantments.BLOCK_FORTUNE));
+        StandaloneLootEntry.Builder silkDrops = ItemLootEntry.lootTableItem(block);
+
+        LootPool.Builder builder = LootPool.lootPool()
+                .name(name)
+                .setRolls(ConstantRange.exactly(1))
+                .add(silkDrops
+                    .when(silkTouch)
+                    .otherwise(normalDrops));
+
+        return LootTable.lootTable().withPool(builder);
     }
 
     @Override
