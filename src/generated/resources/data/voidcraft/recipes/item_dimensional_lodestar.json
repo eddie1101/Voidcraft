@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NRV",
+    "RCE",
+    "NEV"
+  ],
+  "key": {
+    "V": {
+      "item": "voidcraft:block_end_void_ore"
+    },
+    "N": {
+      "item": "voidcraft:block_nether_void_ore"
+    },
+    "R": {
+      "item": "minecraft:netherrack"
+    },
+    "E": {
+      "item": "minecraft:end_stone"
+    },
+    "C": {
+      "item": "voidcraft:item_crystal_catalyst"
+    }
+  },
+  "result": {
+    "item": "voidcraft:item_dimensional_lodestar"
+  }
+}

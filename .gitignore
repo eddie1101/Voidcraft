@@ -18,7 +18,6 @@ build
 .gradle
 
 # other
-src/generated
 eclipse
 run
 

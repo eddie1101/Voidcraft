@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    "SVS",
+    "DSD"
+  ],
+  "key": {
+    "V": {
+      "item": "voidcraft:item_void_crystal"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "item": "voidcraft:item_destination_lodestar"
+  }
+}

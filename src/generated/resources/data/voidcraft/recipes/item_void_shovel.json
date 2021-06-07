@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_shovel"
+  },
+  "addition": {
+    "item": "voidcraft:item_void_crystal"
+  },
+  "result": {
+    "item": "voidcraft:item_void_shovel"
+  }
+}

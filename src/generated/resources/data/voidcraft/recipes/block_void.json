@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VVV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "voidcraft:item_void_crystal"
+    }
+  },
+  "result": {
+    "item": "voidcraft:block_void"
+  }
+}

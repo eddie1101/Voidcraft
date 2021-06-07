@@ -16,6 +16,7 @@ public class LootTables extends BaseLootTableProvider {
 
         blockLootTable.put(VoidcraftBlocks.PORTAL_BASE, createStandardTable("block_portal_base", VoidcraftBlocks.PORTAL_BASE));
         blockLootTable.put(VoidcraftBlocks.VOID_BLOCK, createStandardTable("block_void", VoidcraftBlocks.VOID_BLOCK));
+        blockLootTable.put(VoidcraftBlocks.CRYSTAL_CORE, createStandardTable("block_crystal_core", VoidcraftBlocks.CRYSTAL_CORE));
 
         blockLootTable.put(VoidcraftBlocks.VOID_ORE, createFortuneOreTable("block_void_ore", VoidcraftItems.VOID_CRYSTAL, VoidcraftBlocks.VOID_ORE));
         blockLootTable.put(VoidcraftBlocks.NETHER_VOID_ORE, createFortuneOreTable("block_nether_void_ore", VoidcraftItems.VOID_CRYSTAL, VoidcraftBlocks.NETHER_VOID_ORE));

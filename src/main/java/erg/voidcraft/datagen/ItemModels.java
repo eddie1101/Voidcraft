@@ -21,6 +21,7 @@ public class ItemModels extends ItemModelProvider {
         final ModelFile ITEM_HANDHELD = getExistingFile(mcLoc("item/handheld"));
 
         withExistingParent("block_void", modLoc("block/block_void"));
+        withExistingParent("block_crystal_core", modLoc("block/block_crystal_core"));
         withExistingParent("block_void_ore", modLoc("block/block_void_ore"));
         withExistingParent("block_nether_void_ore", modLoc("block/block_nether_void_ore"));
         withExistingParent("block_end_void_ore", modLoc("block/block_end_void_ore"));

@@ -28,6 +28,8 @@ public class VoidcraftItems {
 
     @ObjectHolder("voidcraft:block_void")
     public static BlockItem ITEM_BLOCK_VOID = null;
+    @ObjectHolder("voidcraft:block_crystal_core")
+    public static BlockItem ITEM_BLOCK_CRYSTAL_CORE = null;
     @ObjectHolder("voidcraft:block_portal_base")
     public static BlockItem ITEM_BLOCK_PORTAL_BASE = null;
     @ObjectHolder("voidcraft:block_void_ore")
@@ -103,6 +105,7 @@ public class VoidcraftItems {
         Item.Properties defaultProperties = new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS);
 
         ITEM_BLOCK_VOID = new BlockItem(VOID_BLOCK, defaultProperties);
+        ITEM_BLOCK_CRYSTAL_CORE = new BlockItem(CRYSTAL_CORE, defaultProperties);
         ITEM_BLOCK_PORTAL_BASE = new BlockItem(PORTAL_BASE, defaultProperties);
         ITEM_BLOCK_VOID_ORE = new BlockItem(VOID_ORE, defaultProperties);
         ITEM_BLOCK_NETHER_VOID_ORE = new BlockItem(NETHER_VOID_ORE, defaultProperties);
@@ -110,6 +113,7 @@ public class VoidcraftItems {
 
         event.getRegistry().registerAll(
                 setBlockItemName(ITEM_BLOCK_VOID, VOID_BLOCK.getRegistryName()),
+                setBlockItemName(ITEM_BLOCK_CRYSTAL_CORE, CRYSTAL_CORE.getRegistryName()),
                 setBlockItemName(ITEM_BLOCK_PORTAL_BASE, PORTAL_BASE.getRegistryName()),
                 setBlockItemName(ITEM_BLOCK_VOID_ORE, VOID_ORE.getRegistryName()),
                 setBlockItemName(ITEM_BLOCK_NETHER_VOID_ORE, NETHER_VOID_ORE.getRegistryName()),

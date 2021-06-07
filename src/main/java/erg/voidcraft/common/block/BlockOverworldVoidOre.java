@@ -26,7 +26,7 @@ public class BlockOverworldVoidOre extends AbstractBlockRadiatesMiasma {
 
     @Override
     public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
-        return silktouch == 0 ? MathHelper.nextInt(RANDOM, 16, 19) : 0;
+        return silktouch == 0 ? MathHelper.nextInt(RANDOM, 20, 25) : 0;
     }
 
 }

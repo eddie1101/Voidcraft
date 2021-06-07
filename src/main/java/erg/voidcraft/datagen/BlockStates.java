@@ -16,6 +16,7 @@ public class BlockStates extends BlockStateProvider {
     protected void registerStatesAndModels() {
 
         simpleBlock(VoidcraftBlocks.VOID_BLOCK);
+        simpleBlock(VoidcraftBlocks.CRYSTAL_CORE);
         simpleBlock(VoidcraftBlocks.VOID_ORE);
         simpleBlock(VoidcraftBlocks.END_VOID_ORE);
         simpleBlock(VoidcraftBlocks.NETHER_VOID_ORE);

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "voidcraft:item/item_void_hoe"
+  }
+}

@@ -44,14 +44,23 @@ public class Recipes extends RecipeProvider {
 
         //Crystal Catalyst Recipe
         ShapedRecipeBuilder.shaped(VoidcraftItems.CRYSTAL_CATALYST, 1)
-                .pattern("DDD")
+                .pattern(" D ")
                 .pattern("DVD")
-                .pattern("DDD")
-                .define('V', VoidcraftBlocks.VOID_BLOCK)
+                .pattern(" D ")
+                .define('V', VoidcraftItems.VOID_CRYSTAL)
                 .define('D', Items.DIAMOND)
                 .unlockedBy("has_item", has(VoidcraftItems.VOID_CRYSTAL))
                 .save(consumer);
 
+        //Crystal Core Recipe
+        ShapedRecipeBuilder.shaped(VoidcraftBlocks.CRYSTAL_CORE, 1)
+                .pattern("CCC")
+                .pattern("CVC")
+                .pattern("CCC")
+                .define('C', VoidcraftItems.CRYSTAL_CATALYST)
+                .define('V', VoidcraftBlocks.VOID_BLOCK)
+                .unlockedBy("has_item", has(VoidcraftBlocks.VOID_BLOCK))
+                .save(consumer);
         //Destination Lodestar Crafting Recipe
         ShapedRecipeBuilder.shaped(VoidcraftItems.DESTINATION_LODESTAR, 1)
                 .pattern("DSD")

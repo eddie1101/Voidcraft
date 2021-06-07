@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OVO",
+    "VBV",
+    "OVO"
+  ],
+  "key": {
+    "V": {
+      "item": "voidcraft:item_void_crystal"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "B": {
+      "item": "voidcraft:block_void"
+    }
+  },
+  "result": {
+    "item": "voidcraft:block_portal_base"
+  }
+}

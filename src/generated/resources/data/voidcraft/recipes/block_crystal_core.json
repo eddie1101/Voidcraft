@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CVC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "voidcraft:item_crystal_catalyst"
+    },
+    "V": {
+      "item": "voidcraft:block_void"
+    }
+  },
+  "result": {
+    "item": "voidcraft:block_crystal_core"
+  }
+}

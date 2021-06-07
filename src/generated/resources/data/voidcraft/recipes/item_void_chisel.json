@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  S",
+    " S ",
+    "V  "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "V": {
+      "item": "voidcraft:item_void_crystal"
+    }
+  },
+  "result": {
+    "item": "voidcraft:item_void_chisel"
+  }
+}

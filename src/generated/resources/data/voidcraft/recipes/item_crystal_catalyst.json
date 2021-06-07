@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "DVD",
+    " D "
+  ],
+  "key": {
+    "V": {
+      "item": "voidcraft:item_void_crystal"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "voidcraft:item_crystal_catalyst"
+  }
+}

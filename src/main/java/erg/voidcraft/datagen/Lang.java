@@ -21,6 +21,7 @@ public class Lang extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add(VoidcraftBlocks.VOID_BLOCK, "Void Block");
+        add(VoidcraftBlocks.CRYSTAL_CORE, "Crystal Core");
         add(VoidcraftBlocks.VOID_ORE, "Void Ore");
         add(VoidcraftBlocks.NETHER_VOID_ORE, "Void Ore");
         add(VoidcraftBlocks.END_VOID_ORE, "Void Ore");

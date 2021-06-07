@@ -18,6 +18,7 @@ public class BlockModels extends BlockModelProvider {
         final ModelFile PARENT_CUBE = getExistingFile(mcLoc("block/cube"));
 
         builderWithParent(PARENT_CUBE, "block_void");
+        builderWithParent(PARENT_CUBE, "block_crystal_core");
         builderWithParent(PARENT_CUBE, "block_void_ore");
         builderWithParent(PARENT_CUBE, "block_end_void_ore");
         builderWithParent(PARENT_CUBE, "block_nether_void_ore");
