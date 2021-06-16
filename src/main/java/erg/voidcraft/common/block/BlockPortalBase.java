@@ -2,12 +2,14 @@ package erg.voidcraft.common.block;
 
 import erg.voidcraft.common.init.VoidcraftPacketHandler;
 import erg.voidcraft.common.inventory.InventoryPortalBaseContents;
+import erg.voidcraft.common.inventory.container.provider.PortalBaseContainerProvider;
 import erg.voidcraft.common.item.AbstractLodestar;
 import erg.voidcraft.common.item.ItemDestinationLodestar;
 import erg.voidcraft.common.item.ItemDimensionalLodestar;
 import erg.voidcraft.common.network.PacketSpawnTeleportParticles;
 import erg.voidcraft.common.particle.ParticleDataMiasma;
 import erg.voidcraft.common.tile.TilePortalBase;
+import erg.voidcraft.common.tile.TilePortalBase2;
 import erg.voidcraft.common.util.SetBlockStateFlag;
 import erg.voidcraft.common.world.teleporter.VoidcraftTeleporter;
 import net.minecraft.block.Block;
@@ -115,12 +117,19 @@ public class BlockPortalBase extends ContainerBlock {
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
         if(worldIn.isClientSide) return ActionResultType.SUCCESS;
 
-        INamedContainerProvider namedContainerProvider = this.getMenuProvider(state, worldIn, pos);
-        if(namedContainerProvider != null) {
-            if(!(player instanceof ServerPlayerEntity)) return ActionResultType.FAIL;
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
-            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, pos);
+        TileEntity te = worldIn.getBlockEntity(pos);
+
+        if(te != null) {
+            INamedContainerProvider containerProvider = new PortalBaseContainerProvider(worldIn, pos);
+            NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider, te.getBlockPos());
         }
+
+//        INamedContainerProvider namedContainerProvider = this.getMenuProvider(state, worldIn, pos);
+//        if(namedContainerProvider != null) {
+//            if(!(player instanceof ServerPlayerEntity)) return ActionResultType.FAIL;
+//            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+//            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, pos);
+//        }
         return ActionResultType.SUCCESS;
     }
 
@@ -253,24 +262,12 @@ public class BlockPortalBase extends ContainerBlock {
     @Nullable
     @Override
     public TileEntity newBlockEntity(IBlockReader worldIn) {
-        return new TilePortalBase();
+        return new TilePortalBase2();
     }
 
     private BlockState getPower(World world, BlockPos pos, BlockState state) {
         boolean powered = world.hasNeighborSignal(pos);
         return state.setValue(POWERED, powered);
     }
-
-//    @Override
-//    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-//
-//        if (!(player.getHeldItem(handIn).getItem() instanceof ItemDestinationLodestar) || !player.isSneaking()) return ActionResultType.PASS;
-//
-//        if (worldIn.isClientSide) {
-//            voidcraftPacketHandler.channel.sendToServer(new PacketSetPortalDestination(player.getHeldItem(handIn), pos));
-//            return ActionResultType.SUCCESS;
-//        }
-//        return ActionResultType.PASS;
-//    }
 
 }

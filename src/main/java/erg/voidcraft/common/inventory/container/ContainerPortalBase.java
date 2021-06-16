@@ -10,12 +10,22 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.PlayerInvWrapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ContainerPortalBase extends Container {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    //There's only one slot so most of this is extraneous but im keeping it for reference in case
+    //I make an inventory that actually has more than one slot
     private static final int NUM_HOTBAR_SLOTS = 9;
     private static final int NUM_INV_ROWS = 3;
     private static final int NUM_INV_COLS = 9;
@@ -31,7 +41,18 @@ public class ContainerPortalBase extends Container {
     public static final int TE_INV_YPOS = 20;
     public static final int PLAYER_INVENTORY_YPOS = 51;
 
+    final int SLOT_X_SPACING = 18;
+    final int SLOT_Y_SPACING = 18;
+    final int HOTBAR_XPOS = 8;
+    final int HOTBAR_Y_POS = 109;
+
+    final int TE_INV_XPOS = 8;
+
     private InventoryPortalBaseContents portalContents;
+
+    private TileEntity te;
+    private IItemHandler playerInv;
+    private PlayerEntity player;
     public BlockPos pos = null;
 
     public static ContainerPortalBase createContainerServerSide(int windowID, PlayerInventory playerInventory, InventoryPortalBaseContents portalContents) {
@@ -43,6 +64,19 @@ public class ContainerPortalBase extends Container {
         InventoryPortalBaseContents portalContents = InventoryPortalBaseContents.createForClientSideContainer(TilePortalBase.NUM_SLOTS);
 
         return new ContainerPortalBase(windowID, playerInventory, portalContents, data.readBlockPos());
+    }
+
+    public ContainerPortalBase(int windowID, PlayerInventory playerInv, PlayerEntity player, World world, BlockPos pos) {
+        super(VoidcraftContainers.PORTAL_BASE, windowID);
+        te = world.getBlockEntity(pos);
+        this.player = player;
+        this.playerInv = new InvWrapper(playerInv);
+        this.pos = pos;
+
+        layoutPlayerInventorySlots(playerInv);
+
+        addSlot(new SlotPortalBase(portalContents, 0, TE_INV_XPOS + SLOT_X_SPACING * 4, TE_INV_YPOS));
+
     }
 
     private ContainerPortalBase(int WindowID, PlayerInventory playerInventory, InventoryPortalBaseContents portalContents, BlockPos pos) {
@@ -58,35 +92,15 @@ public class ContainerPortalBase extends Container {
 
         PlayerInvWrapper playerInventoryForge = new PlayerInvWrapper(playerInventory);
 
+        layoutPlayerInventorySlots(playerInventory);
+
         this.portalContents = portalContents;
         this.pos = pos;
 
-        final int SLOT_X_SPACING = 18;
-        final int SLOT_Y_SPACING = 18;
-        final int HOTBAR_XPOS = 8;
-        final int HOTBAR_Y_POS = 109;
-
-        for(int i = 0; i < NUM_HOTBAR_SLOTS; i++) {
-            addSlot(new SlotItemHandler(playerInventoryForge, i, HOTBAR_XPOS + SLOT_X_SPACING * i, HOTBAR_Y_POS));
-        }
-
-        for(int i = 0; i < NUM_INV_ROWS; i++) {
-            for(int n = 0; n < NUM_INV_COLS; n++) {
-                int slotNumber = NUM_HOTBAR_SLOTS + (i * NUM_INV_COLS) + n;
-                int xpos = PLAYER_INVENTORY_XPOS + n * SLOT_X_SPACING;
-                int ypos = PLAYER_INVENTORY_YPOS + i * SLOT_Y_SPACING;
-                addSlot(new SlotItemHandler(playerInventoryForge, slotNumber,  xpos, ypos));
-            }
-        }
-
         if(NUM_TE_SLOTS != portalContents.getContainerSize()) {
-            //this is bad but I dont have a logger lol oh well
+            LOGGER.warn("Portal Base inventory size is inconsistent");
         }
 
-        final int TE_INV_XPOS = 8;
-//        for(int i = 0; i < NUM_TE_SLOTS; i++) {
-//            addSlot(new Slot(portalContents, i, TE_INV_XPOS + SLOT_X_SPACING * i, TE_INV_YPOS));
-//        }
         addSlot(new SlotPortalBase(portalContents, 0, TE_INV_XPOS + SLOT_X_SPACING * 4, TE_INV_YPOS));
     }
 
@@ -134,5 +148,23 @@ public class ContainerPortalBase extends Container {
         return copyOfSourceStack;
     }
 
+    private void layoutPlayerInventorySlots(PlayerInventory playerInventory) {
+
+
+        PlayerInvWrapper playerInventoryForge = new PlayerInvWrapper(playerInventory);
+
+        for(int i = 0; i < NUM_HOTBAR_SLOTS; i++) {
+            addSlot(new SlotItemHandler(playerInventoryForge, i, HOTBAR_XPOS + SLOT_X_SPACING * i, HOTBAR_Y_POS));
+        }
+
+        for(int i = 0; i < NUM_INV_ROWS; i++) {
+            for(int n = 0; n < NUM_INV_COLS; n++) {
+                int slotNumber = NUM_HOTBAR_SLOTS + (i * NUM_INV_COLS) + n;
+                int xpos = PLAYER_INVENTORY_XPOS + n * SLOT_X_SPACING;
+                int ypos = PLAYER_INVENTORY_YPOS + i * SLOT_Y_SPACING;
+                addSlot(new SlotItemHandler(playerInventoryForge, slotNumber,  xpos, ypos));
+            }
+        }
+    }
 
 }
