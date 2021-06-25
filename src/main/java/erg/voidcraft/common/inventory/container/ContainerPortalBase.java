@@ -75,7 +75,7 @@ public class ContainerPortalBase extends Container {
 
         layoutPlayerInventorySlots(playerInv);
 
-        addSlot(new SlotPortalBase(portalContents, 0, TE_INV_XPOS + SLOT_X_SPACING * 4, TE_INV_YPOS));
+        addSlot(new SlotPortalBase(playerInv, 37, TE_INV_XPOS + SLOT_X_SPACING * 4, TE_INV_YPOS));
 
     }
 
@@ -106,7 +106,7 @@ public class ContainerPortalBase extends Container {
 
     @Override
     public boolean stillValid(PlayerEntity playerIn) {
-        return portalContents.stillValid(playerIn);
+        return this.player.inventory.stillValid(this.player);
     }
 
     @Override

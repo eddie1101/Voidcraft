@@ -44,6 +44,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.apache.logging.log4j.core.jmx.Server;
 
 import javax.annotation.Nullable;
@@ -149,18 +151,16 @@ public class BlockPortalBase extends ContainerBlock {
     public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
 
         TileEntity tileEntity = worldIn.getBlockEntity(pos);
-        TilePortalBase tilePortalBase;
+        TilePortalBase2 tilePortalBase;
 
         BlockState state = worldIn.getBlockState(pos);
 
         boolean active = state.getValue(INVERTED) ? state.getValue(POWERED) : !state.getValue(POWERED);
 
-        if (tileEntity instanceof TilePortalBase && active && !entityIn.isCrouching()) {
-            tilePortalBase = (TilePortalBase) tileEntity;
+        if (tileEntity instanceof TilePortalBase2 && active && !entityIn.isCrouching()) {
+            tilePortalBase = (TilePortalBase2) tileEntity;
 
-            InventoryPortalBaseContents contents = tilePortalBase.getContents();
-
-            ItemStack item = contents.getItem(0);
+            ItemStack item = tilePortalBase.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get().getStackInSlot(0);
 
             if(item.getItem() instanceof AbstractLodestar) {
                 CompoundNBT tag = item.getTag();
